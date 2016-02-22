@@ -10,7 +10,7 @@ class GameProduct extends React.Component {
       foo: 'bar',
     }
   }
-  
+
   render() {
     const { foo } = this.props
     return (
