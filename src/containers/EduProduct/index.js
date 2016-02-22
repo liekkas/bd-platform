@@ -10,7 +10,7 @@ class EduProduct extends React.Component {
       foo: 'bar',
     }
   }
-  
+
   render() {
     const { foo } = this.props
     return (
