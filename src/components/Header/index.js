@@ -16,19 +16,6 @@ const datas = [
 ]
 
 class Header extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      current: 'home',
-    }
-  }
-
-  handleClick(e) {
-    this.setState({
-      current: e
-    });
-  }
-
   render() {
     return (
       <div className={style.root}>
@@ -36,8 +23,7 @@ class Header extends React.Component {
         <ui className={style.menu}>
           {
             datas.map(({name, key}, index) =>
-              <li key={index} onClick={() => this.handleClick(key)}
-                  className={ this.state.current === key ? style.active : null }>
+              <li key={index} className={ this.props.route === key ? style.active : null }>
                 {
                   key === 'home'
                   ? <IndexLink to="/">{name}</IndexLink>
@@ -53,10 +39,7 @@ class Header extends React.Component {
 }
 
 Header.propTypes = {
-  foo: PropTypes.string.isRequired,
-}
-Header.defaultProps = {
-  foo: 'bar',
+  route: PropTypes.string.isRequired,
 }
 
 export default Header
