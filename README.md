@@ -1,6 +1,6 @@
-===== react-starter ====
+===== bd-platform ====
 
-my react boilerplate
+A BigData Platform
 
 > react + redux + webpack
 
