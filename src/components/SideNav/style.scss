@@ -27,6 +27,9 @@
 }
 
 .active {
+  //background-color: rgba(200,35,31,0.1);
   color: #c23531;
-  background-color: rgba(200,35,31,0.1);
+  a {
+    color: #c23531;
+  }
 }
