@@ -1,10 +1,31 @@
-import { stringify } from '../../tools/jsonEx'
 import _ from 'lodash'
 
 //-------------------- 设置组件初始化数据 --------------------
+export function getInitOption(type) {
+  switch (type) {
+    case 'bar':
+    case 'line':
+      return getInitLineBarChart(type)
+    case 'pie':
+      return getInitPieChart()
+    case 'scatter':
+      return getInitScatterChart()
+    case 'map':
+      return getInitMapChart()
+    case 'gauge':
+      return getInitGaugeChart()
+    case 'parallel':
+      return getInitParallelChart()
+    case 'heatmap':
+      return getInitHeatChart()
+    default:
+      return getInitPieChart()
+  }
+}
+
 //柱图/线图
-export function getInitLineBarChart(type) {
-  const localData = stringify({
+function getInitLineBarChart(type) {
+  return {
     title: {
       text: '某指标一周情况',
       x:'center',
@@ -36,17 +57,12 @@ export function getInitLineBarChart(type) {
       type,
       data: [1.6, 1.5, 1.3, 1.5, 1.2, 0.8, 1.8]
     }]
-  });
-  return {
-    type,
-    localData,
-    remoteDataUrl: 'http://localhost:4000/api/v1/chart/lineBar/3',
-    mode: 'local',
-  };
+  }
 }
 //饼图/环图
-export function getInitPieChart() {
-  const localData = stringify({
+function getInitPieChart() {
+  return {
+//    backgroundColor: '#333333',
     title : {
       text: '某站点用户访问来源',
       subtext: '纯属虚构',
@@ -83,13 +99,7 @@ export function getInitPieChart() {
         }
       }
     ]
-  });
-  return {
-    type: 'pie',
-    localData,
-    remoteDataUrl: 'http://localhost:4000/api/v1/chart/pie/5',
-    mode: 'local',
-  };
+  }
 }
 
 const dataAll = [
@@ -133,8 +143,8 @@ const markLineOpt = {
 };
 
 //散点图
-export function getInitScatterChart() {
-  const localData = stringify({
+function getInitScatterChart() {
+  return {
     title: {
       text: '某种关系呈现',
       x: 'center',
@@ -162,18 +172,12 @@ export function getInitScatterChart() {
         markLine: markLineOpt
       }
     ]
-  });
-  return {
-    type: 'scatter',
-    localData,
-    remoteDataUrl: 'http://localhost:4000/api/v1/chart',
-    mode: 'local',
-  };
+  }
 }
 
 //仪表盘
-export function getInitGaugeChart() {
-  const localData = stringify({
+function getInitGaugeChart() {
+  return {
     tooltip : {
       formatter: "{a} <br/>{b} : {c}%"
     },
@@ -185,17 +189,12 @@ export function getInitGaugeChart() {
         data:[{value: 50, name: '完成率'}]
       }
     ]
-  });
-  return {
-    type:'gauge',
-    localData,
-    remoteDataUrl: 'http://localhost:4000/api/v1/chart/pie',
-    mode: 'local',
-  };
+  }
 }
+
 //地图
-export function getInitMapChart() {
-  const localData = stringify({
+function getInitMapChart() {
+  return {
     title : {
       text: '全国故障投诉情况',
       subtext: '2016年1月18号',
@@ -295,13 +294,7 @@ export function getInitMapChart() {
         ]
       }
     ]
-  });
-  return {
-    type: 'map',
-    localData,
-    remoteDataUrl: 'http://localhost:4000/api/v1/chart/pie',
-    mode: 'local',
-  };
+  }
 }
 
 const data1 = [
@@ -340,8 +333,8 @@ const lineStyle = {
   }
 };
 
-export function getInitParallelChart() {
-  const localData = stringify({
+function getInitParallelChart() {
+  return {
     title: {
       text: '1月份第3周卫视对比情况',
       left: 'center',
@@ -446,13 +439,7 @@ export function getInitParallelChart() {
         data: data2
       },
     ]
-  });
-  return {
-    type: 'parallel',
-    localData,
-    remoteDataUrl: 'http://localhost:4000/api/v1/chart',
-    mode: 'local',
-  };
+  }
 }
 
 const tvs = ['湖南卫视', '浙江卫视', '江苏卫视',
@@ -475,8 +462,8 @@ function format() {
   return 'bb';
 };
 
-export function getInitHeatChart() {
-  const localData = stringify({
+function getInitHeatChart() {
+  return {
     title: {
       text: '2016年1月份几大卫视热度情况',
       left: 'center',
@@ -527,11 +514,5 @@ export function getInitHeatChart() {
         }
       }
     }]
-  });
-  return {
-    type: 'heatmap',
-    localData,
-    remoteDataUrl: 'http://localhost:4000/api/v1/chart',
-    mode: 'local',
-  };
+  }
 }
