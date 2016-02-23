@@ -8,9 +8,11 @@ import { connect } from 'react-redux'
 class App extends React.Component {
   render() {
     return (
-      <div>
+      <div style={{width: '100%', height: '100%'}}>
         <Header route={this.props.route}/>
-        {this.props.children}
+        <div style={{width: '100%', height: '100%',paddingTop: '50px'}}>
+          {this.props.children}
+        </div>
       </div>
     )
   }
