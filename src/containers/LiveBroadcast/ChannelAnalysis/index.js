@@ -2,6 +2,7 @@
  * Created by liekkas on 16/2/23.
  */
 import React, { PropTypes } from 'react'
+import style from './style.scss'
 
 class ChannelAnalysis extends React.Component {
   constructor(props) {
@@ -14,7 +15,7 @@ class ChannelAnalysis extends React.Component {
   render() {
     const { foo } = this.props
     return (
-      <div>
+      <div className={style.root}>
         ChannelAnalysis
       </div>
     )
