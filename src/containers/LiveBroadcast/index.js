@@ -2,6 +2,14 @@
  * Created by liekkas on 16/2/19.
  */
 import React, { PropTypes } from 'react'
+import { SideNav } from '../../components'
+import style from './style.scss'
+import { connect } from 'react-redux'
+
+const datas = [
+  { name: '总体分析', key: 'liveBroadcast' },
+  { name: 'Channel分析', key: 'liveBroadcast/channelAnalysis' },
+]
 
 class LiveBroadcast extends React.Component {
   constructor(props) {
@@ -12,10 +20,11 @@ class LiveBroadcast extends React.Component {
   }
 
   render() {
-    const { foo } = this.props
+    const { route } = this.props
     return (
-      <div>
-        {foo}
+      <div className={style.root}>
+        <SideNav datas={datas} route={route}/>
+        {this.props.children}
       </div>
     )
   }
@@ -28,4 +37,10 @@ LiveBroadcast.defaultProps = {
   foo: 'LiveBroadcast',
 }
 
-export default LiveBroadcast
+function select(state) {
+  return {
+    route: state.getIn(['global', 'route']),
+  };
+}
+
+export default connect(select)(LiveBroadcast)
