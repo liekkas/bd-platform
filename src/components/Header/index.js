@@ -23,7 +23,7 @@ class Header extends React.Component {
         <ui className={style.menu}>
           {
             datas.map(({name, key}, index) =>
-              <li key={index} className={ this.props.route === key ? style.active : null }>
+              <li key={index} className={ this.props.route.indexOf(key) > -1 ? style.active : null }>
                 {
                   key === 'home'
                   ? <IndexLink to="/">{name}</IndexLink>
