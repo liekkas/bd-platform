@@ -5,7 +5,7 @@ import React, { PropTypes } from 'react'
 
 class Panel extends React.Component {
   render() {
-    const { title, width, height} = this.props
+    const { title, width, height } = this.props
 
     const rootStyle = {
       width,
@@ -31,7 +31,7 @@ class Panel extends React.Component {
     }
 
     return (
-      <div style={rootStyle}  {...this.props} >
+      <div style={rootStyle} {...this.props} >
         { title !== '' ? <div style={titleStyle}>{title}</div> : null }
         <div style={contentStyle}>
           {this.props.children}
