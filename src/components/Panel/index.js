@@ -5,25 +5,25 @@ import React, { PropTypes } from 'react'
 
 class Panel extends React.Component {
   render() {
-    const { title, width, height, hgap, vgap } = this.props
+    const { title, width, height} = this.props
 
     const rootStyle = {
       width,
       height,
-      marginBottom: hgap,
-      marginRight: vgap,
+      marginBottom: '10px',
+      marginRight: '10px',
       boxSizing: 'border-box',
       border: '1px solid rgb(189,189,189)',
     }
 
     const contentStyle = {
       width,
-      height: title !== '' ? '90%' : '100%',
+      height: title !== '' ? (height - 35) + 'px' : height + 'px',
     }
 
     const titleStyle = {
       width: '100%',
-      height: '10%',
+      height: '35px',
       padding: '0.5% 1% 0.5%',
       fontSize: '14px',
       fontWeight: 'bold',
@@ -31,7 +31,7 @@ class Panel extends React.Component {
     }
 
     return (
-      <div style={rootStyle}>
+      <div style={rootStyle}  {...this.props} >
         { title !== '' ? <div style={titleStyle}>{title}</div> : null }
         <div style={contentStyle}>
           {this.props.children}
@@ -44,16 +44,13 @@ class Panel extends React.Component {
 Panel.propTypes = {
   title: PropTypes.string.isRequired,
   width: PropTypes.string.isRequired,
-  height: PropTypes.string.isRequired,
-  hgap: PropTypes.string.isRequired,
-  vgap: PropTypes.string.isRequired,
+  height: PropTypes.number.isRequired,
 }
+
 Panel.defaultProps = {
   title: '',
   width: '100%',
-  height: '100%',
-  hgap: '10px',
-  vgap: '10px',
+  height: 100,
 }
 
 export default Panel
