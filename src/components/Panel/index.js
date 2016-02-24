@@ -2,18 +2,23 @@
  * Created by liekkas on 16/2/23.
  */
 import React, { PropTypes } from 'react'
+import _ from 'lodash'
 
 class Panel extends React.Component {
   render() {
     const { title, width, height } = this.props
 
-    const rootStyle = {
+    let rootStyle = {
       width,
       height,
       marginBottom: '10px',
       marginRight: '10px',
       boxSizing: 'border-box',
       border: '1px solid rgb(189,189,189)',
+    }
+
+    if (this.props.hasOwnProperty('style')) {
+      rootStyle = _.merge(rootStyle, this.props.style)
     }
 
     const contentStyle = {
@@ -31,7 +36,7 @@ class Panel extends React.Component {
     }
 
     return (
-      <div style={rootStyle} {...this.props} >
+      <div {...this.props} style={rootStyle}>
         { title !== '' ? <div style={titleStyle}>{title}</div> : null }
         <div style={contentStyle}>
           {this.props.children}
