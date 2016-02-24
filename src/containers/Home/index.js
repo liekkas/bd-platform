@@ -2,8 +2,9 @@
  * Created by liekkas on 16/2/19.
  */
 import React, { PropTypes } from 'react'
-import { ECharts } from '../../components'
-import { getInitLineBarChart } from '../../components/ECharts/initOptions'
+import { ECharts, Panel } from '../../components'
+import style from './style.scss'
+
 class Home extends React.Component {
   constructor(props) {
     super(props)
@@ -15,8 +16,28 @@ class Home extends React.Component {
   render() {
     const { foo } = this.props
     return (
-      <div style={{ width: '100%',height: '90vh' }}>
-        <ECharts config={getInitLineBarChart('bar')}/>
+      <div className={style.root}>
+        <Panel title="全国故障投诉情况" height="300">
+          <ECharts config={{type: 'map',mode: 'local',}}/>
+        </Panel>
+
+        <div className={style.hgroup}>
+          <Panel title="工单投诉" height="300">
+            <ECharts config={{type: 'bar',mode: 'local',}}/>
+          </Panel>
+          <Panel title="故障申报" height="300" style={{ marginRight: 0 }}>
+            <ECharts config={{type: 'bar',mode: 'local',}}/>
+          </Panel>
+        </div>
+
+        <div className={style.hgroup}>
+          <Panel title="工单投诉" height="300">
+            <ECharts config={{type: 'pie',mode: 'local',}}/>
+          </Panel>
+          <Panel title="故障申报" height="300" style={{ marginRight: 0 }}>
+            <ECharts config={{type: 'line',mode: 'local',}}/>
+          </Panel>
+        </div>
       </div>
     )
   }
