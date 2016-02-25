@@ -4,7 +4,7 @@
 import React, { PropTypes } from 'react'
 import echarts from 'echarts'
 import { Loader } from 'react-loaders'
-import { LOADING_STYLE } from '../../config'
+import { LOADING_STYLE, MAPDATA_API_BASE_URL } from '../../config'
 import fetch from 'isomorphic-fetch'
 import { generateOption } from './convertOptions'
 import { getInitOption } from './initOptions'
@@ -26,8 +26,25 @@ class ECharts extends React.Component {
   }
 
   componentDidMount() {
-    const chart = echarts.init(document.getElementById(this.state.id))
-    chart.setOption(_.merge(this.state.option))
+    const { id, option } = this.state
+    const { config } = this.props
+    const chart = echarts.init(document.getElementById(id))
+    chart.on(config.eventType, config.eventHandler);
+
+    //假如是地图类型,需要先注册地图数据然后设置option
+    if (config.type === 'map') {
+      fetch(MAPDATA_API_BASE_URL + config.mapType)
+        .then(function (response) {
+          return response.json()
+        })
+        .then(function (result) {
+          console.log(result)
+          echarts.registerMap(config.mapType, result)
+          chart.setOption(_.merge(option))
+        })
+    } else {
+      chart.setOption(_.merge(option))
+    }
   }
 
   componentWillUnmount() {
