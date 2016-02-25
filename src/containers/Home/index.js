@@ -9,8 +9,12 @@ class Home extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      foo: 'bar',
+      mapType: 'china',
     }
+  }
+
+  onMapClick(e) {
+    console.log('>>> 我靠',e)
   }
 
   render() {
@@ -18,7 +22,7 @@ class Home extends React.Component {
     return (
       <div className={style.root}>
         <Panel title="全国故障投诉情况" height="300">
-          <ECharts config={{type: 'map',mode: 'local',}}/>
+          <ECharts config={{type: 'map', mode: 'local', eventType: 'click', eventHandler: this.onMapClick, mapType: 'china'}}/>
         </Panel>
 
         <div className={style.hgroup}>
