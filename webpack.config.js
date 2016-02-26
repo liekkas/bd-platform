@@ -143,6 +143,17 @@ webpackConfig.module.loaders.push({
 })
 
 webpackConfig.module.loaders.push({
+  test: /\.less$/,
+  include: /src/,
+  loaders: [
+    'style',
+    cssLoader,
+    'postcss',
+    'less?sourceMap'
+  ]
+})
+
+webpackConfig.module.loaders.push({
   test: /\.css$/,
   include: /src/,
   loaders: [
@@ -161,6 +172,18 @@ webpackConfig.module.loaders.push({
     'css?sourceMap',
     'postcss',
     'sass?sourceMap'
+  ]
+})
+
+// Don't treat global LESS as modules
+webpackConfig.module.loaders.push({
+  test: /\.less$/,
+  exclude: /src/,
+  loaders: [
+    'style',
+    'css?sourceMap',
+    'postcss',
+    'less?sourceMap'
   ]
 })
 
