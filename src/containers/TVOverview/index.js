@@ -1,16 +1,16 @@
 /**
- * Created by liekkas on 16/2/22.
+ * Created by liekkas on 16/2/26.
  */
 import React, { PropTypes } from 'react'
 
-class GameProduct extends React.Component {
+class TVOverview extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
       foo: 'bar',
     }
   }
-
+  
   render() {
     const { foo } = this.props
     return (
@@ -21,11 +21,11 @@ class GameProduct extends React.Component {
   }
 }
 
-GameProduct.propTypes = {
+TVOverview.propTypes = {
   foo: PropTypes.string.isRequired,
 }
-GameProduct.defaultProps = {
+TVOverview.defaultProps = {
   foo: 'bar',
 }
 
-export default GameProduct
+export default TVOverview

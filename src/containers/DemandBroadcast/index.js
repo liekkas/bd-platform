@@ -1,16 +1,16 @@
 /**
- * Created by liekkas on 16/2/22.
+ * Created by liekkas on 16/2/26.
  */
 import React, { PropTypes } from 'react'
 
-class EduProduct extends React.Component {
+class DemandBroadcast extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
       foo: 'bar',
     }
   }
-
+  
   render() {
     const { foo } = this.props
     return (
@@ -21,11 +21,11 @@ class EduProduct extends React.Component {
   }
 }
 
-EduProduct.propTypes = {
+DemandBroadcast.propTypes = {
   foo: PropTypes.string.isRequired,
 }
-EduProduct.defaultProps = {
+DemandBroadcast.defaultProps = {
   foo: 'bar',
 }
 
-export default EduProduct
+export default DemandBroadcast
