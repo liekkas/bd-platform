@@ -2,6 +2,16 @@
  * Created by liekkas on 16/2/26.
  */
 import React, { PropTypes } from 'react'
+import { SideNav } from '../../components'
+import style from './style.scss'
+import { connect } from 'react-redux'
+
+const datas = [
+  { name: '点播用户分析', key: 'demandBroadcast' },
+  { name: '媒资概况分析', key: 'demandBroadcast/mediaAssetsOverview' },
+  { name: '节目类型分析', key: 'demandBroadcast/showsTypeAnalysis' },
+  { name: '节目排名分析', key: 'demandBroadcast/showsOrderAnalysis' },
+]
 
 class DemandBroadcast extends React.Component {
   constructor(props) {
@@ -10,12 +20,13 @@ class DemandBroadcast extends React.Component {
       foo: 'bar',
     }
   }
-  
+
   render() {
-    const { foo } = this.props
+    const { route } = this.props
     return (
-      <div>
-        {foo}
+      <div className={style.root}>
+        <SideNav datas={datas} route={route}/>
+        {this.props.children}
       </div>
     )
   }
@@ -28,4 +39,10 @@ DemandBroadcast.defaultProps = {
   foo: 'bar',
 }
 
-export default DemandBroadcast
+function select(state) {
+  return {
+    route: state.getIn(['global', 'route']),
+  };
+}
+
+export default connect(select)(DemandBroadcast)
