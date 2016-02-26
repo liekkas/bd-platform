@@ -7,8 +7,11 @@ import style from './style.scss'
 import { connect } from 'react-redux'
 
 const datas = [
-  { name: '总体分析', key: 'liveBroadcast' },
-  { name: 'Channel分析', key: 'liveBroadcast/channelAnalysis' },
+  { name: '直播用户分析', key: 'liveBroadcast' },
+  { name: '直播频道组分析', key: 'liveBroadcast/channelGroupAnalysis' },
+  { name: '直播频道排名', key: 'liveBroadcast/channelOrder' },
+  { name: '直播频道分析', key: 'liveBroadcast/channelAnalysis' },
+  { name: '直播节目排名', key: 'liveBroadcast/showsOrder' },
 ]
 
 class LiveBroadcast extends React.Component {
