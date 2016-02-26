@@ -26,6 +26,7 @@ export function getInitOption(type) {
 //柱图/线图
 function getInitLineBarChart(type) {
   return {
+//    backgroundColor: '#333333',
     title: {
       text: '某指标一周情况',
       x:'center',
@@ -233,7 +234,7 @@ function getInitMapChart() {
           {name: '重庆',value: Math.round(Math.random() * 1000)},
           {name: '河北',value: Math.round(Math.random() * 1000)},
           {name: '河南',value: Math.round(Math.random() * 1000)},
-          {name: '云南',value: Math.round(Math.random() * 1000)},
+          {name: '云南省',value: Math.round(Math.random() * 1000)},
           {name: '辽宁',value: Math.round(Math.random() * 1000)},
           {name: '黑龙江',value: Math.round(Math.random() * 1000)},
           {name: '湖南',value: Math.round(Math.random() * 1000)},

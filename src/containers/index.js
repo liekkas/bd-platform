@@ -6,3 +6,7 @@ export { default as EduProduct } from './EduProduct'
 export { default as GameProduct } from './GameProduct'
 export { default as OtherApp } from './OtherApp'
 export { default as LiveBroadcast } from './LiveBroadcast'
+
+export { default as ChannelAnalysis } from './LiveBroadcast/ChannelAnalysis'
+export { default as OverallAnalysis } from './LiveBroadcast/OverallAnalysis'
+
