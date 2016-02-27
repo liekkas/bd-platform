@@ -4,7 +4,8 @@
 import React, { PropTypes } from 'react'
 import { IndexLink, Link } from 'react-router'
 import style from './style.scss'
-import dsplogo from './dsplogo.png'
+//import dsplogo from './dsplogo.png'
+import dsplogo from './logo.jpg'
 
 const datas = [
   { name: '首页', key: 'home' },

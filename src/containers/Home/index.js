@@ -67,15 +67,15 @@ const mapOption = {
       }
     },
     roam: false,
-//    itemStyle: {
-//      normal: {
-//        areaColor: '#74EABB',
-//        borderColor: '#ffffff'
-//      },
+    itemStyle: {
+      normal: {
+        areaColor: 'rgba(174,211,195,0.6)',
+        borderColor: '#ffffff'
+      },
 //      emphasis: {
 //        areaColor: '#2a333d'
 //      }
-//    }
+    }
   },
   series : [
 //    {
@@ -123,6 +123,7 @@ const mapOption = {
 
 const pieOption = {
 //  backgroundColor: '#2c343c',
+  color: ['#dd8668','#91c7ae'],
 
   title: {
     show: false,
@@ -154,11 +155,13 @@ const pieOption = {
       radius : '55%',
       center: ['50%', '50%'],
       data:[
-        {value:335, name:'湖南'},
-        {value:310, name:'湖北'},
-        {value:274, name:'河南'},
+        {value:500, name:'湖南'},
+        {value:150, name:'湖北'},
+        {value:120, name:'河南'},
         {value:235, name:'河北'},
-        {value:400, name:'搜索引擎'}
+        {value:400, name:'江苏'},
+        {value:234, name:'山东'},
+        {value:200, name:'安徽'},
       ].sort(function(a, b) {
         return a.value - b.value
       }),
