@@ -23,7 +23,7 @@ class SideNav extends React.Component {
                             style={{
                               position: 'absolute',
                               marginLeft: '6px',
-                              marginTop: '17px',
+                              marginTop: '11px',
                             }} />
                     : null
                 }

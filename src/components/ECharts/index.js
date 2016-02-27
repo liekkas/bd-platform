@@ -9,6 +9,10 @@ import fetch from 'isomorphic-fetch'
 import { generateOption } from './convertOptions'
 import { getInitOption } from './initOptions'
 import _ from 'lodash'
+import china from './china.json'
+import shallowEqual from 'react-pure-render/shallowEqual';
+
+echarts.registerMap('china', china)
 
 class ECharts extends React.Component {
   constructor(props) {
@@ -30,21 +34,30 @@ class ECharts extends React.Component {
     const { config } = this.props
     const chart = echarts.init(document.getElementById(id))
     chart.on(config.eventType, config.eventHandler);
+    chart.setOption(option)
+  }
 
-    //假如是地图类型,需要先注册地图数据然后设置option
-    if (config.type === 'map') {
-      fetch(MAPDATA_API_BASE_URL + config.mapType)
-        .then(function (response) {
-          return response.json()
-        })
-        .then(function (result) {
-          console.log(result)
-          echarts.registerMap(config.mapType, result)
-          chart.setOption(_.merge(option))
-        })
-    } else {
-      chart.setOption(_.merge(option))
+  componentWillReceiveProps(nextProps, nextState) {
+    console.log('>>> PBECharts:componentWillReceiveProps', this.props, nextProps, nextState);
+    if (!_.isEqual(this.props.option, nextProps.option)) {
+      this.setState({option: nextProps.option})
     }
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    console.log('>>> PBECharts:shouldComponentUpdate', this.props.theme, nextProps, nextState);
+    return !_.isEqual(this.props.option, nextProps.option)
+  }
+
+  componentWillUpdate(nextProps, nextState) {
+    console.log('>>> PBECharts:componentWillUpdate', nextProps, nextState);
+    //this._getData(this, nextProps);
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    console.log('>>> PBECharts:componentDidUpdate', this.state.option);
+    const chart = echarts.init(document.getElementById(this.state.id));
+    chart.setOption(this.state.option);
   }
 
   componentWillUnmount() {
@@ -54,6 +67,11 @@ class ECharts extends React.Component {
 
   _getData(bind, props) {
     const { config } = props
+
+    if (this.props.hasOwnProperty('option')) {
+      this.setState({ option: this.props.option })
+      return
+    }
 
     //根据type获取初始配置
     const initOption = getInitOption(config.type)
@@ -116,9 +134,12 @@ class ECharts extends React.Component {
  *   mode: 数据来源模式 {local|remote} 本地还是远程
  *   localData: 直接传数据
  *   remoteUrl: 传数据REST接口进来
+ *
+ * option 如果直接设置Option则会覆盖上面的设置
  */
 ECharts.propTypes = {
   config: PropTypes.object.isRequired,
+  option: PropTypes.object,
 }
 
 const legend = [];

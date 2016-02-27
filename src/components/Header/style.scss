@@ -1,13 +1,19 @@
+@import "../../colors";
+@import "../../common";
+
 .root {
   position: fixed;
-  width: 100%;
-  background-color: #c23531;
+  //width: 100%;
+  //background-color: rgba($palette-teal-400,1);
   display: flex;
+  top: 2vh;
+  left: 1vw;
+  right: 1vw;
   flex-direction: row;
-  padding: 0 12px 0;
+  //padding: 20px;
   color: white;
   z-index: 999;
-  height: 50px;
+  height: 4vh;
 }
 
 .menu {
@@ -16,7 +22,7 @@
   padding: 0;
   overflow: hidden;
   top: 0;
-  width: 100%;
+  //width: 100%;
 
   li {
     float: left;
@@ -26,16 +32,21 @@
       color: white;
       font-size: 1rem;
       text-align: center;
-      padding: 14px 16px;
+      padding: 2px 16px 2px;
       text-decoration: none;
 
       &:hover {
-        background-color: rgba(31,46,56,0.5);
+        //background-color: rgba($palette-red-400,0.8);
+        background-color: $palette-deep-orange-200;
+        //color: $palette-deep-orange-200;
       }
     }
   }
 }
 
 .active {
-  background-color: #314656;
+  background-color: $palette-deep-orange-400;
+  //a {
+  //  color: $palette-deep-orange-400;
+  //}
 }

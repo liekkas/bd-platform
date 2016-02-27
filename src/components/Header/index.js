@@ -8,9 +8,12 @@ import dsplogo from './dsplogo.png'
 
 const datas = [
   { name: '首页', key: 'home' },
-  { name: '概况监控', key: 'tvOverview' },
-  { name: '场景监控', key: 'liveBroadcast' },
-  { name: '拓扑监控', key: 'demandBroadcast' },
+//  { name: '概况监控', key: 'tvOverview' },
+//  { name: '场景监控', key: 'liveBroadcast' },
+//  { name: '拓扑监控', key: 'demandBroadcast' },
+  { name: '电视概况', key: 'tvOverview' },
+  { name: '直播业务', key: 'liveBroadcast' },
+  { name: '点播业务', key: 'demandBroadcast' },
 ]
 
 class Header extends React.Component {

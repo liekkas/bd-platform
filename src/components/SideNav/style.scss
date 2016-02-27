@@ -1,12 +1,13 @@
+@import "../../colors";
+
 .root {
-  margin-right: 1%;
-  width: 13%;
+  width: 12%;
   position: fixed;
 }
 
 .menu {
   list-style-type: none;
-  padding: 0;
+  //padding: 10px;
   overflow: hidden;
   top: 0;
   //width: 100%;
@@ -15,12 +16,13 @@
       display: block;
       font-size: 14px;
       text-align: left;
-      padding: 14px 16px;
+      padding: 8px 16px;
       text-decoration: none;
-      border-bottom: 1px solid;
-      //color: black;
+      //border-bottom: 1px solid;
+      //background-color: rgba(255,255,255,0.1);
       &:hover {
-        color: rgba(200,35,31,0.5);
+        //color: rgba(255,255,255,0.8);
+        color: $palette-amber-400;
       }
     }
   }
@@ -28,8 +30,8 @@
 
 .active {
   //background-color: rgba(200,35,31,0.1);
-  color: #c23531;
+  color: #FF9800;
   a {
-    color: #c23531;
+    color: #FF9800;
   }
 }
