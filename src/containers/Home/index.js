@@ -6,6 +6,7 @@ import { ECharts, Panel } from '../../components'
 import style from './style.scss'
 import _ from 'lodash'
 import {browserHistory} from 'react-router';
+import robot from './projector_robot.png'
 
 let data = []
 const provinces = ['河北','河南','安徽','江苏','山东','湖北','湖南']
@@ -47,8 +48,13 @@ const mapOption = {
       color: '#fff'
     }
   },
+  textStyle: {
+    color: '#fff'
+  },
   tooltip : {
-    trigger: 'item'
+    trigger: 'item',
+    formatter: (item) => item.seriesName + '<br />' + item.name + ':'
+      + (isNaN(item.value) ? '无数据' : item.value + '万'),
   },
   legend: {
     orient: 'vertical',
@@ -69,55 +75,71 @@ const mapOption = {
     roam: false,
     itemStyle: {
       normal: {
-        areaColor: 'rgba(174,211,195,0.6)',
+        areaColor: '#ffe57f',
         borderColor: '#ffffff'
       },
-//      emphasis: {
-//        areaColor: '#2a333d'
-//      }
+      emphasis: {
+        areaColor: '#2a333d'
+      }
     }
   },
   series : [
-//    {
-//      type: 'map',
-//      mapType: 'china',
-//      roam: false,
-//      itemStyle:{
-//        normal:{label:{show:true}},
-//        emphasis:{label:{show:true}}
-//      },
-//    },
     {
-      name: '电视用户情况',
-      type: 'effectScatter',
-      coordinateSystem: 'geo',
-      data: convertData(data.sort(function (a, b) {
-        return b.value - a.value;
-      }).slice(0, 6)),
-      symbolSize: function (val) {
-        return val[2] / 10;
-      },
-      showEffectOn: 'render',
-      rippleEffect: {
-        brushType: 'stroke'
-      },
-      hoverAnimation: true,
+      name: '用户覆盖',
+      type: 'map',
+      mapType: 'china',
       label: {
         normal: {
-          formatter: '{b}',
-          position: 'right',
+          show: true,
+        },
+        emphasis: {
           show: true
         }
       },
+      roam: false,
       itemStyle: {
         normal: {
-          color: '#c23531',
+          areaColor: '#ffea00',
+          borderColor: 'rgba(0, 0, 0, 0.6)',
+          shadowColor: 'rgba(255, 255, 0, 1)',
           shadowBlur: 10,
-          shadowColor: '#333'
+          shadowOffsetX: 10,
+          shadowOffsetY: 10,
+          opacity: 0.8,
+        },
+        emphasis: {
+          areaColor: '#ffab00'
         }
       },
-      zlevel: 1
-    }
+      data,
+    },
+//    {
+//      name: '电视用户情况',
+//      type: 'scatter',
+//      coordinateSystem: 'geo',
+//      data: convertData(data.sort(function (a, b) {
+//        return b.value - a.value;
+//      }).slice(0, 6)),
+////      symbolSize: function (val) {
+////        return val[2] / 10;
+////      },
+//
+//      symbolSize: 12,
+//      label: {
+//        normal: {
+//          show: false
+//        },
+//        emphasis: {
+//          show: false
+//        }
+//      },
+////      itemStyle: {
+////        emphasis: {
+////          borderColor: '#fff',
+////          borderWidth: 1
+////        }
+////      }
+//    }
   ]
 }
 
@@ -210,12 +232,18 @@ for (let j = 0; j < types.length; j++) {
     type:'bar',
     stack: '总量',
     itemStyle : { normal: {label : {show: true, position: 'insideRight'}} },
+    barWidth: 20,
+    barGap: '5%',
+    barCategoryGap: '5%',
     data:d
   })
 }
 
 const barOption = {
-  color: ['#dd8668','#91c7ae'],
+  color: ['#c23531','#14e715'],
+//  color: ['#ffc400','#14e715'],
+
+//  color: ['#dd8668','#91c7ae'],
   tooltip : {
     trigger: 'axis',
 //    formatter: "{a} <br/>{b} : {c} ({d}万)",
@@ -309,10 +337,12 @@ class Home extends React.Component {
     return (
       <div className={style.root}>
         <ECharts config={{eventType: 'click', eventHandler: this.onMapClick}} option={mapOption}/>
+        <img src={robot} className={style.tv}/>
 
         <div className={style.bar}>
           <ECharts option={barOption}/>
         </div>
+
       </div>
     )
   }

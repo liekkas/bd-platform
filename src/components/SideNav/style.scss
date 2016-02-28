@@ -22,7 +22,7 @@
       //background-color: rgba(255,255,255,0.1);
       &:hover {
         //color: rgba(255,255,255,0.8);
-        color: $palette-amber-400;
+        color: $palette-yellow-a400;
       }
     }
   }
@@ -30,8 +30,8 @@
 
 .active {
   //background-color: rgba(200,35,31,0.1);
-  color: #FF9800;
+  color: $palette-yellow-a200;
   a {
-    color: #FF9800;
+    color: $palette-yellow-a200;
   }
 }
