@@ -6,6 +6,9 @@ import { Header, Footer } from '../../components'
 import { connect } from 'react-redux'
 import SnowStorm from 'react-snowstorm'
 
+//<Footer text="@2016 All Rights Reserved 中国电信集团公司 版权所有"/>
+//<SnowStorm />
+
 const App = React.createClass({
 
   render() {

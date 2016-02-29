@@ -1,7 +1,7 @@
 @import "../../colors";
 
 .root {
-  width: 12%;
+  width: 10%;
   position: fixed;
 }
 
@@ -21,17 +21,19 @@
       //border-bottom: 1px solid;
       //background-color: rgba(255,255,255,0.1);
       &:hover {
-        //color: rgba(255,255,255,0.8);
-        color: $palette-yellow-a400;
+        color: whitesmoke;
+        background-color: rgba(0,57,100,0.8);
+        //color: #c23531;
       }
     }
   }
 }
 
 .active {
-  //background-color: rgba(200,35,31,0.1);
-  color: $palette-yellow-a200;
+  border: 1px solid rgba(255,255,255,0.4);
+  background-color: rgba(0,57,100,0.6);
+  color: white;
   a {
-    color: $palette-yellow-a200;
+    color: white;
   }
 }

@@ -41,6 +41,7 @@ var convertData = function (data) {
 const mapOption = {
   title: {
     text: '中信国安广视全国电视用户数据资产情况',
+//    text: '中国电信全国4G用户数据资产情况',
 //    subtext: 'data from PM25.in',
     left: 'center',
     top: 50,
@@ -240,7 +241,7 @@ for (let j = 0; j < types.length; j++) {
 }
 
 const barOption = {
-  color: ['#c23531','#14e715'],
+  color: ['#c23531','#40c4ff'],
 //  color: ['#ffc400','#14e715'],
 
 //  color: ['#dd8668','#91c7ae'],

@@ -81,7 +81,7 @@ export function mockData(type, unit, num = 10) {
         },
         axisLabel: {
           textStyle: {
-            color: '#314656',
+            color: '#fff',
           }
         },
         splitLine: {
@@ -105,7 +105,7 @@ export function mockData(type, unit, num = 10) {
         },
         axisLabel: {
           textStyle: {
-            color: '#314656',
+            color: '#fff',
           }
         },
       }
@@ -184,12 +184,15 @@ export function mockData2(type, unit, num = 10) {
       trigger: 'axis',
       axisPointer: {
         animation: false
-      }
+      },
     },
     legend: {
       top: 10,
       y: 'top',
-      data: ['使用时长','户均使用时长']
+      data: ['使用时长','户均使用时长'],
+      textStyle: {
+        color: '#fff'
+      }
     },
     toolbox: {
       show: true,
@@ -227,7 +230,7 @@ export function mockData2(type, unit, num = 10) {
         },
         axisLabel: {
           textStyle: {
-            color: '#314656',
+            color: '#fff',
           }
         },
         splitLine: {
@@ -251,7 +254,7 @@ export function mockData2(type, unit, num = 10) {
         },
         axisLabel: {
           textStyle: {
-            color: '#314656',
+            color: '#fff',
           }
         },
       }
@@ -352,7 +355,10 @@ export function mockData3(type, unit, num = 10) {
     legend: {
       top: 10,
       y: 'top',
-      data: ['直播','点播']
+      data: ['直播','点播'],
+      textStyle: {
+        color: '#fff'
+      }
     },
     toolbox: {
       show: true,
@@ -390,7 +396,7 @@ export function mockData3(type, unit, num = 10) {
         },
         axisLabel: {
           textStyle: {
-            color: '#314656',
+            color: '#fff',
           }
         },
         splitLine: {
@@ -414,7 +420,7 @@ export function mockData3(type, unit, num = 10) {
         },
         axisLabel: {
           textStyle: {
-            color: '#314656',
+            color: '#fff',
           }
         },
       }

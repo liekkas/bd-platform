@@ -15,7 +15,7 @@ class Panel extends React.Component {
       marginRight: '10px',
       boxSizing: 'border-box',
       border: '1px solid rgba(255,255,255,0.4)',
-      backgroundColor: 'rgba(255,255,255,0.2)',
+      backgroundColor: 'rgba(0,57,100,0.6)',
 
     }
 

@@ -55,11 +55,11 @@ class UserOverview extends React.Component {
         marginLeft: -10,
       },
       selectedLabel: {
-        color: '#FF9800',
+        color: '#ffea00',
         marginLeft: -10,
       },
       selectedIcon: {
-        fill: '#FF9800'
+        fill: '#ffea00'
       },
       defaultIcon: {
         fill: '#FFF'

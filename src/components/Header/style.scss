@@ -36,8 +36,8 @@
       text-decoration: none;
 
       &:hover {
-        //background-color: rgba($palette-red-400,0.8);
-        background-color: $palette-deep-orange-200;
+        background-color: rgba(#c23531,0.8);
+        //background-color: $palette-deep-orange-200;
         //color: $palette-deep-orange-200;
       }
     }
@@ -45,7 +45,7 @@
 }
 
 .active {
-  background-color: $palette-deep-orange-400;
+  background-color: #c23531;
   //a {
   //  color: $palette-deep-orange-400;
   //}
