@@ -337,7 +337,7 @@ class Home extends React.Component {
     return (
       <div className={style.root}>
         <ECharts config={{eventType: 'click', eventHandler: this.onMapClick}} option={mapOption}/>
-        <img src={robot} className={style.tv}/>
+        <img src={robot} className={style.robot}/>
 
         <div className={style.bar}>
           <ECharts option={barOption}/>

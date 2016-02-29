@@ -29,10 +29,17 @@
   height: 300px;
 }
 
-.tv {
+.robot {
   position: absolute;
   right: -10px;
   bottom: 40px;
   width: 30%;
+}
+
+.tv {
+  position: absolute;
+  left: 10px;
+  top: 40%;
+  width: 80px;
 }
 
