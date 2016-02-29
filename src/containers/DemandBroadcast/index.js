@@ -1,5 +1,5 @@
 /**
- * Created by liekkas on 16/2/19.
+ * Created by liekkas on 16/2/26.
  */
 import React, { PropTypes } from 'react'
 import { SideNav } from '../../components'
@@ -7,14 +7,13 @@ import style from './style.scss'
 import { connect } from 'react-redux'
 
 const datas = [
-  { name: '直播用户分析', key: 'liveBroadcast' },
-  { name: '直播频道组分析', key: 'liveBroadcast/channelGroupAnalysis' },
-  { name: '直播频道排名', key: 'liveBroadcast/channelOrder' },
-  { name: '直播频道分析', key: 'liveBroadcast/channelAnalysis' },
-  { name: '直播节目排名', key: 'liveBroadcast/showsOrder' },
+  { name: '点播用户分析', key: 'demandBroadcast' },
+  { name: '媒资概况分析', key: 'demandBroadcast/mediaAssetsOverview' },
+  { name: '节目类型分析', key: 'demandBroadcast/showsTypeAnalysis' },
+  { name: '节目排名分析', key: 'demandBroadcast/showsOrderAnalysis' },
 ]
 
-class LiveBroadcast extends React.Component {
+class DemandBroadcast extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -33,11 +32,11 @@ class LiveBroadcast extends React.Component {
   }
 }
 
-LiveBroadcast.propTypes = {
+DemandBroadcast.propTypes = {
   foo: PropTypes.string.isRequired,
 }
-LiveBroadcast.defaultProps = {
-  foo: 'LiveBroadcast',
+DemandBroadcast.defaultProps = {
+  foo: 'bar',
 }
 
 function select(state) {
@@ -46,4 +45,4 @@ function select(state) {
   };
 }
 
-export default connect(select)(LiveBroadcast)
+export default connect(select)(DemandBroadcast)

@@ -1,5 +1,5 @@
 /**
- * Created by liekkas on 16/2/19.
+ * Created by liekkas on 16/2/26.
  */
 import React, { PropTypes } from 'react'
 import { SideNav } from '../../components'
@@ -7,14 +7,12 @@ import style from './style.scss'
 import { connect } from 'react-redux'
 
 const datas = [
-  { name: '直播用户分析', key: 'liveBroadcast' },
-  { name: '直播频道组分析', key: 'liveBroadcast/channelGroupAnalysis' },
-  { name: '直播频道排名', key: 'liveBroadcast/channelOrder' },
-  { name: '直播频道分析', key: 'liveBroadcast/channelAnalysis' },
-  { name: '直播节目排名', key: 'liveBroadcast/showsOrder' },
+  { name: '用户概况', key: 'tvOverview' },
+  { name: '用户行为', key: 'tvOverview/userBehave' },
+  { name: '全业务概况', key: 'tvOverview/businessOverview' },
 ]
 
-class LiveBroadcast extends React.Component {
+class TVOverview extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -33,11 +31,11 @@ class LiveBroadcast extends React.Component {
   }
 }
 
-LiveBroadcast.propTypes = {
+TVOverview.propTypes = {
   foo: PropTypes.string.isRequired,
 }
-LiveBroadcast.defaultProps = {
-  foo: 'LiveBroadcast',
+TVOverview.defaultProps = {
+  foo: 'bar',
 }
 
 function select(state) {
@@ -46,4 +44,4 @@ function select(state) {
   };
 }
 
-export default connect(select)(LiveBroadcast)
+export default connect(select)(TVOverview)

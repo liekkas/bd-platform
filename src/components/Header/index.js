@@ -4,15 +4,17 @@
 import React, { PropTypes } from 'react'
 import { IndexLink, Link } from 'react-router'
 import style from './style.scss'
-import dsplogo from './dsplogo.png'
+//import dsplogo from './dsplogo.png'
+import dsplogo from './logo.jpg'
 
 const datas = [
   { name: '首页', key: 'home' },
-  { name: '场景管理', key: 'liveBroadcast' },
-  { name: '资源管理', key: 'gameProduct' },
-  { name: '拓扑监控', key: 'eduProduct' },
-  { name: '性能管理', key: 'otherApp' },
-  { name: '关于', key: 'advert' },
+//  { name: '概况监控', key: 'tvOverview' },
+//  { name: '场景监控', key: 'liveBroadcast' },
+//  { name: '拓扑监控', key: 'demandBroadcast' },
+  { name: '电视概况', key: 'tvOverview' },
+  { name: '直播业务', key: 'liveBroadcast' },
+  { name: '点播业务', key: 'demandBroadcast' },
 ]
 
 class Header extends React.Component {
