@@ -69,7 +69,7 @@ ByDay.propTypes = {
 }
 ByDay.defaultProps = {
   start: new Date(2015,4,1),
-  end: new Date(2015,4,31),
+  end: new Date(2015,9,31),
 }
 
 export default ByDay

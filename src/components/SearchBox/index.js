@@ -99,19 +99,19 @@ class SearchBox extends React.Component {
 
   renderSelect() {
     if (this.props.showTime) {
-      return <Select defaultValue="M" style={{ width: 90, marginRight: '10px' }}
+      return <Select defaultValue="D" style={{ width: 90, marginRight: '10px' }}
                      onChange={(e) => this.handleDateTypeChange(e)}>
-        <Option value="M">按月</Option>
-        <Option value="W">按周</Option>
         <Option value="D">按日</Option>
+        <Option value="W">按周</Option>
+        <Option value="M">按月</Option>
         <Option value="T">按时</Option>
       </Select>
     } else {
-      return <Select defaultValue="M" style={{ width: 90, marginRight: '10px' }}
+      return <Select defaultValue="D" style={{ width: 90, marginRight: '10px' }}
                      onChange={(e) => this.handleDateTypeChange(e)}>
-        <Option value="M">按月</Option>
-        <Option value="W">按周</Option>
         <Option value="D">按日</Option>
+        <Option value="W">按周</Option>
+        <Option value="M">按月</Option>
       </Select>
     }
   }
@@ -144,7 +144,7 @@ SearchBox.propTypes = {
   onSearch: PropTypes.func.isRequired,
 }
 SearchBox.defaultProps = {
-  dateType: 'M',
+  dateType: 'D',
   showTime: false,
   defaultStart: '2015年5月',
   defaultEnd: '2015年10月',

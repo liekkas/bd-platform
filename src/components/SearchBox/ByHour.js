@@ -66,20 +66,20 @@ class ByHour extends React.Component {
                     value={this.state.day}
                     placeholder="选择日期"
                     onChange={(v) => this.onChange('day',v)} />
-        <Select defaultValue={this.props.start + '点'} style={{ width: 80, marginRight: '10px' }}
+        <Select defaultValue={this.props.start + '时'} style={{ width: 80, marginRight: '10px' }}
                 onChange={(e) => this.onStartChange(e)}>
           {
             this.getStartArr().map((value,index) =>
-              <Option key={index} value={value}>{value}点</Option>
+              <Option key={index} value={value}>{value}时</Option>
             )
           }
         </Select>
         <label>至&nbsp;&nbsp;&nbsp;</label>
-        <Select defaultValue={this.props.end + '点'} style={{ width: 80, marginRight: '10px' }}
+        <Select defaultValue={this.props.end + '时'} style={{ width: 80, marginRight: '10px' }}
                 onChange={(e) => this.onEndChange(e)}>
           {
             this.getEndArr().map((value,index) =>
-              <Option key={index} value={value}>{value}点</Option>
+              <Option key={index} value={value}>{value}时</Option>
             )
           }
         </Select>
