@@ -2,116 +2,116 @@
  * Created by liekkas on 16/2/23.
  */
 import React, { PropTypes } from 'react'
-import { Panel, ECharts } from '../../../components'
+import { Panel, ECharts, SearchBox, KpiGroup, DataGrid } from '../../../components'
 import style from './style.scss'
-import Table from 'antd/lib/table'
-import DatePicker from 'antd/lib/date-picker'
-import TimePicker from 'antd/lib/time-picker'
-import Select from 'antd/lib/select'
-import Button from 'antd/lib/button'
-import Icon from 'antd/lib/icon'
-const Option = Select.Option
-import Radio from 'antd/lib/radio';
-const RadioGroup = Radio.Group;
-import RadioButton from 'material-ui/lib/radio-button';
-import RadioButtonGroup from 'material-ui/lib/radio-button-group';
 import { mockData2, mockTableHeader, mockTable } from '../../../tools/dataMock'
+import { getSingleOption } from '../../../tools/service'
+import { REST_API_BASE_URL } from '../../../config'
+import _ from 'lodash'
 
 const kpis = [
-  {value:'userTime', label: '使用时长'},
-  {value:'userTimeAVG', label: '户均使用时长'},
+  {value:'userTime', label: '使用时长', unit: '分钟'},
+  {value:'userTimeAVG', label: '户均使用时长', unit: '分钟'},
 ]
 
-const columns = mockTableHeader(kpis)
+const columns = [
+  {
+    title: '日期',
+    dataIndex: 'date',
+    key: 'date',
+    className: style.header,
+    width: '30%',
+    render(text) {
+      return text;
+    }
+  },
+  {
+    title: '使用时长',
+    dataIndex: 'userTime',
+    key: 'userTime',
+    className: style.header,
+    width: '30%',
+    render(text) {
+      return text + '分钟';
+    }
+  },
+  {
+    title: '户均使用时长',
+    dataIndex: 'userTimeAVG',
+    key: 'userTimeAVG',
+    className: style.header,
+    width: '30%',
+    render(text) {
+      return text + '分钟';
+    }
+  },
+]
 
 class UserBehave extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      kpi: kpis[0].value,
-      option: mockData2('月','户',100),
-      tableData: mockTable(kpis),
+      kpi: kpis[0],
+      option: {},
+      tableData: [],
     }
   }
 
-  handleChange(value) {
-    console.log(`selected ${value}`);
+  componentWillMount() {
+    this._getData(this, this.props)
   }
 
-  onKpiChanged(event, selected) {
-    console.log('>>> kpi', selected);
-    this.setState({kpi: selected, option: mockData2('月','户',100), tableData: mockTable(kpis)})
+  _getData(bind, props, dateType = 'D', start = '20150501', end = '20151031') {
+    fetch(REST_API_BASE_URL + 'userBehave?type=0&dateType=' + dateType + '&start=' + start + '&end=' + end)
+      .then(response => response.json())
+      .then(function (result) {
+        const labels = _.map(result,'date');
+        const datas = _.map(result,bind.state.kpi.value);
+//        console.log('>>> Overview', labels, datas)
+        const chartData = getSingleOption(labels,datas,bind.state.kpi.unit,bind.state.kpi.label)
+        bind.setState({ tableData: result, option: chartData, remoteLoading: false })
+        return result
+      })
+      .catch(function (ex) {
+        console.log(ex)
+      })
+  }
+
+  search(dateType,start,end) {
+    console.log('>>> Search:',dateType,start,end)
+    this._getData(this,this.props,dateType,start,end);
+  }
+
+  onKChange(e) {
+    const selected = e.target.value
+    console.log(`radio checked:${selected}`);
+    let t = {};
+    for (let i = 0; i < kpis.length; i++) {
+      if (kpis[i].value === selected) {
+        t = kpis[i]
+        break;
+      }
+    }
+    const labels = _.map(this.state.tableData,'date');
+    const datas = _.map(this.state.tableData,t.value);
+    const chartData = getSingleOption(labels,datas,t.unit,t.label)
+    this.setState({kpi: t, option: chartData})
   }
 
   render() {
-    const { foo } = this.props
-
-    const styles2 = {
-      defaultLabel: {
-        color: 'white',
-        marginLeft: -10,
-      },
-      selectedLabel: {
-        color: '#FF9800',
-        marginLeft: -10,
-      },
-      selectedIcon: {
-        fill: '#FF9800'
-      },
-      defaultIcon: {
-        fill: '#FFF'
-      },
-    };
-
-    const pagination = {
-      total: this.state.tableData.length,
-      current: 1,
-      showSizeChanger: true,
-      onShowSizeChange(current, pageSize) {
-        console.log('Current: ', current, '; PageSize: ', pageSize);
-      },
-      onChange(current) {
-        console.log('Current: ', current);
-      }
-    };
-
     return (
       <div className={style.root}>
-        <Panel title="筛选条件" height="100">
-          <div className={style.hgroup}>
-            <label>时间分类:&nbsp;&nbsp;</label>
-            <Select defaultValue="byMonth" style={{ width: 100, marginRight: '10px' }} onChange={this.handleChange}>
-              <Option value="byDay">按日</Option>
-              <Option value="byWeek">按周</Option>
-              <Option value="byMonth">按月</Option>
-            </Select>
-            <DatePicker defaultValue="2015-01-01" />
-            <label>&nbsp;&nbsp;至&nbsp;&nbsp;</label>
-            <DatePicker defaultValue="2015-01-01" />
-            &nbsp;&nbsp;
-            <Button type="primary">
-              <Icon type="search" />
-              查询
-            </Button>
-          </div>
+        <Panel title="筛选条件" height="90">
+          <SearchBox showTime onSearch={(a,b,c) => this.search(a,b,c)}/>
         </Panel>
-        <Panel height="300" className={style.p2}>
+        <Panel height="300" className={style.panel}>
           <ECharts option={this.state.option}/>
+          <KpiGroup kpis={kpis} onKpiChange={(e) => this.onKChange(e)}/>
         </Panel>
-        <Panel title="用户概况 - 列表" height="460">
-          <Table dataSource={this.state.tableData} columns={columns}
-                 className={style.table} size="middle" pagination={{pageSize: 8}}/>
-        </Panel>
+        <DataGrid columns={columns} datas={this.state.tableData}/>
       </div>
     )
   }
-}
-
-UserBehave.propTypes = {
-  foo: PropTypes.string.isRequired,
-}
-UserBehave.defaultProps = {
-  foo: 'bar',
 }
 
 export default UserBehave
