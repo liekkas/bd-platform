@@ -38,24 +38,24 @@ class ECharts extends React.Component {
   }
 
   componentWillReceiveProps(nextProps, nextState) {
-    console.log('>>> PBECharts:componentWillReceiveProps', this.props, nextProps, nextState);
+//    console.log('>>> PBECharts:componentWillReceiveProps', this.props, nextProps, nextState);
     if (!_.isEqual(this.props.option, nextProps.option)) {
       this.setState({option: nextProps.option})
     }
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    console.log('>>> PBECharts:shouldComponentUpdate', this.props.theme, nextProps, nextState);
+//    console.log('>>> PBECharts:shouldComponentUpdate', this.props.theme, nextProps, nextState);
     return !_.isEqual(this.props.option, nextProps.option)
   }
 
   componentWillUpdate(nextProps, nextState) {
-    console.log('>>> PBECharts:componentWillUpdate', nextProps, nextState);
+//    console.log('>>> PBECharts:componentWillUpdate', nextProps, nextState);
     //this._getData(this, nextProps);
   }
 
   componentDidUpdate(prevProps, prevState) {
-    console.log('>>> PBECharts:componentDidUpdate', this.state.option);
+//    console.log('>>> PBECharts:componentDidUpdate', this.state.option);
     const chart = echarts.init(document.getElementById(this.state.id));
     chart.setOption(this.state.option);
   }

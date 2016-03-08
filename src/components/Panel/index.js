@@ -14,9 +14,8 @@ class Panel extends React.Component {
       marginBottom: '10px',
       marginRight: '10px',
       boxSizing: 'border-box',
-      border: '1px solid rgba(255,255,255,0.4)',
-      backgroundColor: 'rgba(0,57,100,0.6)',
-
+      border: '1px solid rgba(188,189,190,1)',
+//      backgroundColor: 'rgba(0,57,100,0.6)',
     }
 
     if (this.props.hasOwnProperty('style')) {
@@ -34,8 +33,9 @@ class Panel extends React.Component {
       padding: '0.5% 1% 0.5%',
       fontSize: '14px',
       fontWeight: 'bold',
-      color: 'white',
+      color: 'black',
 //      backgroundColor: 'rgba(255,255,255,0.2)',
+      backgroundColor: 'rgb(232,233,234)',
     }
 
     return (
@@ -52,7 +52,7 @@ class Panel extends React.Component {
 Panel.propTypes = {
   title: PropTypes.string.isRequired,
   width: PropTypes.string.isRequired,
-  height: PropTypes.number.isRequired,
+  height: PropTypes.string.isRequired,
 }
 
 Panel.defaultProps = {

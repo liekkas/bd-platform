@@ -5,9 +5,12 @@ import React, { PropTypes } from 'react'
 import { Header, Footer } from '../../components'
 import { connect } from 'react-redux'
 import SnowStorm from 'react-snowstorm'
+import Test from './test'
 
-//<Footer text="@2016 All Rights Reserved 中国电信集团公司 版权所有"/>
+//<Footer text="© 2016 All Rights Reserved 中国电信集团公司 版权所有"/>
 //<SnowStorm />
+//<Footer text="© 2016 All Rights Reserved 中信国安广视网络有限公司 版权所有"/>
+//          {this.props.children}
 
 const App = React.createClass({
 
@@ -18,7 +21,7 @@ const App = React.createClass({
         <div style={{width: '100%', height: '100%',paddingTop: '50px'}}>
           {this.props.children}
         </div>
-        <Footer text="@2016 All Rights Reserved 中信国安广视网络有限公司 版权所有"/>
+        <Footer text="© 2016 All Rights Reserved 中国电信集团公司 版权所有"/>
       </div>
     )
   }
@@ -27,6 +30,7 @@ const App = React.createClass({
 function select(state) {
   return {
     route: state.getIn(['global', 'route']),
+//    route: state.global.route,
   };
 }
 

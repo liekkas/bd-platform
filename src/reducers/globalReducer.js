@@ -19,6 +19,8 @@ export default function globalReducer(state = initState, action = {}) {
     case UPDATE_LOCATION:
       const route = action.payload.pathname.substr(1)
       return state.update('route', () => route === '' ? 'home' : route)
+//      state.route = route === '' ? 'home' : route
+//      return state
     case ActionTypes.INIT_USER:
       return state
     default:

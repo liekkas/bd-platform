@@ -9,9 +9,11 @@ import {browserHistory} from 'react-router';
 import robot from './projector_robot.png'
 
 let data = []
-const provinces = ['河北','河南','安徽','江苏','山东','湖北','湖南']
-_.forEach(provinces, function (province) {
-  data.push({name: province, value: _.random(200) + 20})
+let data2 = []
+const provinces = ['江苏','湖北','安徽','湖南','河北','山东','河南']
+const v1 = ['3250','1670','852','161','175','165','12']
+_.forEach(provinces, function (province, index) {
+  data.push({name: province, value: v1[index]})
 })
 
 var geoCoordMap = {
@@ -46,11 +48,18 @@ const mapOption = {
     left: 'center',
     top: 50,
     textStyle: {
-      color: '#fff'
+//      color: '#fff'
     }
   },
-  textStyle: {
-    color: '#fff'
+  visualMap: {
+    min: 0,
+    max: 3500,
+//    left: 'right',
+//    top: 'bottom',
+    bottom: 20,
+    right: 20,
+    text:['高','低'],           // 文本，默认为数值文本
+    calculable : true
   },
   tooltip : {
     trigger: 'item',
@@ -100,13 +109,13 @@ const mapOption = {
       roam: false,
       itemStyle: {
         normal: {
-          areaColor: '#ffea00',
+//          areaColor: '#ffea00',
           borderColor: 'rgba(0, 0, 0, 0.6)',
-          shadowColor: 'rgba(255, 255, 0, 1)',
-          shadowBlur: 10,
-          shadowOffsetX: 10,
-          shadowOffsetY: 10,
-          opacity: 0.8,
+//          shadowColor: 'rgba(255, 255, 0, 1)',
+//          shadowBlur: 10,
+//          shadowOffsetX: 10,
+//          shadowOffsetY: 10,
+//          opacity: 0.8,
         },
         emphasis: {
           areaColor: '#ffab00'
@@ -218,14 +227,14 @@ const pieOption = {
 };
 
 let barData = []
-const reProvinces = provinces.reverse()
-const d1 = [134,120,110,90,70,60,50].reverse()
-const d2 = [134,120,110,90,70,60,50]
+const reProvinces = provinces
+const d1 = [1885,870,447,135,88,83,8].reverse()
+const d2 = [1365,800,405,126,87,82,4].reverse()
 const types = ['有限电视用户数','数字用户数']
 for (let j = 0; j < types.length; j++) {
   let d = []
   for (let k = 0; k < reProvinces.length; k++) {
-    d.push(d1[k])
+    d.push(j === 0 ? d1[k] : d2[k])
   }
 
   barData.push({
@@ -256,7 +265,7 @@ const barOption = {
     data:['有限电视用户数','数字用户数'],
     y: 'bottom',
     textStyle: {
-      color: '#fff'
+//      color: '#fff'
     },
   },
   grid: {
@@ -295,21 +304,21 @@ const barOption = {
     {
       type : 'category',
       data : provinces.reverse(),
-      axisLine: {
-        lineStyle: {
-          color: 'rgba(255,255,255,0.8)',
-        }
-      },
-      axisTick: {
-        lineStyle: {
-          color: 'rgba(255,255,255,0.8)',
-        }
-      },
-      axisLabel: {
-        textStyle: {
-          color: 'rgba(255,255,255,0.8)',
-        }
-      },
+//      axisLine: {
+//        lineStyle: {
+//          color: 'rgba(255,255,255,0.8)',
+//        }
+//      },
+//      axisTick: {
+//        lineStyle: {
+//          color: 'rgba(255,255,255,0.8)',
+//        }
+//      },
+//      axisLabel: {
+//        textStyle: {
+//          color: 'rgba(255,255,255,0.8)',
+//        }
+//      },
       splitLine: {
         show: false,
       },
@@ -328,17 +337,17 @@ class Home extends React.Component {
 
   onMapClick(e) {
     console.log('>>> 我靠',e)
-    this.props.history.replaceState(null, '/tvOverview');
+//    this.props.history.replaceState(null, '/tvOverview');
 
-//    browserHistory.push('/tvOverview');
+    browserHistory.push('/tvOverview');
   }
+//<img src={robot} className={style.robot}/>
 
   render() {
     const { foo } = this.props
     return (
       <div className={style.root}>
         <ECharts config={{eventType: 'click', eventHandler: this.onMapClick}} option={mapOption}/>
-        <img src={robot} className={style.robot}/>
 
         <div className={style.bar}>
           <ECharts option={barOption}/>

@@ -20,10 +20,12 @@ class ByWeek extends React.Component {
 
   onStartChange(v) {
     this.setState({start: v})
+    this.props.onStartChange('2015' + v)
   }
 
   onEndChange(v) {
     this.setState({end: v})
+    this.props.onEndChange('2015' + v)
   }
 
   getStartArr() {
@@ -55,14 +57,6 @@ class ByWeek extends React.Component {
             )
           }
         </Select>
-
-        &nbsp;&nbsp;
-
-        <Button type="primary" onClick={() =>
-          this.props.onSearch('2015' + start,'2015' + end)}>
-          <Icon type="search" />
-          查询
-        </Button>
       </div>
     )
   }
@@ -72,6 +66,8 @@ ByWeek.propTypes = {
   start: PropTypes.number.isRequired,
   end: PropTypes.number.isRequired,
   onSearch: PropTypes.func.isRequired,
+  onStartChange: PropTypes.func.isRequired,
+  onEndChange: PropTypes.func.isRequired,
 }
 ByWeek.defaultProps = {
   start: 18,

@@ -21,11 +21,12 @@ class ByHour extends React.Component {
     }
   }
 
-  disabledStartDate(startValue) {
-    if (!startValue || !this.state.endValue) {
+  disabledStartDate(v) {
+    if (!v) {
       return false;
     }
-    return startValue.getTime() >= this.state.endValue.getTime();
+    return parseInt(dateFormat(v,'yyyymmdd'), 0) < parseInt(dateFormat(new Date(2015,3,1),'yyyymmdd'), 0)
+      || parseInt(dateFormat(v,'yyyymmdd'), 0) > parseInt(dateFormat(new Date(2015,8,31),'yyyymmdd'), 0)
   }
 
   disabledEndDate(endValue) {
@@ -51,11 +52,9 @@ class ByHour extends React.Component {
     return _.range(this.state.start,this.props.end + 1)
   }
 
-  onChange(field, value) {
-    console.log(field, 'change', value);
-    this.setState({
-      [field]: value,
-    });
+  onChange(v) {
+    this.setState({day: v})
+    this.props.onDayChange(dateFormat(v,'yyyymmdd'))
   }
 
   render() {
@@ -65,32 +64,10 @@ class ByHour extends React.Component {
         <DatePicker disabledDate={(v) => this.disabledStartDate(v)}
                     value={this.state.day}
                     placeholder="选择日期"
-                    onChange={(v) => this.onChange('day',v)} />
-        <Select defaultValue={this.props.start + '时'} style={{ width: 80, marginRight: '10px' }}
-                onChange={(e) => this.onStartChange(e)}>
-          {
-            this.getStartArr().map((value,index) =>
-              <Option key={index} value={value}>{value}时</Option>
-            )
-          }
-        </Select>
-        <label>至&nbsp;&nbsp;&nbsp;</label>
-        <Select defaultValue={this.props.end + '时'} style={{ width: 80, marginRight: '10px' }}
-                onChange={(e) => this.onEndChange(e)}>
-          {
-            this.getEndArr().map((value,index) =>
-              <Option key={index} value={value}>{value}时</Option>
-            )
-          }
-        </Select>
+                    onChange={(v) => this.onChange(v)} />
+
         &nbsp;&nbsp;
-        <Button type="primary" onClick={() =>
-          this.props.onSearch(
-            dateFormat(day,'yyyymmdd') + '-' + start,
-            dateFormat(day,'yyyymmdd') + '-' + end)}>
-          <Icon type="search" />
-          查询
-        </Button>
+
       </div>
     )
   }
@@ -101,11 +78,34 @@ ByHour.propTypes = {
   end: PropTypes.number.isRequired,
   day: PropTypes.object.isRequired,
   onSearch: PropTypes.func.isRequired,
+  onDayChange: PropTypes.func.isRequired,
+  onCompareDayChange: PropTypes.func.isRequired,
+  showCompareDay: PropTypes.bool.isRequired,
 }
 ByHour.defaultProps = {
   day: new Date(2015,4,1),
   start: 0,
   end: 23,
+  showCompareDay: false
 }
 
 export default ByHour
+
+//&nbsp;&nbsp;&nbsp;&nbsp;
+//<Select defaultValue={this.props.start + '时'} style={{ width: 80, marginRight: '10px' }}
+//        onChange={(e) => this.onStartChange(e)}>
+//  {
+//    this.getStartArr().map((value,index) =>
+//      <Option key={index} value={value}>{value}时</Option>
+//    )
+//  }
+//</Select>
+//<label>至&nbsp;&nbsp;&nbsp;</label>
+//<Select defaultValue={this.props.end + '时'} style={{ width: 80, marginRight: '10px' }}
+//        onChange={(e) => this.onEndChange(e)}>
+//  {
+//    this.getEndArr().map((value,index) =>
+//      <Option key={index} value={value}>{value}时</Option>
+//    )
+//  }
+//</Select>

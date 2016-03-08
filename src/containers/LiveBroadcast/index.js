@@ -7,6 +7,12 @@ import style from './style.scss'
 import { connect } from 'react-redux'
 
 const datas = [
+  { name: '直播用户分析', key: 'liveBroadcast',
+    subMenus: [
+      { name: '用户概况', key: 'liveBroadcast' },
+      { name: '用户行为', key: 'liveBroadcast/userBehave' },
+    ]
+  },
   { name: '直播用户分析', key: 'liveBroadcast' },
   { name: '直播频道组分析', key: 'liveBroadcast/channelGroupAnalysis' },
   { name: '直播频道排名', key: 'liveBroadcast/channelOrder' },
@@ -26,7 +32,7 @@ class LiveBroadcast extends React.Component {
     const { route } = this.props
     return (
       <div className={style.root}>
-        <SideNav datas={datas} route={route}/>
+        <SideNav type="1" datas={datas} route={route} />
         {this.props.children}
       </div>
     )

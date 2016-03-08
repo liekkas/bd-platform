@@ -31,11 +31,14 @@ class ByDay extends React.Component {
     return endValue.getTime() <= this.state.startValue.getTime();
   }
 
-  onChange(field, value) {
-    console.log(field, 'change', value);
-    this.setState({
-      [field]: value,
-    });
+  onStartChange(v) {
+    this.setState({startValue: v})
+    this.props.onStartChange(dateFormat(v,'yyyymmdd'))
+  }
+
+  onEndChange(v) {
+    this.setState({endValue: v})
+    this.props.onEndChange(dateFormat(v,'yyyymmdd'))
   }
 
   render() {
@@ -43,20 +46,14 @@ class ByDay extends React.Component {
     return (
       <div>
         <DatePicker disabledDate={(v) => this.disabledStartDate(v)}
-                    value={this.state.startValue}
+                    value={startValue}
                     placeholder="开始日期"
-                    onChange={(v) => this.onChange('startValue',v)} />
+                    onChange={(v) => this.onStartChange(v)} />
         <label>&nbsp;&nbsp;至&nbsp;&nbsp;</label>
         <DatePicker disabledDate={(v) => this.disabledEndDate(v)}
-                    value={this.state.endValue}
+                    value={endValue}
                     placeholder="结束日期"
-                    onChange={(v) => this.onChange('endValue',v)} />
-        &nbsp;&nbsp;
-        <Button type="primary" onClick={() =>
-          this.props.onSearch(dateFormat(startValue,'yyyymmdd'),dateFormat(endValue,'yyyymmdd'))}>
-          <Icon type="search" />
-          查询
-        </Button>
+                    onChange={(v) => this.onEndChange(v)} />
       </div>
     )
   }
@@ -66,6 +63,8 @@ ByDay.propTypes = {
   start: PropTypes.object.isRequired,
   end: PropTypes.object.isRequired,
   onSearch: PropTypes.func.isRequired,
+  onStartChange: PropTypes.func.isRequired,
+  onEndChange: PropTypes.func.isRequired,
 }
 ByDay.defaultProps = {
   start: new Date(2015,4,1),

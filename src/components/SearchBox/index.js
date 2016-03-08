@@ -12,88 +12,66 @@ import Icon from 'antd/lib/icon'
 const Option = Select.Option
 import style from './style.scss'
 
+let start,end
+
 class SearchBox extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
       dateType: props.dateType,
-      start: props.defaultStart,
-      end: props.defaultEnd,
     }
-  }
-
-  disabledStartDate(startValue) {
-//    console.log(startValue.toLocaleString(),new Date(2015,4,1).toLocaleString())
-    if (!startValue || !this.state.endValue) {
-      return false;
-    }
-    return startValue.getTime() >= this.state.endValue.getTime()
-//      || startValue.getTime() <= new Date(2015,4,1).getTime()
-  }
-
-  disabledEndDate(endValue) {
-    if (!endValue || !this.state.startValue) {
-      return false;
-    }
-    return endValue.getTime() <= this.state.startValue.getTime()
-//      || endValue.getTime() >= new Date(2015,9,30).getTime()
-  }
-
-  onChange(field, value) {
-    console.log(field, 'change', value);
-    this.setState({
-      [field]: value,
-    });
   }
 
   handleDateTypeChange(value) {
     switch (value) {
       case 'M':
-//        start = new Date(2015,4)
-//        end = new Date(2015,9)
-        break;
-      case 'W':
-//        start = new Date(2015,3,27)
-//        end = new Date(2015,9,26)
+        start = '201505'
+        end = '201510'
         break
-      default:
-//        start = new Date(2015,4,1)
-//        end = new Date(2015,4,31)
+      case 'W':
+        start = '201518'
+        end = '201544'
+        break
+      case 'D':
+        start = '20150501'
+        end = '20151031'
+        break
+      case 'T':
+        start = '20150501-0'
+        end = '20150501-23'
         break
     }
     this.setState({dateType: value})
+    this.props.onSearch(value,start,end)
   }
 
-  searchData(dataType) {
-    let formatStart,formatEnd
-//    switch (dataType) {
-//      case 'M':
-//        formatStart = dateFormat(start,'yyyymm')
-//        formatEnd = dateFormat(end,'yyyymm')
-//        break
-//      case 'W':
-//        formatStart = dateFormat(start,'yyyyW')
-//        formatEnd = dateFormat(end,'yyyyW')
-//        break
-//      case 'D':
-//        formatStart = dateFormat(start,'yyyymmdd')
-//        formatEnd = dateFormat(end,'yyyymmdd')
-//        break
-//    }
-//    console.log(start,formatStart, end,formatEnd)
+  handleStartChange(v) {
+    start = v
+  }
+
+  handleEndChange(v) {
+    end = v
+  }
+
+  handleDayChangeByHour(v) {
+    start = v + '-0'
+    end = v + '-23'
   }
 
   renderDate() {
-    const { defaultMonthValue, defaultWeekValue, defaultDayValue, defaultTimeValue } = this.props
     switch (this.state.dateType) {
       case 'M':
-        return <ByMonth onSearch={(start,end) => this.props.onSearch('M',start,end)}/>
+        return <ByMonth onStartChange={(v) => this.handleStartChange(v)}
+                        onEndChange={(v) => this.handleEndChange(v)} />
       case 'W':
-        return <ByWeek onSearch={(start,end) => this.props.onSearch('W',start,end)}/>
+        return <ByWeek onStartChange={(v) => this.handleStartChange(v)}
+                       onEndChange={(v) => this.handleEndChange(v)} />
       case 'D':
-        return <ByDay onSearch={(start,end) => this.props.onSearch('D',start,end)}/>
+        return <ByDay onStartChange={(v) => this.handleStartChange(v)}
+                      onEndChange={(v) => this.handleEndChange(v)} />
       case 'T':
-        return <ByHour onSearch={(start,end) => this.props.onSearch('T',start,end)}/>
+        return <ByHour onDayChange={(v) => this.handleDayChangeByHour(v)}
+                       onCompareDayChange={(v) => this.handleEndChange(v)} />
     }
   }
 
@@ -127,6 +105,14 @@ class SearchBox extends React.Component {
         { this.renderSelect() }
         { this.renderDate() }
 
+        &nbsp;&nbsp;
+
+        <Button type="primary" onClick={() =>
+          this.props.onSearch(this.state.dateType,start,end)}>
+          <Icon type="search" />
+          查询
+        </Button>
+
       </div>
     )
   }
@@ -135,23 +121,11 @@ class SearchBox extends React.Component {
 SearchBox.propTypes = {
   dateType: PropTypes.string.isRequired,
   showTime: PropTypes.bool.isRequired,
-  defaultStart: PropTypes.string,
-  defaultEnd: PropTypes.string,
-  defaultMonthValue: PropTypes.array,
-  defaultWeekValue: PropTypes.array,
-  defaultDayValue: PropTypes.array,
-  defaultTimeValue: PropTypes.array,
   onSearch: PropTypes.func.isRequired,
 }
 SearchBox.defaultProps = {
   dateType: 'D',
   showTime: false,
-  defaultStart: '2015年5月',
-  defaultEnd: '2015年10月',
-  defaultMonthValue: [new Date(2015,4),new Date(2015,9)],
-  defaultWeekValue: [new Date(2015,3,27),new Date(2015,9,26)],
-  defaultDayValue: [new Date(2015,4,1),new Date(2015,4,31)],
-  defaultTimeValue: [new Date(2015,4,1)],
 }
 
 export default SearchBox

@@ -2,109 +2,115 @@
  * Created by liekkas on 16/2/23.
  */
 import React, { PropTypes } from 'react'
-import { Panel, ECharts } from '../../../components'
+import { Panel, ECharts, KpiGroup, ShowsOrderSearchBox, DataGrid } from '../../../components'
 import style from './style.scss'
-import Table from 'antd/lib/table'
-import DatePicker from 'antd/lib/date-picker'
-import Select from 'antd/lib/select'
-import Button from 'antd/lib/button'
-import Icon from 'antd/lib/icon'
-const Option = Select.Option
+import { getSingleOption } from '../../../tools/service'
+import { REST_API_BASE_URL } from '../../../config'
+import _ from 'lodash'
 
-class ShowOrder extends React.Component {
+const kpis = [
+  {value:'userTime', label: '使用时长', unit: '分钟'},
+  {value:'userTimeAVG', label: '户均使用时长', unit: '分钟'},
+]
+
+const columns = [
+  {
+    title: '日期',
+    dataIndex: 'date',
+    key: 'date',
+    className: style.header,
+    width: '30%',
+    render(text) {
+      return text;
+    }
+  },
+  {
+    title: '使用时长',
+    dataIndex: 'userTime',
+    key: 'userTime',
+    className: style.header,
+    width: '30%',
+    render(text) {
+      return text + '分钟';
+    }
+  },
+  {
+    title: '户均使用时长',
+    dataIndex: 'userTimeAVG',
+    key: 'userTimeAVG',
+    className: style.header,
+    width: '30%',
+    render(text) {
+      return text + '分钟';
+    }
+  },
+]
+
+class ShowsOrder extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      foo: 'bar',
+      kpi: kpis[0],
+      option: {},
+      tableData: [],
     }
   }
 
-  handleChange(value) {
-    console.log(`selected ${value}`);
+  componentWillMount() {
+    this._getData(this, this.props)
+  }
+
+  _getData(bind, props, dateType = 'D', start = '20150501', end = '20151031') {
+    fetch(REST_API_BASE_URL + 'ShowsOrder?type=0&dateType=' + dateType + '&start=' + start + '&end=' + end)
+      .then(response => response.json())
+      .then(function (result) {
+        const labels = _.map(result,'date');
+        const datas = _.map(result,bind.state.kpi.value);
+//        console.log('>>> Overview', labels, datas)
+        const chartData = getSingleOption(labels,datas,bind.state.kpi.unit,bind.state.kpi.label)
+        bind.setState({ tableData: result, option: chartData, remoteLoading: false })
+        return result
+      })
+      .catch(function (ex) {
+        console.log(ex)
+      })
+  }
+
+  search(dateType,start,end) {
+    console.log('>>> Search:',dateType,start,end)
+    this._getData(this,this.props,dateType,start,end);
+  }
+
+  onKChange(e) {
+    const selected = e.target.value
+    console.log(`radio checked:${selected}`);
+    let t = {};
+    for (let i = 0; i < kpis.length; i++) {
+      if (kpis[i].value === selected) {
+        t = kpis[i]
+        break;
+      }
+    }
+    const labels = _.map(this.state.tableData,'date');
+    const datas = _.map(this.state.tableData,t.value);
+    const chartData = getSingleOption(labels,datas,t.unit,t.label)
+    this.setState({kpi: t, option: chartData})
   }
 
   render() {
-    const { foo } = this.props
-    const dataSource = [{
-      key: '1',
-      date: '2016/1/1',
-      userNum: 32,
-      userNumIndex: '1.2%',
-      useTiming: 5492,
-      useTimingIndex: '2.2%'
-    }, {
-      key: '2',
-      date: '2016/1/1',
-      userNum: 32,
-      userNumIndex: '1.2%',
-      useTiming: 5492,
-      useTimingIndex: '2.2%'
-    }];
-
-    const columns = [{
-      title: '日期',
-      dataIndex: 'date',
-      key: 'date',
-    }, {
-      title: '用户数',
-      dataIndex: 'userNum',
-      key: 'userNum',
-    }, {
-      title: '用户数环比',
-      dataIndex: 'userNumIndex',
-      key: 'userNumIndex',
-    }, {
-      title: '使用时长',
-      dataIndex: 'useTiming',
-      key: 'useTiming',
-    }, {
-      title: '使用时长环比',
-      dataIndex: 'useTimingIndex',
-      key: 'useTimingIndex',
-    }]
-
     return (
       <div className={style.root}>
-        <Panel title="筛选条件" height="150">
-          <div className={style.hgroup}>
-            <label>时间分类:&nbsp;&nbsp;</label>
-            <Select defaultValue="lucy" style={{ width: 100, marginRight: '10px' }} onChange={this.handleChange}>
-              <Option value="jack">按日期</Option>
-              <Option value="lucy">Lucy</Option>
-              <Option value="yiminghe">yiminghe</Option>
-            </Select>
-            <DatePicker defaultValue="2015-01-01" />
-            <label>&nbsp;&nbsp;至&nbsp;&nbsp;</label>
-            <DatePicker defaultValue="2015-01-01" />
-          </div>
-          <div className={style.hgroup}>
-            <label>城市选择:&nbsp;&nbsp;</label>
-            <DatePicker defaultValue="2015-01-01" />
-            <label>&nbsp;&nbsp;至&nbsp;&nbsp;</label>
-            <DatePicker defaultValue="2015-01-01" />
-            &nbsp;&nbsp;
-            <Button type="primary">
-              <Icon type="search" />
-              查询
-            </Button>
-          </div>
+        <Panel title="筛选条件" height="90">
+          <ShowsOrderSearchBox onSearch={(a,b,c) => this.search(a,b,c)}/>
         </Panel>
-        <Panel title="总体分析" height="300">
-          <ECharts config={{type: 'bar',mode: 'local',}}/>
+        <Panel height="300" className={style.panel}>
+          <ECharts option={this.state.option}/>
+          <KpiGroup kpis={kpis} onKpiChange={(e) => this.onKChange(e)}/>
         </Panel>
-        <Panel title="总体分析2" height="300">
-          <Table dataSource={dataSource} columns={columns} className={style.table}/>
-        </Panel>
+        <DataGrid columns={columns} datas={this.state.tableData}/>
       </div>
     )
   }
 }
 
-ShowOrder.propTypes = {
-  foo: PropTypes.string.isRequired,
-}
-ShowOrder.defaultProps = {
-  foo: 'bar',
-}
-
-export default ShowOrder
+export default ShowsOrder

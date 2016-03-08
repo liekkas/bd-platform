@@ -19,4 +19,6 @@ export { default as DemandUserAnalysis } from './DemandBroadcast/UserAnalysis'
 export { default as MediaAssetsOverview } from './DemandBroadcast/MediaAssetsOverview'
 export { default as ShowsTypeAnalysis } from './DemandBroadcast/ShowsTypeAnalysis'
 export { default as ShowsOrderAnalysis } from './DemandBroadcast/ShowsOrderAnalysis'
+export { default as MovieList } from './DemandBroadcast/ShowsOrderAnalysis/MovieList'
+export { default as TVPlayList } from './DemandBroadcast/ShowsOrderAnalysis/TVPlayList'
 

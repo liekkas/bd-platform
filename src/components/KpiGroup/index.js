@@ -32,7 +32,7 @@ class KpiGroup extends React.Component {
 }
 
 KpiGroup.propTypes = {
-  kpis: PropTypes.string.isRequired,
+  kpis: PropTypes.array.isRequired,
   onKpiChange: PropTypes.func.isRequired,
 }
 KpiGroup.defaultProps = {

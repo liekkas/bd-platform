@@ -20,10 +20,12 @@ class ByMonth extends React.Component {
 
   onStartChange(v) {
     this.setState({start: v})
+    this.props.onStartChange(dateFormat(new Date(2015,v - 1),'yyyymm'))
   }
 
   onEndChange(v) {
     this.setState({end: v})
+    this.props.onEndChange(dateFormat(new Date(2015,v - 1),'yyyymm'))
   }
 
   getStartArr() {
@@ -55,16 +57,6 @@ class ByMonth extends React.Component {
             )
           }
         </Select>
-
-        &nbsp;&nbsp;
-
-        <Button type="primary" onClick={() =>
-          this.props.onSearch(
-            dateFormat(new Date(2015,start - 1),'yyyymm'),
-            dateFormat(new Date(2015,end - 1),'yyyymm'))}>
-          <Icon type="search" />
-          查询
-        </Button>
       </div>
     )
   }
@@ -74,6 +66,8 @@ ByMonth.propTypes = {
   start: PropTypes.number.isRequired,
   end: PropTypes.number.isRequired,
   onSearch: PropTypes.func.isRequired,
+  onStartChange: PropTypes.func.isRequired,
+  onEndChange: PropTypes.func.isRequired,
 }
 ByMonth.defaultProps = {
   start: 5,

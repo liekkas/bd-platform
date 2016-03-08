@@ -3,6 +3,7 @@ import { Route, IndexRoute } from 'react-router'
 import { App, Home, TVOverview, LiveBroadcast, DemandBroadcast,
   UserOverview, UserBehave, BusinessOverview,
   DemandUserAnalysis, MediaAssetsOverview, ShowsTypeAnalysis, ShowsOrderAnalysis,
+  MovieList, TVPlayList,
   OverallAnalysis, ChannelAnalysis, ChannelGroupAnalysis, ChannelOrder, ShowsOrder } from './containers'
 import { NotFound, About } from './components'
 
@@ -14,18 +15,21 @@ const AppRouter = (
       <Route path="/tvOverview/userBehave" component={UserBehave} />
       <Route path="/tvOverview/businessOverview" component={BusinessOverview} />
     </Route>
-    <Route path="liveBroadcast" component={NotFound}>
+    <Route path="liveBroadcast" component={LiveBroadcast}>
       <IndexRoute component={OverallAnalysis} />
       <Route path="/liveBroadcast/channelGroupAnalysis" component={ChannelGroupAnalysis} />
       <Route path="/liveBroadcast/channelOrder" component={ChannelOrder} />
       <Route path="/liveBroadcast/channelAnalysis" component={ChannelAnalysis} />
       <Route path="/liveBroadcast/showsOrder" component={ShowsOrder} />
     </Route>
-    <Route path="demandBroadcast" component={NotFound}>
+    <Route path="demandBroadcast" component={DemandBroadcast}>
       <IndexRoute component={DemandUserAnalysis} />
       <Route path="/demandBroadcast/mediaAssetsOverview" component={MediaAssetsOverview} />
       <Route path="/demandBroadcast/showsTypeAnalysis" component={ShowsTypeAnalysis} />
-      <Route path="/demandBroadcast/showsOrderAnalysis" component={ShowsOrderAnalysis} />
+      <Route path="/demandBroadcast/showsOrderAnalysis" component={ShowsOrderAnalysis}>
+        <IndexRoute component={MovieList} />
+        <Route path="/demandBroadcast/showsOrderAnalysis/tvPlayList" component={TVPlayList} />
+      </Route>
     </Route>
     <Route path="*" component={NotFound} status={404}/>
   </Route>

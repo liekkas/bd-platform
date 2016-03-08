@@ -5,11 +5,17 @@ import React, { PropTypes } from 'react'
 import { SideNav } from '../../components'
 import style from './style.scss'
 import { connect } from 'react-redux'
+import { UPDATE_LOCATION } from 'react-router-redux'
 
 const datas = [
-  { name: '用户概况', key: 'tvOverview' },
-  { name: '用户行为', key: 'tvOverview/userBehave' },
-  { name: '全业务概况', key: 'tvOverview/businessOverview' },
+  { name: '用户概况', key: 'tvOverview',
+    subMenus: [
+      { name: '用户概况', key: 'liveBroadcast' },
+      { name: '用户行为', key: 'liveBroadcast/userBehave' },
+    ]
+  },
+  { name: '用户行为', key: 'tvOverview/userBehave', subMenus: [] },
+  { name: '全业务概况', key: 'tvOverview/businessOverview', subMenus: [] },
 ]
 
 class TVOverview extends React.Component {
@@ -20,11 +26,23 @@ class TVOverview extends React.Component {
     }
   }
 
+  onNav(e) {
+    console.log(e)
+    this.props.dispatch({
+      type: '@@router/UPDATE_LOCATION',
+      payload: {
+        pathname: '/' + e,
+        action: 'PUSH',
+        key: '45dew5'
+      }
+    });
+  }
+
   render() {
     const { route } = this.props
     return (
       <div className={style.root}>
-        <SideNav datas={datas} route={route}/>
+        <SideNav type="0" datas={datas} route={route} onNav={(e) => this.onNav(e)}/>
         {this.props.children}
       </div>
     )
@@ -41,6 +59,7 @@ TVOverview.defaultProps = {
 function select(state) {
   return {
     route: state.getIn(['global', 'route']),
+//    route: state.global.route,
   };
 }
 
