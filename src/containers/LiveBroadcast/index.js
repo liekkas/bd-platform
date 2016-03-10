@@ -1,38 +1,17 @@
 /**
- * Created by liekkas on 16/2/19.
+ * Created by liekkas on 16/2/26.
  */
 import React, { PropTypes } from 'react'
 import { SideNav } from '../../components'
 import style from './style.scss'
 import { connect } from 'react-redux'
 
-const datas = [
-  { name: '直播用户分析', key: 'liveBroadcast',
-    subMenus: [
-      { name: '用户概况', key: 'liveBroadcast' },
-      { name: '用户行为', key: 'liveBroadcast/userBehave' },
-    ]
-  },
-  { name: '直播用户分析', key: 'liveBroadcast' },
-  { name: '直播频道组分析', key: 'liveBroadcast/channelGroupAnalysis' },
-  { name: '直播频道排名', key: 'liveBroadcast/channelOrder' },
-  { name: '直播频道分析', key: 'liveBroadcast/channelAnalysis' },
-  { name: '直播节目排名', key: 'liveBroadcast/showsOrder' },
-]
-
 class LiveBroadcast extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      foo: 'bar',
-    }
-  }
-
   render() {
     const { route } = this.props
     return (
       <div className={style.root}>
-        <SideNav type="1" datas={datas} route={route} />
+        <SideNav type="1" route={route} />
         {this.props.children}
       </div>
     )
@@ -43,12 +22,13 @@ LiveBroadcast.propTypes = {
   foo: PropTypes.string.isRequired,
 }
 LiveBroadcast.defaultProps = {
-  foo: 'LiveBroadcast',
+  foo: 'bar',
 }
 
 function select(state) {
   return {
     route: state.getIn(['global', 'route']),
+//    route: state.global.route,
   };
 }
 

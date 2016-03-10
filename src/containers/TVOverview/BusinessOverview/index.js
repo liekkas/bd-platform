@@ -108,7 +108,7 @@ class BusinessOverview extends React.Component {
         const datas1 = _.map(result['zb'],bind.state.kpi.value);
         const datas2 = _.map(result['db'],bind.state.kpi.value);
 //        console.log('>>> Overview', labels, datas)
-        const chartData = getMultiOption(labels,datas1,datas2,bind.state.kpi.unit,bind.state.kpi.label)
+        const chartData = getMultiOption(labels,[datas1,datas2],['直播','点播'],bind.state.kpi.unit,bind.state.kpi.label)
 
         const tableData = []
         const num = result['zb'].length
@@ -144,12 +144,11 @@ class BusinessOverview extends React.Component {
     const zb = _.filter(this.state.tableData, function(o) { return o.bizType === '直播' });
     const db = _.filter(this.state.tableData, function(o) { return o.bizType === '点播' });
 
-    console.log('>>> BOV ',zb)
     const labels = _.map(zb,'date');
 
     const datas1 = _.map(zb,t.value);
     const datas2 = _.map(db,t.value);
-    const chartData = getMultiOption(labels,datas1,datas2,t.unit,t.label)
+    const chartData = getMultiOption(labels,[datas1,datas2],['直播','点播'],t.unit,t.label)
     this.setState({kpi: t, option: chartData})
   }
 

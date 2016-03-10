@@ -16,7 +16,7 @@ class SideNav extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      current: props.type === '0' ? 'tvOverview' : props.type === '1' ? 'liveBroadcast' : 'demandBroadcast'
+      current: 'tvOverview',
     }
   }
 
@@ -34,13 +34,12 @@ class SideNav extends React.Component {
   }
 
   getMenu() {
-//    console.log('>>> Router',this.props.route)
     switch (this.props.type) {
       case '0':
         return <div className={style.root}>
           <Menu onClick={(e) => this.handleClick(e)} theme='light'
                 defaultOpenKeys={['tvOverview']}
-                selectedKeys={[this.props.route]}
+                selectedKeys={[this.state.current]}
                 mode="inline">
             <Menu.Item key="tvOverview"><span><Icon type="setting"/></span>
               用户概况
@@ -57,9 +56,9 @@ class SideNav extends React.Component {
         return <div className={style.root}>
           <Menu onClick={(e) => this.handleClick(e)} theme='light'
                 defaultOpenKeys={['lb']}
-                selectedKeys={[this.props.route]}
+                selectedKeys={[this.state.current]}
                 mode="inline">
-            <SubMenu key="lb" title={<span><Icon type="mail" /><span>直播用户分析</span></span>}>
+            <SubMenu key="lb" title={<span><Icon type="mail" /><span>用户分析</span></span>}>
               <Menu.Item key="liveBroadcast"><span><Icon type="setting"/></span>
                 用户概况
               </Menu.Item>
@@ -67,7 +66,7 @@ class SideNav extends React.Component {
                 用户行为
               </Menu.Item>
             </SubMenu>
-            <SubMenu key="lbGroup" title={<span><Icon type="mail" /><span>直播频道组分析</span></span>}>
+            <SubMenu key="lbGroup" title={<span><Icon type="mail" /><span>用户组分析</span></span>}>
               <Menu.Item key="liveBroadcast/channelGroupUserAnalysis"><span><Icon type="setting"/></span>
                 用户分析
               </Menu.Item>
@@ -76,13 +75,13 @@ class SideNav extends React.Component {
               </Menu.Item>
             </SubMenu>
             <Menu.Item key="liveBroadcast/channelOrder"><span><Icon type="setting"/></span>
-              直播频道排名
+              用户排名
             </Menu.Item>
             <Menu.Item key="liveBroadcast/channelAnalysis"><span><Icon type="setting"/></span>
-              直播频道分析
+              用户分析
             </Menu.Item>
             <Menu.Item key="liveBroadcast/showsOrder"><span><Icon type="setting"/></span>
-              直播节目排名
+              4G排名
             </Menu.Item>
           </Menu>
         </div>
@@ -90,7 +89,7 @@ class SideNav extends React.Component {
         return <div className={style.root}>
           <Menu onClick={(e) => this.handleClick(e)} theme='light'
                 defaultOpenKeys={['db']}
-                selectedKeys={[this.props.route]}
+                selectedKeys={[this.state.current]}
                 mode="inline">
             <SubMenu key="db" title={<span><Icon type="mail" /><span>点播用户分析</span></span>}>
               <Menu.Item key="demandBroadcast"><span><Icon type="setting"/></span>
@@ -101,18 +100,18 @@ class SideNav extends React.Component {
               </Menu.Item>
             </SubMenu>
             <SubMenu key="mz" title={<span><Icon type="mail" /><span>媒资概况分析</span></span>}>
-              <Menu.Item key="demandBroadcast/mediaAssetsOverview"><span><Icon type="setting"/></span>
+              <Menu.Item key="demandBroadcast/resUtilizationAnalysis"><span><Icon type="setting"/></span>
                 资源利用率分析
               </Menu.Item>
-              <Menu.Item key="demandBroadcast/mediaAssetsOverview/showCenterAnalysis"><span><Icon type="setting"/></span>
+              <Menu.Item key="demandBroadcast/showCenterAnalysis"><span><Icon type="setting"/></span>
                 节目集中度分析
               </Menu.Item>
             </SubMenu>
             <SubMenu key="lx" title={<span><Icon type="mail" /><span>节目类型分析</span></span>}>
-              <Menu.Item key="demandBroadcast/showsUserAnalysis"><span><Icon type="setting"/></span>
+              <Menu.Item key="demandBroadcast/userAnalysis"><span><Icon type="setting"/></span>
                 用户分析
               </Menu.Item>
-              <Menu.Item key="demandBroadcast/showsUseTimeAnalysis"><span><Icon type="setting"/></span>
+              <Menu.Item key="demandBroadcast/useTimeAnalysis"><span><Icon type="setting"/></span>
                 点播时长分析
               </Menu.Item>
             </SubMenu>
@@ -160,3 +159,33 @@ export default SideNav
 //  })
 //}
 
+//<Menu onClick={(e) => this.handleClick(e)} theme='light'
+//defaultOpenKeys={['lb']}
+//selectedKeys={[this.state.current]}
+//mode="inline">
+//  <SubMenu key="lb" title={<span><Icon type="mail" /><span>直播用户分析</span></span>}>
+//<Menu.Item key="liveBroadcast"><span><Icon type="setting"/></span>
+//  用户概况
+//  </Menu.Item>
+//  <Menu.Item key="liveBroadcast/userBehave"><span><Icon type="setting"/></span>
+//  用户行为
+//  </Menu.Item>
+//  </SubMenu>
+//  <SubMenu key="lbGroup" title={<span><Icon type="mail" /><span>直播频道组分析</span></span>}>
+//<Menu.Item key="liveBroadcast/channelGroupUserAnalysis"><span><Icon type="setting"/></span>
+//  用户分析
+//  </Menu.Item>
+//  <Menu.Item key="liveBroadcast/channelGroupTimeUseAnalysis"><span><Icon type="setting"/></span>
+//  使用时长分析
+//  </Menu.Item>
+//  </SubMenu>
+//  <Menu.Item key="liveBroadcast/channelOrder"><span><Icon type="setting"/></span>
+//  直播频道排名
+//  </Menu.Item>
+//  <Menu.Item key="liveBroadcast/channelAnalysis"><span><Icon type="setting"/></span>
+//  直播频道分析
+//  </Menu.Item>
+//  <Menu.Item key="liveBroadcast/showsOrder"><span><Icon type="setting"/></span>
+//  直播节目排名
+//  </Menu.Item>
+//  </Menu>

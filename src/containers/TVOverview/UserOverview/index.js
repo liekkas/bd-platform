@@ -13,7 +13,7 @@ const kpis = [
   {value:'coverRatio', label: '覆盖率', unit: '%'},
   {value:'userGrowRatio', label: '用户增长率', unit: '%'},
   {value:'newUserNum', label: '流入用户数', unit: '户'},
-  {value:'lostUserNum', label: '流失用户数', unit: '户'},
+  {value:'lostUserNum', label: '流出用户数', unit: '户'},
 ]
 
 const columns = [
@@ -28,54 +28,54 @@ const columns = [
     }
   },
   {
-    title: '用户数',
+    title: '用户数(户)',
     dataIndex: 'userNum',
     key: 'userNum',
     className: style.header,
     width: '16%',
-    render(text) {
-      return text + '户';
-    }
+//    render(text) {
+//      return text + '户';
+//    }
   },
   {
-    title: '覆盖率',
+    title: '覆盖率(%)',
     dataIndex: 'coverRatio',
     key: 'coverRatio',
     className: style.header,
     width: '16%',
-    render(text) {
-      return text + '%';
-    }
+//    render(text) {
+//      return text + '%';
+//    }
   },
   {
-    title: '用户增长率',
+    title: '用户增长率(%)',
     dataIndex: 'userGrowRatio',
     key: 'userGrowRatio',
     className: style.header,
     width: '16%',
-    render(text) {
-      return text + '%';
-    }
+//    render(text) {
+//      return text + '%';
+//    }
   },
   {
-    title: '流入用户数',
+    title: '流入用户数(户)',
     dataIndex: 'newUserNum',
     key: 'newUserNum',
     className: style.header,
     width: '16%',
-    render(text) {
-      return text + '户';
-    }
+//    render(text) {
+//      return text + '户';
+//    }
   },
   {
-    title: '流失用户数',
+    title: '流出用户数(户)',
     dataIndex: 'lostUserNum',
     key: 'lostUserNum',
     className: style.header,
     width: '16%',
-    render(text) {
-      return text + '户';
-    }
+//    render(text) {
+//      return text + '户';
+//    }
   },
 ]
 

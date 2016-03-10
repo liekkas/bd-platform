@@ -43,34 +43,31 @@ const columns = [
     width: '16%',
   },
   {
-    title: '覆盖率',
+    title: '覆盖率(%)',
     dataIndex: 'coverRatio',
     key: 'coverRatio',
     className: style.header,
     width: '16%',
-    render(text) {
-      return text + '%';
-    }
+//    render(text) {
+//      return text + '%';
+//    }
   },
   {
-    title: '市占率',
+    title: '市占率(%)',
     dataIndex: 'marketRatio',
     key: 'marketRatio',
     className: style.header,
     width: '16%',
-    render(text) {
-      return text + '%';
-    }
   },
   {
-    title: '户均使用时长',
+    title: '户均使用时长(分钟)',
     dataIndex: 'useTimeAVG',
     key: 'useTimeAVG',
     className: style.header,
     width: '16%',
-    render(text) {
-      return text + '分钟';
-    }
+//    render(text) {
+//      return text + '分钟';
+//    }
   },
 ]
 

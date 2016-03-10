@@ -3,6 +3,7 @@
  */
 import React, { PropTypes } from 'react'
 import ByMonth from './ByMonth'
+import ByChannel from './ByChannel'
 import ByWeek from './ByWeek'
 import ByDay from './ByDay'
 import ByHour from './ByHour'
@@ -15,13 +16,15 @@ import style from './style.scss'
 let start1 = '20150501'
 let end1 = '20151031'
 
-class SearchBox extends React.Component {
+class CompareSearchBox extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
       dateType: props.dateType,
       start: '20150501',
       end: '20151031',
+      channel1: 'CCTV-1',
+      channel2: '湖南卫视',
     }
   }
 
@@ -107,20 +110,36 @@ class SearchBox extends React.Component {
   }
 
   render() {
+    const { channel1,channel2 } = this.state
     const { showTime } = this.props
     return (
       <div className={style.root}>
-        <div className={style.label}>
-          <label>时间分类:</label>
+        <div className={style.left}>
+          <div className={style.hgroup}>
+            <div className={style.label}>
+              <label>时间分类:</label>
+            </div>
+
+            { this.renderSelect() }
+            { this.renderDate() }
+          </div>
+
+          <div className={style.hgroup}>
+            <div className={style.label}>
+              <label>频道名称:</label>
+            </div>
+            <ByChannel onChannelChange={(v) => this.setState({channel1:v})}/>
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <div className={style.label}>
+              <label>对比频道名称:</label>
+            </div>
+            <ByChannel channelName='湖南卫视'
+                       onChannelChange={(v) => this.setState({channel2:v})}/>
+          </div>
         </div>
 
-        { this.renderSelect() }
-        { this.renderDate() }
-
-        &nbsp;&nbsp;
-
-        <Button type="primary" onClick={() =>
-          this.props.onSearch(this.state.dateType,this.state.start,this.state.end)}>
+        <Button className={style.searchBtn} type="primary" onClick={() =>
+          this.props.onSearch(this.state.dateType,this.state.start,this.state.end,channel1,channel2)}>
           <Icon type="search" />
           查询
         </Button>
@@ -130,14 +149,14 @@ class SearchBox extends React.Component {
   }
 }
 
-SearchBox.propTypes = {
+CompareSearchBox.propTypes = {
   dateType: PropTypes.string.isRequired,
   showTime: PropTypes.bool.isRequired,
   onSearch: PropTypes.func.isRequired,
 }
-SearchBox.defaultProps = {
+CompareSearchBox.defaultProps = {
   dateType: 'D',
   showTime: false,
 }
 
-export default SearchBox
+export default CompareSearchBox

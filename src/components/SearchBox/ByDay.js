@@ -45,15 +45,25 @@ class ByDay extends React.Component {
     const { startValue, endValue } = this.state
     return (
       <div>
-        <DatePicker disabledDate={(v) => this.disabledStartDate(v)}
-                    value={startValue}
-                    placeholder="开始日期"
-                    onChange={(v) => this.onStartChange(v)} />
-        <label>&nbsp;&nbsp;至&nbsp;&nbsp;</label>
-        <DatePicker disabledDate={(v) => this.disabledEndDate(v)}
-                    value={endValue}
-                    placeholder="结束日期"
-                    onChange={(v) => this.onEndChange(v)} />
+        {
+          this.props.rangeMode
+            ? <div>
+                <DatePicker disabledDate={(v) => this.disabledStartDate(v)}
+                            value={startValue}
+                            placeholder="开始日期"
+                            onChange={(v) => this.onStartChange(v)} />
+                <label>&nbsp;&nbsp;至&nbsp;&nbsp;</label>
+                <DatePicker disabledDate={(v) => this.disabledEndDate(v)}
+                            value={endValue}
+                            placeholder="结束日期"
+                            onChange={(v) => this.onEndChange(v)} />
+              </div>
+            : <DatePicker disabledDate={(v) => this.disabledStartDate(v)}
+                          value={startValue}
+                          placeholder="开始日期"
+                          onChange={(v) => this.onStartChange(v)} />
+        }
+
       </div>
     )
   }
@@ -62,13 +72,14 @@ class ByDay extends React.Component {
 ByDay.propTypes = {
   start: PropTypes.object.isRequired,
   end: PropTypes.object.isRequired,
-  onSearch: PropTypes.func.isRequired,
   onStartChange: PropTypes.func.isRequired,
   onEndChange: PropTypes.func.isRequired,
+  rangeMode: PropTypes.bool.isRequired,
 }
 ByDay.defaultProps = {
   start: new Date(2015,4,1),
   end: new Date(2015,9,31),
+  rangeMode: true
 }
 
 export default ByDay

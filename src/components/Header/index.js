@@ -2,11 +2,11 @@
  * Created by liekkas on 16/2/22.
  */
 import React, { PropTypes } from 'react'
-import { IndexLink, Link } from 'react-router'
+import { IndexLink, Link ,browserHistory } from 'react-router'
 import style from './style.scss'
-import dsplogo from './dsplogo.png'
-//import dsplogo from './gslogo.jpg'
-
+//import dsplogo from './dsplogo.png'
+import dsplogo from './logo.png'
+//
 const datas = [
   { name: '首页', key: 'home' },
   { name: '4G概况', key: 'tvOverview' },
@@ -23,7 +23,7 @@ class Header extends React.Component {
   render() {
     return (
       <div className={style.root}>
-        <img src={dsplogo} />
+        <img src={dsplogo} onClick={() => browserHistory.push('/')}/>
         <ui className={style.menu}>
           {
             datas.map(({name, key}, index) =>

@@ -39,24 +39,38 @@ class ByWeek extends React.Component {
   render() {
     const { start, end } = this.state
     return (
+
       <div>
-        <Select defaultValue={'2015年第' + this.props.start + '周'} style={{ width: 120, marginRight: '10px' }}
-                onChange={(e) => this.onStartChange(e)}>
-          {
-            this.getStartArr().map((value,index) =>
-              <Option key={index} value={value}>2015年第{value}周</Option>
-            )
-          }
-        </Select>
-        <label>至&nbsp;&nbsp;&nbsp;</label>
-        <Select defaultValue={'2015年第' + this.props.end + '周'} style={{ width: 120, marginRight: '10px' }}
-                onChange={(e) => this.onEndChange(e)}>
-          {
-            this.getEndArr().map((value,index) =>
-              <Option key={index} value={value}>2015年第{value}周</Option>
-            )
-          }
-        </Select>
+        {
+          this.props.rangeMode
+            ? <div>
+                <Select defaultValue={'2015年第' + this.props.start + '周'} style={{ width: 120, marginRight: '10px' }}
+                        onChange={(e) => this.onStartChange(e)}>
+                  {
+                    this.getStartArr().map((value, index) =>
+                      <Option key={index} value={value}>2015年第{value}周</Option>
+                    )
+                  }
+                </Select>
+                <label>至&nbsp;&nbsp;&nbsp;</label>
+                <Select defaultValue={'2015年第' + this.props.end + '周'} style={{ width: 120, marginRight: '10px' }}
+                        onChange={(e) => this.onEndChange(e)}>
+                  {
+                    this.getEndArr().map((value, index) =>
+                      <Option key={index} value={value}>2015年第{value}周</Option>
+                    )
+                  }
+                </Select>
+              </div>
+            : <Select defaultValue={'2015年第' + this.props.start + '周'} style={{ width: 120, marginRight: '10px' }}
+                      onChange={(e) => this.onStartChange(e)}>
+                {
+                  this.getStartArr().map((value, index) =>
+                    <Option key={index} value={value}>2015年第{value}周</Option>
+                  )
+                }
+              </Select>
+        }
       </div>
     )
   }
@@ -65,13 +79,15 @@ class ByWeek extends React.Component {
 ByWeek.propTypes = {
   start: PropTypes.number.isRequired,
   end: PropTypes.number.isRequired,
-  onSearch: PropTypes.func.isRequired,
+  onSearch: PropTypes.func,
   onStartChange: PropTypes.func.isRequired,
   onEndChange: PropTypes.func.isRequired,
+  rangeMode: PropTypes.bool.isRequired,
 }
 ByWeek.defaultProps = {
   start: 18,
   end: 44,
+  rangeMode: true
 }
 
 export default ByWeek

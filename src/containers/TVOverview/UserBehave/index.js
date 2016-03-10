@@ -26,24 +26,24 @@ const columns = [
     }
   },
   {
-    title: '使用时长',
+    title: '使用时长(分钟)',
     dataIndex: 'userTime',
     key: 'userTime',
     className: style.header,
     width: '30%',
-    render(text) {
-      return text + '分钟';
-    }
+//    render(text) {
+//      return text + '分钟';
+//    }
   },
   {
-    title: '户均使用时长',
+    title: '户均使用时长(分钟)',
     dataIndex: 'userTimeAVG',
     key: 'userTimeAVG',
     className: style.header,
     width: '30%',
-    render(text) {
-      return text + '分钟';
-    }
+//    render(text) {
+//      return text + '分钟';
+//    }
   },
 ]
 

@@ -16,7 +16,7 @@ import './common.scss'
 import '../vender/antd/index.less'
 import configureStore from './configureStore'
 import { useRouterHistory, browserHistory, hashHistory } from 'react-router'
-//import { createHashHistory,createHistory,createBrowserHistory } from 'history'
+import { createHashHistory,createBrowserHistory } from 'history'
 
 import fetch from 'isomorphic-fetch'
 //import { syncHistoryWithStore, routerReducer } from 'react-router-redux'

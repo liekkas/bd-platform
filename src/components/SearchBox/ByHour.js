@@ -11,6 +11,7 @@ import TimePicker from 'antd/lib/time-picker'
 import dateFormat from 'dateFormat'
 const Option = Select.Option
 
+let hour
 class ByHour extends React.Component {
   constructor(props) {
     super(props)
@@ -52,8 +53,16 @@ class ByHour extends React.Component {
     return _.range(this.state.start,this.props.end + 1)
   }
 
+  onHourChange(v) {
+    hour = v
+    this.setState({hour: v})
+//    console.log('>>> ByHour',v)
+    this.props.onHourChange(v)
+  }
+
   onChange(v) {
-    this.setState({day: v})
+    this.setState({day: v, hour})
+//    console.log('>>> ByHouronChange',this.state.hour, hour)
     this.props.onDayChange(dateFormat(v,'yyyymmdd'))
   }
 
@@ -67,7 +76,18 @@ class ByHour extends React.Component {
                     onChange={(v) => this.onChange(v)} />
 
         &nbsp;&nbsp;
-
+        {
+          this.props.showHour
+            ? <Select defaultValue={this.props.start + '时'} style={{ width: 80, marginRight: '10px' }}
+                      onChange={(e) => this.onHourChange(e)}>
+                {
+                  this.getStartArr().map((value,index) =>
+                    <Option key={index} value={value}>{value}时</Option>
+                  )
+                }
+              </Select>
+            : null
+        }
       </div>
     )
   }
@@ -77,16 +97,19 @@ ByHour.propTypes = {
   start: PropTypes.number.isRequired,
   end: PropTypes.number.isRequired,
   day: PropTypes.object.isRequired,
-  onSearch: PropTypes.func.isRequired,
+  onSearch: PropTypes.func,
   onDayChange: PropTypes.func.isRequired,
+  onHourChange: PropTypes.func,
   onCompareDayChange: PropTypes.func.isRequired,
   showCompareDay: PropTypes.bool.isRequired,
+  showHour: PropTypes.bool.isRequired,
 }
 ByHour.defaultProps = {
   day: new Date(2015,4,1),
   start: 0,
   end: 23,
-  showCompareDay: false
+  showCompareDay: false,
+  showHour: false,
 }
 
 export default ByHour
