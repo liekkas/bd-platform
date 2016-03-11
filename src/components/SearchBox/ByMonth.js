@@ -43,7 +43,7 @@ class ByMonth extends React.Component {
         {
           this.props.rangeMode
             ? <div>
-                <Select defaultValue={'2015年' + this.props.start + '月'} style={{ width: 100, marginRight: '10px' }}
+                <Select defaultValue={'2015年' + this.props.start + '月'} style={{ width: 110, marginRight: '10px' }}
                         onChange={(e) => this.onStartChange(e)}>
                   {
                     this.getStartArr().map((value,index) =>
@@ -52,7 +52,7 @@ class ByMonth extends React.Component {
                   }
                 </Select>
                 <label>至&nbsp;&nbsp;&nbsp;</label>
-                <Select defaultValue={'2015年' + this.props.end + '月'} style={{ width: 100, marginRight: '10px' }}
+                <Select defaultValue={'2015年' + this.props.end + '月'} style={{ width: 110, marginRight: '10px' }}
                         onChange={(e) => this.onEndChange(e)}>
                   {
                     this.getEndArr().map((value,index) =>
@@ -61,7 +61,7 @@ class ByMonth extends React.Component {
                   }
                 </Select>
               </div>
-            : <Select defaultValue={'2015年' + this.props.start + '月'} style={{ width: 100, marginRight: '10px' }}
+            : <Select defaultValue={'2015年' + this.props.start + '月'} style={{ width: 110, marginRight: '10px' }}
                       onChange={(e) => this.onStartChange(e)}>
                 {
                   this.getStartArr().map((value,index) =>

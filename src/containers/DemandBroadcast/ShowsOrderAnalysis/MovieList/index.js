@@ -3,7 +3,7 @@
  */
 import React, { PropTypes } from 'react'
 import { Panel, ECharts, SearchBox2, KpiGroup, DataGrid } from '../../../../components'
-import style from './style.scss'
+import style from '../../../style.scss'
 import { getOrderOption } from '../../../../tools/service'
 import { REST_API_BASE_URL } from '../../../../config'
 import _ from 'lodash'
@@ -11,7 +11,7 @@ const kpis = [
   {value:'userIndex', label: '用户指数', unit: ''},
   {value:'coverRatio', label: '覆盖率', unit: '%'},
   {value:'marketRatio', label: '市占率', unit: '%'},
-  {value:'useTimeAVG', label: '户均使用时长', unit: '分钟'},
+  {value:'userTimeAVG', label: '户均使用时长', unit: '分钟'},
 ]
 
 const columns = [
@@ -58,8 +58,8 @@ const columns = [
   },
   {
     title: '户均使用时长(分钟)',
-    dataIndex: 'useTimeAVG',
-    key: 'useTimeAVG',
+    dataIndex: 'userTimeAVG',
+    key: 'userTimeAVG',
     className: style.header,
     width: '15%',
 //    render(text) {
@@ -82,8 +82,8 @@ class MovieList extends React.Component {
     this._getData(this, this.props)
   }
 
-  _getData(bind, props, dateType = 'D', start = '20150501', end = '20151031') {
-    fetch(REST_API_BASE_URL + 'showOrder?type=1&dateType=' + dateType + '&start=' + start + '&end=' + end)
+  _getData(bind, props, dateType = 'D', start = '20150501') {
+    fetch(REST_API_BASE_URL + 'showOrder?type=1&dateType=' + dateType + '&start=' + start)
       .then(response => response.json())
       .then(function (result) {
         const labels = _.map(result,'showName');
@@ -98,9 +98,9 @@ class MovieList extends React.Component {
       })
   }
 
-  search(dateType,start,end) {
-    console.log('>>> Search:',dateType,start,end)
-    this._getData(this,this.props,dateType,start,end);
+  search(channelType,dateType,start) {
+    console.log('>>> Search:',dateType,start)
+    this._getData(this,this.props,dateType,start);
   }
 
   onKChange(e) {
@@ -129,7 +129,7 @@ class MovieList extends React.Component {
           <ECharts option={this.state.option}/>
           <KpiGroup kpis={kpis} onKpiChange={(e) => this.onKChange(e)}/>
         </Panel>
-        <DataGrid title="用户行为" columns={columns} datas={this.state.tableData}/>
+        <DataGrid title="电影榜单" columns={columns} datas={this.state.tableData}/>
       </div>
     )
   }

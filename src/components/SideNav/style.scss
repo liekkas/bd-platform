@@ -1,8 +1,16 @@
 @import "../../colors";
 
 .root {
-  width: 13%;
+  width: 14%;
   position: fixed;
-  //background-color: #2baee9;
+  height: 100%;
+  img {
+    margin-right: 8px;
+  }
+
+  span {
+
+  }
+  background-color: #2f333c;
   //height: 100%;
 }

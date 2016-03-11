@@ -2,8 +2,8 @@
  * Created by liekkas on 16/2/23.
  */
 import React, { PropTypes } from 'react'
-import { Panel, ECharts, KpiGroup, SearchBox3, DataGrid } from '../../../components'
-import style from './style.scss'
+import { Panel, ECharts, KpiGroup, SearchBox4, DataGrid } from '../../../components'
+import style from '../../style.scss'
 import { getOrderOption } from '../../../tools/service'
 import { REST_API_BASE_URL } from '../../../config'
 import _ from 'lodash'
@@ -141,7 +141,7 @@ class ShowsOrder extends React.Component {
     return (
       <div className={style.root}>
         <Panel title="筛选条件" height="90">
-          <SearchBox3 showTime onSearch={(a,b,c,d) => this.search(a,b,c,d)}/>
+          <SearchBox4 showTime onSearch={(a,b,c,d) => this.search(a,b,c,d)}/>
         </Panel>
         <Panel height="300" className={style.panel}>
           <ECharts option={this.state.option}/>

@@ -1,6 +1,7 @@
 /**
  * Created by liekkas on 16/3/3.
  */
+import _ from 'lodash'
 
 export function getSingleOption(labels,datas,unit,kpi) {
   return {
@@ -15,7 +16,7 @@ export function getSingleOption(labels,datas,unit,kpi) {
       trigger: 'axis',
       axisPointer: {
         lineStyle: {
-          color: '#000'
+          color: '#7C8088'
         }
       },
       formatter: '{b}' + '<br />' + '{a}:{c}' + unit,
@@ -40,7 +41,7 @@ export function getSingleOption(labels,datas,unit,kpi) {
       iconStyle: {
         normal: {
 //          color: '#ffffff',
-//          borderColor: '#000',
+//          borderColor: '#7c8088',
         },
         emphasis: {
 //          borderColor: '#FFAA00',
@@ -54,21 +55,21 @@ export function getSingleOption(labels,datas,unit,kpi) {
         data: labels,
         axisLine: {
           lineStyle: {
-            color: 'rgba(255,255,255,0.8)',
+            color: '#7c8088',
           }
         },
         axisTick: {
           lineStyle: {
-            color: 'rgba(255,255,255,0.8)',
+            color: '#7c8088',
           }
         },
         axisLabel: {
           textStyle: {
-            color: '#000',
+            color: '#7c8088',
           }
         },
         splitLine: {
-          show: true
+          show: false
         },
       }
     ],
@@ -78,17 +79,17 @@ export function getSingleOption(labels,datas,unit,kpi) {
 //        max: 500,
         axisLine: {
           lineStyle: {
-            color: 'rgba(255,255,255,0.8)',
+            color: '#7c8088',
           }
         },
         axisTick: {
           lineStyle: {
-            color: 'rgba(255,255,255,0.8)',
+            color: '#7c8088',
           }
         },
         axisLabel: {
           textStyle: {
-            color: '#000',
+            color: '#7c8088',
           },
 //          formatter: getFormat(kpi) + unit
           formatter: function (value, index) {
@@ -98,6 +99,11 @@ export function getSingleOption(labels,datas,unit,kpi) {
               default:
                 return value + unit;
             }
+          }
+        },
+        splitLine: {
+          lineStyle: {
+            color: '#7c8088',
           }
         },
       }
@@ -176,7 +182,7 @@ export function getMultiOption(labels,datas,legends,unit,kpi) {
       axisPointer: {
         type : 'shadow',
 //        lineStyle: {
-//          color: '#000'
+//          color: '#7c8088'
 //        }
       },
       formatter: '{b}' + '<br />' + '{a}:{c}' + unit + '<br />' + '{a1}:{c1}' + unit,
@@ -188,6 +194,9 @@ export function getMultiOption(labels,datas,legends,unit,kpi) {
     legend: {
       left: 'center',
       bottom: 8,
+      textStyle: {
+        color: '#7c8088'
+      },
       data: legends
     },
     toolbox: {
@@ -202,7 +211,7 @@ export function getMultiOption(labels,datas,legends,unit,kpi) {
       iconStyle: {
         normal: {
 //          color: '#ffffff',
-//          borderColor: '#000',
+//          borderColor: '#7c8088',
         },
         emphasis: {
 //          borderColor: '#FFAA00',
@@ -216,17 +225,17 @@ export function getMultiOption(labels,datas,legends,unit,kpi) {
         data: labels,
         axisLine: {
           lineStyle: {
-            color: 'rgba(255,255,255,0.8)',
+            color: '#7c8088',
           }
         },
         axisTick: {
           lineStyle: {
-            color: 'rgba(255,255,255,0.8)',
+            color: '#7c8088',
           }
         },
         axisLabel: {
           textStyle: {
-            color: '#000',
+            color: '#7c8088',
           }
         },
         splitLine: {
@@ -240,17 +249,17 @@ export function getMultiOption(labels,datas,legends,unit,kpi) {
 //        max: 500,
         axisLine: {
           lineStyle: {
-            color: 'rgba(255,255,255,0.8)',
+            color: '#7c8088',
           }
         },
         axisTick: {
           lineStyle: {
-            color: 'rgba(255,255,255,0.8)',
+            color: '#7c8088',
           }
         },
         axisLabel: {
           textStyle: {
-            color: '#000',
+            color: '#7c8088',
           },
 //          formatter: getFormat(kpi) + unit
           formatter: function (value, index) {
@@ -287,7 +296,7 @@ export function getOrderOption(labels,datas,unit,kpi) {
       axisPointer: {
         type : 'shadow',
         lineStyle: {
-          color: '#000'
+          color: '#7c8088'
         }
       },
       formatter: '{b}' + '<br />' + '{a}:{c}' + unit,
@@ -312,7 +321,7 @@ export function getOrderOption(labels,datas,unit,kpi) {
       iconStyle: {
         normal: {
 //          color: '#ffffff',
-//          borderColor: '#000',
+//          borderColor: '#7c8088',
         },
         emphasis: {
 //          borderColor: '#FFAA00',
@@ -336,7 +345,7 @@ export function getOrderOption(labels,datas,unit,kpi) {
         },
         axisLabel: {
           textStyle: {
-            color: '#000',
+            color: '#7c8088',
           }
         },
         splitLine: {
@@ -360,7 +369,7 @@ export function getOrderOption(labels,datas,unit,kpi) {
         },
         axisLabel: {
           textStyle: {
-            color: '#000',
+            color: '#7c8088',
           },
 //          formatter: getFormat(kpi) + unit
           formatter: function (value, index) {
@@ -393,37 +402,126 @@ export function getOrderOption(labels,datas,unit,kpi) {
   }
 }
 
-export function getRadarOption(labels,datas,unit,kpi) {
+var lineStyle = {
+  normal: {
+    width: 1,
+    opacity: 0.5
+  }
+};
+
+export function getRadarOption(labels,datas) {
+  let inds = []
+  for (let i = 0; i < labels.length; i++) {
+    inds.push({
+      name: labels[i],
+      max: _.max(datas)
+    })
+  }
+
   return {
-    tooltip: {},
-    legend: {
-      data: ['预算分配（Allocated Budget）', '实际开销（Actual Spending）']
+    backgroundColor: '#161627',
+    tooltip : {
+      trigger: 'item'
     },
     radar: {
-      // shape: 'circle',
-      indicator: [
-        { text: '销售（sales）', max: 6500 },
-        { text: '管理（Administration）', max: 16000 },
-        { text: '信息技术（Information Techology）', max: 30000 },
-        { text: '客服（Customer Support）', max: 38000 },
-        { text: '研发（Development）', max: 52000 },
-        { text: '市场（Marketing）', max: 25000 }
-      ]
-    },
-    series: [{
-      name: '预算 vs 开销（Budget vs spending）',
-      type: 'radar',
-      // areaStyle: {normal: {}},
-      data : [
-        {
-          value : [4300, 10000, 28000, 35000, 50000, 19000],
-          name : '预算分配（Allocated Budget）'
-        },
-        {
-          value : [5000, 14000, 28000, 31000, 42000, 21000],
-          name : '实际开销（Actual Spending）'
+      indicator: inds,
+      shape: 'circle',
+      splitNumber: 5,
+      name: {
+        textStyle: {
+          color: 'rgb(238, 197, 102)'
         }
-      ]
-    }]
+      },
+      splitLine: {
+        lineStyle: {
+          color: [
+            'rgba(238, 197, 102, 0.1)', 'rgba(238, 197, 102, 0.2)',
+            'rgba(238, 197, 102, 0.4)', 'rgba(238, 197, 102, 0.6)',
+            'rgba(238, 197, 102, 0.8)', 'rgba(238, 197, 102, 1)'
+          ].reverse()
+        }
+      },
+      splitArea: {
+        show: false
+      },
+      axisLine: {
+        lineStyle: {
+          color: 'rgba(238, 197, 102, 0.5)'
+        }
+      }
+    },
+    series: [
+      {
+        name: '市占率',
+        type: 'radar',
+        lineStyle: lineStyle,
+        data: [datas],
+        symbol: 'none',
+        itemStyle: {
+          normal: {
+            color: '#F9713C'
+          }
+        },
+        areaStyle: {
+          normal: {
+            opacity: 0.1
+          }
+        }
+      }
+    ]
+  }
+}
+export function getPieOption(labels,datas) {
+  let values = []
+  for (let i = 0; i < labels.length; i++) {
+    values.push({
+      name: labels[i],
+      value: datas[i]
+    })
+  }
+
+  return {
+    color: ['#c23531', '#61a0a8'],
+    tooltip: {
+      trigger: 'item',
+      formatter: "{a} <br/>{b}: {c} ({d}%)"
+    },
+    legend: {
+      orient: 'vertical',
+//      x: 'right',
+      right: 20,
+      top: 20,
+      textStyle: {
+        color: '#7c8088'
+      },
+      data: labels
+    },
+    series: [
+      {
+        name: '市占率',
+        type: 'pie',
+        radius: ['50%', '70%'],
+        avoidLabelOverlap: false,
+        label: {
+          normal: {
+            show: true,
+//            position: 'center'
+          },
+          emphasis: {
+            show: true,
+            textStyle: {
+              fontSize: '30',
+              fontWeight: 'bold'
+            }
+          }
+        },
+        labelLine: {
+          normal: {
+            show: true
+          }
+        },
+        data: values
+      }
+    ]
   }
 }

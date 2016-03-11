@@ -11,11 +11,11 @@ class Panel extends React.Component {
     let rootStyle = {
       width,
       height,
-      marginBottom: '10px',
-      marginRight: '10px',
+      marginBottom: '13px',
+      marginRight: '13px',
       boxSizing: 'border-box',
-      border: '1px solid rgba(188,189,190,1)',
-//      backgroundColor: 'rgba(0,57,100,0.6)',
+//      border: '1px solid rgba(188,189,190,1)',
+      backgroundColor: '#242930',
     }
 
     if (this.props.hasOwnProperty('style')) {
@@ -32,10 +32,11 @@ class Panel extends React.Component {
       height: '35px',
       padding: '0.5% 1% 0.5%',
       fontSize: '14px',
-      fontWeight: 'bold',
-      color: 'black',
+//      fontWeight: 'bold',
+      color: '#E2E3E4',
 //      backgroundColor: 'rgba(255,255,255,0.2)',
-      backgroundColor: 'rgb(232,233,234)',
+//      backgroundColor: 'rgb(232,233,234)',
+      backgroundColor: '#242930',
     }
 
     return (

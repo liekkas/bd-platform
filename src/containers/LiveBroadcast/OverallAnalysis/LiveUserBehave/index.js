@@ -3,7 +3,7 @@
  */
 import React, { PropTypes } from 'react'
 import { Panel, ECharts, SearchBox, KpiGroup, DataGrid } from '../../../../components'
-import style from './style.scss'
+import style from '../../../style.scss'
 import { getSingleOption } from '../../../../tools/service'
 import { REST_API_BASE_URL } from '../../../../config'
 import _ from 'lodash'

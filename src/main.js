@@ -31,16 +31,6 @@ import fetch from 'isomorphic-fetch'
 const initialState = window.__INITIAL_STATE__
 const store = configureStore(initialState, browserHistory)
 
-//const history = syncHistoryWithStore(browserHistory, store)
-//
-//fetch('http://localhost:8080/gags/sample/userOverview?type=all&startTime=20160101&endTime=20160102').then(function (response) {
-//  return response.json()
-//}).then(function (json) {
-//  console.log('parsed json', json)
-//}).catch(function (ex) {
-//  console.log('parsing failed', ex)
-//})
-
 ReactDOM.render(
   <Root history={browserHistory} route={AppRouter} store={store} />,
   document.getElementById('root')

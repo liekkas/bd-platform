@@ -2,11 +2,10 @@
  * Created by liekkas on 16/2/19.
  */
 import React, { PropTypes } from 'react'
-import { ECharts, Panel } from '../../components'
+import { ECharts, Panel, Footer } from '../../components'
 import style from './style.scss'
 import _ from 'lodash'
 import {browserHistory} from 'react-router';
-import robot from './projector_robot.png'
 
 let data = []
 let data2 = []
@@ -41,6 +40,9 @@ var convertData = function (data) {
 };
 
 const mapOption = {
+  textStyle: {
+    color: '#fff',
+  },
   title: {
     text: '中信国安广视全国电视用户数据资产情况',
 //    text: '中国电信全国4G用户数据资产情况',
@@ -48,10 +50,13 @@ const mapOption = {
     left: 'center',
     top: 50,
     textStyle: {
-//      color: '#fff'
+      color: '#c0d5ff',
+      fontSize: 26
     }
   },
   visualMap: {
+    show: false,
+    color: ['#e94f26','#F39e33'],
     min: 0,
     max: 3500,
 //    left: 'right',
@@ -67,6 +72,7 @@ const mapOption = {
       + (isNaN(item.value) ? '无数据' : item.value + '万'),
   },
   legend: {
+    show: false,
     orient: 'vertical',
     y: 'top',
     x:'right',
@@ -75,162 +81,80 @@ const mapOption = {
       color: '#fff'
     }
   },
-  geo: {
-    map: 'china',
-    label: {
-      emphasis: {
-        show: false
-      }
-    },
-    roam: false,
-    itemStyle: {
-      normal: {
-        areaColor: '#ffe57f',
-        borderColor: '#ffffff'
-      },
-      emphasis: {
-        areaColor: '#2a333d'
-      }
-    }
-  },
+//  geo: {
+//    map: 'china',
+//    label: {
+//      normal: {
+//        areaColor: 'rgba(117,148,241,1)',
+//        borderColor: '#ffffff'
+//      },
+//      emphasis: {
+//        show: false
+//      }
+//    },
+//    roam: false,
+//    itemStyle: {
+//      normal: {
+//        areaColor: 'rgba(117,148,241,1)',
+//        borderColor: '#ffffff'
+//      },
+//      emphasis: {
+//        areaColor: '#2a333d'
+//      }
+//    }
+//  },
   series : [
     {
       name: '用户覆盖',
       type: 'map',
+      top: 96,
       mapType: 'china',
       label: {
         normal: {
           show: true,
+          textStyle: {
+            color: '#B8E6FE'
+          }
         },
         emphasis: {
-          show: true
-        }
+          show: true,
+          textStyle: {
+            color: '#B8E6FE'
+          }
+        },
+
       },
       roam: false,
       itemStyle: {
         normal: {
 //          areaColor: '#ffea00',
-          borderColor: 'rgba(0, 0, 0, 0.6)',
+          areaColor: '#6cA9EB',
+          borderColor: '#447cca',
+          borderWidth: 1,
+//
+        },
+        emphasis: {
+          areaColor: '#ffab00',
+//          borderColor: 'rgba(68, 131, 207, 1)',
 //          shadowColor: 'rgba(255, 255, 0, 1)',
 //          shadowBlur: 10,
 //          shadowOffsetX: 10,
 //          shadowOffsetY: 10,
 //          opacity: 0.8,
-        },
-        emphasis: {
-          areaColor: '#ffab00'
         }
       },
+
       data,
     },
-//    {
-//      name: '电视用户情况',
-//      type: 'scatter',
-//      coordinateSystem: 'geo',
-//      data: convertData(data.sort(function (a, b) {
-//        return b.value - a.value;
-//      }).slice(0, 6)),
-////      symbolSize: function (val) {
-////        return val[2] / 10;
-////      },
 //
-//      symbolSize: 12,
-//      label: {
-//        normal: {
-//          show: false
-//        },
-//        emphasis: {
-//          show: false
-//        }
-//      },
-////      itemStyle: {
-////        emphasis: {
-////          borderColor: '#fff',
-////          borderWidth: 1
-////        }
-////      }
-//    }
   ]
 }
-
-const pieOption = {
-//  backgroundColor: '#2c343c',
-  color: ['#dd8668','#91c7ae'],
-
-  title: {
-    show: false,
-    text: 'Customized Pie',
-    left: 'center',
-    top: 20,
-    textStyle: {
-      color: '#ccc'
-    }
-  },
-
-  tooltip : {
-    trigger: 'item',
-    formatter: "{a} <br/>{b} : {c} ({d}%)"
-  },
-
-  visualMap: {
-    show: false,
-    min: 80,
-    max: 600,
-    inRange: {
-      colorLightness: [0, 1]
-    }
-  },
-  series : [
-    {
-      name:'用户数',
-      type:'pie',
-      radius : '55%',
-      center: ['50%', '50%'],
-      data:[
-        {value:500, name:'湖南'},
-        {value:150, name:'湖北'},
-        {value:120, name:'河南'},
-        {value:235, name:'河北'},
-        {value:400, name:'江苏'},
-        {value:234, name:'山东'},
-        {value:200, name:'安徽'},
-      ].sort(function(a, b) {
-        return a.value - b.value
-      }),
-      roseType: 'angle',
-      label: {
-        normal: {
-          textStyle: {
-            color: 'rgba(255, 255, 255, 0.3)'
-          }
-        }
-      },
-      labelLine: {
-        normal: {
-          lineStyle: {
-            color: 'rgba(255, 255, 255, 0.3)'
-          },
-          smooth: 0.2,
-          length: 10,
-          length2: 20
-        }
-      },
-      itemStyle: {
-        normal: {
-          color: '#c23531',
-          shadowBlur: 200,
-          shadowColor: 'rgba(0, 0, 0, 0.5)'
-        }
-      }
-    }
-  ]
-};
 
 let barData = []
 const reProvinces = provinces
 const d1 = [1885,870,447,135,88,83,8].reverse()
 const d2 = [1365,800,405,126,87,82,4].reverse()
-const types = ['有限电视用户数','数字用户数']
+const types = ['有限电视用户数(万户)','数字用户数(万户)']
 for (let j = 0; j < types.length; j++) {
   let d = []
   for (let k = 0; k < reProvinces.length; k++) {
@@ -250,33 +174,35 @@ for (let j = 0; j < types.length; j++) {
 }
 
 const barOption = {
-  color: ['#c23531','#40c4ff'],
-//  color: ['#ffc400','#14e715'],
+//  color: ['#c23531','#40c4ff'],
+  color: ['#c94638','#396cbd'],
 
-//  color: ['#dd8668','#91c7ae'],
   tooltip : {
     trigger: 'axis',
 //    formatter: "{a} <br/>{b} : {c} ({d}万)",
     axisPointer : {            // 坐标轴指示器，坐标轴触发有效
-      type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+      type : 'line'        // 默认为直线，可选为：'line' | 'shadow'
     }
   },
   legend: {
-    data:['有限电视用户数','数字用户数'],
-    y: 'bottom',
+    data:['有限电视用户数(万户)','数字用户数(万户)'],
+    y: 'top',
     textStyle: {
-//      color: '#fff'
+      color: '#5fa4d9'
     },
+    top: 50,
   },
   grid: {
-    left: '3%',
+    left: '4%',
     right: '4%',
-    bottom: '3%',
+    bottom: '4%',
+    top: 80,
     containLabel: true
   },
   xAxis : [
     {
       type : 'value',
+//      type : 'log',
       axisLine: {
         show: false,
         lineStyle: {
@@ -304,21 +230,24 @@ const barOption = {
     {
       type : 'category',
       data : provinces.reverse(),
-//      axisLine: {
-//        lineStyle: {
-//          color: 'rgba(255,255,255,0.8)',
-//        }
-//      },
-//      axisTick: {
-//        lineStyle: {
-//          color: 'rgba(255,255,255,0.8)',
-//        }
-//      },
-//      axisLabel: {
-//        textStyle: {
-//          color: 'rgba(255,255,255,0.8)',
-//        }
-//      },
+      axisLine: {
+        show: false,
+        lineStyle: {
+          color: 'rgba(255,255,255,0.8)',
+        }
+      },
+      axisTick: {
+        show: false,
+        lineStyle: {
+          color: 'rgba(255,255,255,0.8)',
+        }
+      },
+      axisLabel: {
+        right: 20,
+        textStyle: {
+          color: '#5fa4d9',
+        }
+      },
       splitLine: {
         show: false,
       },
@@ -352,7 +281,7 @@ class Home extends React.Component {
         <div className={style.bar}>
           <ECharts option={barOption}/>
         </div>
-
+        <label>© 2016 All Rights Reserved 中国电信集团公司 版权所有</label>
       </div>
     )
   }

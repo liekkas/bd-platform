@@ -9,6 +9,7 @@ import ByHour from './ByHour'
 import ByChannel from './ByChannel'
 import Select from 'antd/lib/select'
 import Button from 'antd/lib/button'
+import { InputNumber } from 'antd'
 import Icon from 'antd/lib/icon'
 const Option = Select.Option
 import style from './style.scss'
@@ -17,63 +18,74 @@ let start = '20150501'
 let end
 let day = '20150501'
 let hour = '0'
-let channelType = '0'
-let channelName = '0'
+let showType = '0'
 
 class SearchBox3 extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
       dateType: props.dateType,
-      channelType: props.channelType,
+      showType: props.showType,
+      groupType: props.groupType,
+      start: '20150501',
     }
   }
 
   handleDateTypeChange(value) {
+    let start,end
     switch (value) {
       case 'M':
         start = '201505'
         end = '201510'
+        this.setState({start: '201505', end: '201510'})
         break
       case 'W':
         start = '201518'
         end = '201544'
+        this.setState({start: '201518', end: '201544'})
         break
       case 'D':
         start = '20150501'
         end = '20151031'
+        this.setState({start: '20150501', end: '20151031'})
         break
       case 'T':
         start = '20150501-0'
         end = '20150501-23'
+        this.setState({start: '20150501-0', end: '20150501-23'})
         break
     }
     this.setState({dateType: value})
-    this.props.onSearch(channelType,channelName,value,start)
+
+//    this.props.onSearch(channelType,value,start)
   }
 
   handleStartChange(v) {
     start = v
+    this.setState({start: v})
   }
 
   handleEndChange(v) {
     end = v
+    this.setState({end: v})
   }
 
   handleDayChangeByHour(v) {
     day = v
     start = day + '-' + hour
+    this.setState({start: day + '-' + hour})
   }
 
-  handleHourChangeByHour(v,h) {
+  handleHourChangeByHour(v) {
     hour = v
     start = day + '-' + hour
+    this.setState({start: day + '-' + hour})
   }
 
-  handleChannelTypeChange(value) {
-    channelType = value
-    this.props.onSearch(channelType,channelName,this.state.dateType,start)
-//    this.setState({channelType: value})
+  handleshowTypeChange(value) {
+    showType = value
+//    this.props.onSearch(showType,this.state.dateType,start)
+    this.setState({showType: value})
   }
 
   renderDate() {
@@ -114,6 +126,12 @@ class SearchBox3 extends React.Component {
     }
   }
 
+  renderChannelSelect() {
+    if (this.props.simpleMode) {
+      return
+    }
+  }
+
   render() {
     const { showTime } = this.props
     return (
@@ -128,23 +146,38 @@ class SearchBox3 extends React.Component {
         &nbsp;&nbsp;
 
         <div className={style.label}>
-          <label>频道分类:</label>
+          <label>节目分类:</label>
         </div>
 
-        <ByChannel onChannelChange={(v) => channelName = v}/>
-
-        <Select defaultValue={this.props.channelType}
-                style={{ width: 90 }}
-                onChange={(v) => this.handleChannelTypeChange(v)}>
-          <Option value="0">全部</Option>
-          <Option value="1">央视</Option>
-          <Option value="2">卫视</Option>
+        <Select defaultValue={this.props.showType}
+                style={{ width: 80 }}
+                onChange={(v) => this.setState({showType: v})}>
+          <Option value="1">电影</Option>
+          <Option value="2">电视剧</Option>
         </Select>
+
+        &nbsp;&nbsp;&nbsp;&nbsp;
+
+        <div className={style.label}>
+          <label>TOP组分类: { this.props.showGroup ? null : "TOP10" }</label>
+        </div>
+
+        {
+          this.props.showGroup
+            ? <Select defaultValue={this.props.groupType}
+                      style={{ width: 80 }}
+                      onChange={(v) => this.setState({groupType: v})}>
+                <Option value="10">TOP10</Option>
+                <Option value="20">TOP20</Option>
+                <Option value="50">TOP50</Option>
+              </Select>
+            : null
+        }
 
         &nbsp;&nbsp;
 
         <Button type="primary" onClick={() =>
-          this.props.onSearch(channelType,channelName,this.state.dateType,start)}>
+          this.props.onSearch(this.state.showType,this.state.groupType,this.state.dateType,this.state.start)}>
           <Icon type="search" />
           查询
         </Button>
@@ -156,14 +189,20 @@ class SearchBox3 extends React.Component {
 
 SearchBox3.propTypes = {
   dateType: PropTypes.string.isRequired,
-  channelType: PropTypes.string.isRequired,
+  showType: PropTypes.string.isRequired,
+  groupType: PropTypes.string.isRequired,
   showTime: PropTypes.bool.isRequired,
   onSearch: PropTypes.func.isRequired,
+  simpleMode: PropTypes.bool.isRequired,
+  showGroup: PropTypes.bool.isRequired,
 }
 SearchBox3.defaultProps = {
   dateType: 'D',
-  channelType: '0',
+  showType: '1',
+  groupType: '10',
   showTime: false,
+  simpleMode: false,
+  showGroup: false,
 }
 
 export default SearchBox3

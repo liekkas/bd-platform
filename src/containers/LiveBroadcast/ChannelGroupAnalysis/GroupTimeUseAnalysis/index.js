@@ -3,8 +3,8 @@
  */
 import React, { PropTypes } from 'react'
 import { Panel, ECharts, SearchBox, DataGrid, KpiGroup, SVGComp } from '../../../../components'
-import style from './style.scss'
-import { getMultiOption } from '../../../../tools/service'
+import style from '../../../style.scss'
+import { getMultiOption, getPieOption } from '../../../../tools/service'
 import { REST_API_BASE_URL } from '../../../../config'
 import _ from 'lodash'
 
@@ -94,10 +94,11 @@ class GroupTimeUseAnalysis extends React.Component {
         if (bind.state.kpi.value !== 'marketRatio') {
           chartData = getMultiOption(labels,[datas1,datas2],legends,bind.state.kpi.unit,bind.state.kpi.label)
         } else {
-          chartData = {
-            left: _.sum(datas1,data => data.marketRatio),
-            right: _.sum(datas2,data => data.marketRatio),
-          }
+          const pieData = [
+            (_.sum(datas1,data => data.marketRatio) / datas1.length).toFixed(2),
+            (_.sum(datas2,data => data.marketRatio) / datas2.length).toFixed(2),
+          ]
+          chartData = getPieOption(legends,pieData)
         }
 
         const tableData = []
@@ -143,10 +144,11 @@ class GroupTimeUseAnalysis extends React.Component {
     if (t.value !== 'marketRatio') {
       chartData = getMultiOption(labels,[datas1,datas2],legends,t.unit,t.label)
     } else {
-      chartData = {
-        left: _.sum(c1,data => data.marketRatio),
-        right: _.sum(c2,data => data.marketRatio),
-      }
+      const pieData = [
+        (_.sum(c1,data => data.marketRatio) / c1.length).toFixed(2),
+        (_.sum(c2,data => data.marketRatio) / c2.length).toFixed(2),
+      ]
+      chartData = getPieOption(legends,pieData)
     }
 
     this.setState({kpi: t, option: chartData})
@@ -161,12 +163,7 @@ class GroupTimeUseAnalysis extends React.Component {
           <SearchBox showTime onSearch={(a,b,c) => this.search(a,b,c)}/>
         </Panel>
         <Panel height="300" className={style.panel}>
-          {
-            this.state.kpi.value === 'marketRatio'
-              ? <SVGComp data={this.state.option}/>
-              : <ECharts option={this.state.option}/>
-          }
-
+          <ECharts option={this.state.option}/>
           <KpiGroup kpis={kpis} onKpiChange={(e) => this.onKChange(e)}/>
         </Panel>
         <DataGrid title="频道组使用时长分析" columns={columns} datas={this.state.tableData}/>
@@ -179,3 +176,9 @@ GroupTimeUseAnalysis.propTypes = {
 }
 
 export default GroupTimeUseAnalysis
+//
+//{
+//  this.state.kpi.value === 'marketRatio'
+//    ? <SVGComp data={this.state.option}/>
+//    : <ECharts option={this.state.option}/>
+//}

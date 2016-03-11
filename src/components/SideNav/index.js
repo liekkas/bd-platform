@@ -5,7 +5,8 @@ import React, { PropTypes } from 'react'
 import style from './style.scss'
 import { Link, browserHistory, hashHistory } from 'react-router'
 import { createHistory, createHashHistory } from 'history'
-
+import userOverview1 from './userOverview1.png'
+import userOverview2 from './userOverview2.png'
 import { Menu, Icon } from 'antd';
 const SubMenu = Menu.SubMenu;
 const MenuItemGroup = Menu.ItemGroup;
@@ -38,12 +39,14 @@ class SideNav extends React.Component {
     switch (this.props.type) {
       case '0':
         return <div className={style.root}>
-          <Menu onClick={(e) => this.handleClick(e)} theme='light'
+          <Menu onClick={(e) => this.handleClick(e)} theme='dark'
                 defaultOpenKeys={['tvOverview']}
                 selectedKeys={[this.props.route]}
                 mode="inline">
-            <Menu.Item key="tvOverview"><span><Icon type="setting"/></span>
+            <Menu.Item key="tvOverview">
+              <img src={ this.props.route === 'tvOverview' ? userOverview2 : userOverview1} />
               用户概况
+              <span><Icon type="right"/></span>
             </Menu.Item>
             <Menu.Item key="tvOverview/userBehave"><span><Icon type="setting"/></span>
               用户行为
@@ -55,7 +58,7 @@ class SideNav extends React.Component {
         </div>
       case '1':
         return <div className={style.root}>
-          <Menu onClick={(e) => this.handleClick(e)} theme='light'
+          <Menu onClick={(e) => this.handleClick(e)} theme='dark'
                 defaultOpenKeys={['lb']}
                 selectedKeys={[this.props.route]}
                 mode="inline">
@@ -88,7 +91,7 @@ class SideNav extends React.Component {
         </div>
       case '2':
         return <div className={style.root}>
-          <Menu onClick={(e) => this.handleClick(e)} theme='light'
+          <Menu onClick={(e) => this.handleClick(e)} theme='dark'
                 defaultOpenKeys={['db']}
                 selectedKeys={[this.props.route]}
                 mode="inline">

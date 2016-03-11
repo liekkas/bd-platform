@@ -4,8 +4,7 @@
 import React, { PropTypes } from 'react'
 import { Header, Footer } from '../../components'
 import { connect } from 'react-redux'
-import SnowStorm from 'react-snowstorm'
-import Test from './test'
+import style from './style.scss'
 
 //<Footer text="© 2016 All Rights Reserved 中国电信集团公司 版权所有"/>
 //<SnowStorm />
@@ -18,10 +17,14 @@ const App = React.createClass({
     return (
       <div style={{width: '100%', height: '100%'}}>
         <Header route={this.props.route}/>
-        <div style={{width: '100%', height: '100%',paddingTop: '50px'}}>
+        <div className={style.content}>
           {this.props.children}
         </div>
-        <Footer text="© 2016 All Rights Reserved 中国电信集团公司 版权所有"/>
+        {
+          this.props.route !== 'home'
+            ? <Footer text="© 2016 All Rights Reserved 中国电信集团公司 版权所有"/>
+            : null
+        }
       </div>
     )
   }

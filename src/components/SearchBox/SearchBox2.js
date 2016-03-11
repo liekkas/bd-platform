@@ -26,54 +26,65 @@ class SearchBox2 extends React.Component {
     this.state = {
       dateType: props.dateType,
       channelType: props.channelType,
+      start: '20150501',
     }
   }
 
   handleDateTypeChange(value) {
+    let start,end
     switch (value) {
       case 'M':
         start = '201505'
         end = '201510'
+        this.setState({start: '201505', end: '201510'})
         break
       case 'W':
         start = '201518'
         end = '201544'
+        this.setState({start: '201518', end: '201544'})
         break
       case 'D':
         start = '20150501'
         end = '20151031'
+        this.setState({start: '20150501', end: '20151031'})
         break
       case 'T':
         start = '20150501-0'
         end = '20150501-23'
+        this.setState({start: '20150501-0', end: '20150501-23'})
         break
     }
     this.setState({dateType: value})
-    this.props.onSearch(channelType,value,start)
+
+//    this.props.onSearch(channelType,value,start)
   }
 
   handleStartChange(v) {
     start = v
+    this.setState({start: v})
   }
 
   handleEndChange(v) {
     end = v
+    this.setState({end: v})
   }
 
   handleDayChangeByHour(v) {
     day = v
     start = day + '-' + hour
+    this.setState({start: day + '-' + hour})
   }
 
-  handleHourChangeByHour(v,h) {
+  handleHourChangeByHour(v) {
     hour = v
     start = day + '-' + hour
+    this.setState({start: day + '-' + hour})
   }
 
   handleChannelTypeChange(value) {
     channelType = value
-    this.props.onSearch(channelType,this.state.dateType,start)
-//    this.setState({channelType: value})
+//    this.props.onSearch(channelType,this.state.dateType,start)
+    this.setState({channelType: value})
   }
 
   renderDate() {
@@ -133,22 +144,31 @@ class SearchBox2 extends React.Component {
 
         &nbsp;&nbsp;
 
-        <div className={style.label}>
-          <label>频道分类:</label>
-        </div>
+        {
+          this.props.simpleMode
+            ? null
+            : <div className={style.label}>
+                &nbsp;&nbsp;
+                <label>频道分类:</label>
+              </div>
+        }
 
-        <Select defaultValue={this.props.channelType}
-                style={{ width: 90 }}
-                onChange={(v) => this.handleChannelTypeChange(v)}>
-          <Option value="0">全部</Option>
-          <Option value="1">央视</Option>
-          <Option value="2">卫视</Option>
-        </Select>
+        {
+          this.props.simpleMode
+            ? null
+            : <Select defaultValue={this.props.channelType}
+                      style={{ width: 90 }}
+                      onChange={(v) => this.handleChannelTypeChange(v)}>
+                <Option value="0">全部</Option>
+                <Option value="1">央视</Option>
+                <Option value="2">卫视</Option>
+              </Select>
+        }
 
         &nbsp;&nbsp;
 
         <Button type="primary" onClick={() =>
-          this.props.onSearch(channelType,this.state.dateType,start)}>
+          this.props.onSearch(this.state.channelType,this.state.dateType,this.state.start)}>
           <Icon type="search" />
           查询
         </Button>

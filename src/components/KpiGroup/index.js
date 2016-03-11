@@ -19,7 +19,7 @@ class KpiGroup extends React.Component {
     const { kpis, onKpiChange } = this.props
     return (
       <div className={style.root}>
-        <RadioGroup onChange={(e) => onKpiChange(e)}
+        <RadioGroup onChange={(e) => onKpiChange(e)} theme="dark"
                     defaultValue={kpis[0].value}>
           {
             kpis.map(({value, label}, index) =>

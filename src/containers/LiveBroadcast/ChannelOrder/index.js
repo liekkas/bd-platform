@@ -3,7 +3,7 @@
  */
 import React, { PropTypes } from 'react'
 import { Panel, ECharts, SearchBox2, DataGrid, KpiGroup } from '../../../components'
-import style from './style.scss'
+import style from '../../style.scss'
 import { getOrderOption } from '../../../tools/service'
 import { REST_API_BASE_URL } from '../../../config'
 import _ from 'lodash'
@@ -136,7 +136,7 @@ class ChannelOrder extends React.Component {
           <ECharts option={this.state.option}/>
           <KpiGroup kpis={kpis} onKpiChange={(e) => this.onKChange(e)}/>
         </Panel>
-        <DataGrid title="排名" columns={columns} datas={this.state.tableData}/>
+        <DataGrid title="直播频道排名" columns={columns} datas={this.state.tableData}/>
       </div>
     )
   }

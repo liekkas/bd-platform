@@ -3,7 +3,7 @@
  */
 import React, { PropTypes } from 'react'
 import { Panel, ECharts, CompareSearchBox, DataGrid, KpiGroup } from '../../../components'
-import style from './style.scss'
+import style from '../../style.scss'
 import { getMultiOption } from '../../../tools/service'
 import { REST_API_BASE_URL } from '../../../config'
 import _ from 'lodash'
@@ -157,7 +157,7 @@ class ChannelAnalysis extends React.Component {
           <ECharts option={this.state.option}/>
           <KpiGroup kpis={kpis} onKpiChange={(e) => this.onKChange(e)}/>
         </Panel>
-        <DataGrid title="用户概况" columns={columns} datas={this.state.tableData}/>
+        <DataGrid title="直播频道分析" columns={columns} datas={this.state.tableData}/>
       </div>
     )
   }

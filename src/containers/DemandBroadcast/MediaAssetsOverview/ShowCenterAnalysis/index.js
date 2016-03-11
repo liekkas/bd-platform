@@ -2,18 +2,14 @@
  * Created by liekkas on 16/2/23.
  */
 import React, { PropTypes } from 'react'
-import { Panel, ECharts, SearchBox, DataGrid, KpiGroup } from '../../../../components'
-import style from './style.scss'
-import { getRadarOption } from '../../../../tools/service'
+import { Panel, ECharts, SearchBox3, DataGrid, KpiGroup } from '../../../../components'
+import style from '../../../style.scss'
+import { getRadarOption, getPieOption } from '../../../../tools/service'
 import { REST_API_BASE_URL } from '../../../../config'
 import _ from 'lodash'
 
 const kpis = [
-  {value:'userNum', label: '用户数', unit: '户'},
-  {value:'coverRatio', label: '覆盖率', unit: '%'},
-  {value:'userGrowRatio', label: '用户增长率', unit: '%'},
-  {value:'newUserNum', label: '流入用户数', unit: '户'},
-  {value:'lostUserNum', label: '流失用户数', unit: '户'},
+  {value:'marketRatio', label: '市占率', unit: '%'},
 ]
 
 const columns = [
@@ -22,60 +18,37 @@ const columns = [
     dataIndex: 'date',
     key: 'date',
     className: style.header,
-    width: '16%',
+    width: '25%',
     render(text) {
       return text;
     }
   },
   {
-    title: '用户数',
-    dataIndex: 'userNum',
-    key: 'userNum',
+    title: 'TOP分组',
+    dataIndex: 'group',
+    key: 'group',
     className: style.header,
-    width: '16%',
+    width: '25%',
     render(text) {
-      return text + '户';
+      return text;
     }
   },
   {
-    title: '覆盖率',
-    dataIndex: 'coverRatio',
-    key: 'coverRatio',
+    title: '点播时长(分钟)',
+    dataIndex: 'userTime',
+    key: 'userTime',
     className: style.header,
-    width: '16%',
-    render(text) {
-      return text + '%';
-    }
+    width: '25%',
   },
   {
-    title: '用户增长率',
-    dataIndex: 'userGrowRatio',
-    key: 'userGrowRatio',
+    title: '市占率(%)',
+    dataIndex: 'marketRatio',
+    key: 'marketRatio',
     className: style.header,
-    width: '16%',
-    render(text) {
-      return text + '%';
-    }
-  },
-  {
-    title: '流入用户数',
-    dataIndex: 'newUserNum',
-    key: 'newUserNum',
-    className: style.header,
-    width: '16%',
-    render(text) {
-      return text + '户';
-    }
-  },
-  {
-    title: '流失用户数',
-    dataIndex: 'lostUserNum',
-    key: 'lostUserNum',
-    className: style.header,
-    width: '16%',
-    render(text) {
-      return text + '户';
-    }
+    width: '25%',
+//    render(text) {
+//      return text + '%';
+//    }
   },
 ]
 
@@ -93,15 +66,16 @@ class ShowCenterAnalysis extends React.Component {
     this._getData(this, this.props)
   }
 
-  _getData(bind, props, dateType = 'D', start = '20150501', end = '20151031') {
-    fetch(REST_API_BASE_URL + 'userBehave?type=0&dateType=' + dateType + '&start=' + start + '&end=' + end)
+  _getData(bind, props, showType = '1', groupType = '10', dateType = 'D', start = '20150501') {
+    fetch(REST_API_BASE_URL + 'showCenterAnalysis?dateType=' + dateType + '&start=' + start
+      + '&showType=' + showType + '&groupType=' + groupType)
       .then(response => response.json())
       .then(function (result) {
-        const labels = _.map(result,'date');
-        const datas = _.map(result,bind.state.kpi.value);
-//        console.log('>>> Overview', labels, datas)
-        const chartData = getRadarOption(labels,datas,bind.state.kpi.unit,bind.state.kpi.label)
-        bind.setState({ tableData: result, option: chartData, remoteLoading: false })
+        const labels = _.map(result.data,'group');
+        const datas = _.map(result.data,'marketRatio');
+//        const chartData = getPieOption(labels,datas)
+        const chartData = getRadarOption(labels,datas)
+        bind.setState({ tableData: result.data, option: chartData, remoteLoading: false })
         return result
       })
       .catch(function (ex) {
@@ -109,9 +83,9 @@ class ShowCenterAnalysis extends React.Component {
       })
   }
 
-  search(dateType,start,end) {
-    console.log('>>> Search:',dateType,start,end)
-    this._getData(this,this.props,dateType,start,end);
+  search(showType,groupType,dateType,start) {
+    console.log('>>> ShowCenterAnalysis Search:',showType,groupType,dateType,start)
+    this._getData(this,this.props,showType,groupType,dateType,start);
   }
 
   onKChange(e) {
@@ -124,9 +98,10 @@ class ShowCenterAnalysis extends React.Component {
         break;
       }
     }
-    const labels = _.map(this.state.tableData,'date');
-    const datas = _.map(this.state.tableData,t.value);
-    const chartData = getRadarOption(labels,datas,t.unit,t.label)
+    const labels = _.map(this.state.tableData,'group');
+    const datas = _.map(this.state.tableData,'marketRatio');
+//    const chartData = getPieOption(labels,datas)
+    const chartData = getRadarOption(labels,datas)
     this.setState({kpi: t, option: chartData})
   }
 
@@ -136,13 +111,13 @@ class ShowCenterAnalysis extends React.Component {
     return (
       <div className={style.root}>
         <Panel title="筛选条件" height="90">
-          <SearchBox onSearch={(a,b,c) => this.search(a,b,c)}/>
+          <SearchBox3 onSearch={(a,b,c,d) => this.search(a,b,c,d)}/>
         </Panel>
         <Panel height="300" className={style.panel}>
           <ECharts option={this.state.option}/>
-          <KpiGroup kpis={kpis} onKpiChange={(e) => this.onKChange(e)}/>
+          <KpiGroup kpis={kpis} />
         </Panel>
-        <DataGrid title="用户概况" columns={columns} datas={this.state.tableData}/>
+        <DataGrid title="节目集中度分析" columns={columns} datas={this.state.tableData}/>
       </div>
     )
   }
