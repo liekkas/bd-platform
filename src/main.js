@@ -28,6 +28,8 @@ import fetch from 'isomorphic-fetch'
 //const history = useRouterHistory(createBrowserHistory)(historyConfig)
 //const history = createHashHistory()
 
+//const browserHistory = useRouterHistory(createBrowserHistory)({ basename: 'foo' })
+
 const initialState = window.__INITIAL_STATE__
 const store = configureStore(initialState, browserHistory)
 

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Route, IndexRoute } from 'react-router'
+import { Route, Redirect, IndexRoute } from 'react-router'
 import { App, Home, TVOverview, LiveBroadcast, DemandBroadcast,
   UserOverview, UserBehave, BusinessOverview, DemandUserOverview, DemandUserBehave,
   DemandUserAnalysis, MediaAssetsOverview, ResUtilizationAnalysis, ShowCenterAnalysis,
@@ -39,11 +39,15 @@ const AppRouter = (
       <Route path="/demandBroadcast/showsOrderAnalysis" component={MovieList} />
       <Route path="/demandBroadcast/showsOrderAnalysis/tvPlayList" component={TVPlayList} />
     </Route>
-    <Route path="*" component={NotFound} status={404}/>
+    <Route path="*" component={Home} status={404}/>
   </Route>
 );
 
 export default AppRouter;
+
+//    <Redirect from="*" to="/" />
+
+//<Route path="*" component={Home} status={404}/>
 
 //<Route path="/" component={App}>
 //  <IndexRoute component={Home} />

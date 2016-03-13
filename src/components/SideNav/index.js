@@ -5,9 +5,34 @@ import React, { PropTypes } from 'react'
 import style from './style.scss'
 import { Link, browserHistory, hashHistory } from 'react-router'
 import { createHistory, createHashHistory } from 'history'
-import userOverview1 from './userOverview1.png'
-import userOverview2 from './userOverview2.png'
+import userOverview1 from './icons/userOverview1.png'
+import userOverview2 from './icons/userOverview2.png'
+import userBehave1 from './icons/userBehave1.png'
+import userBehave2 from './icons/userBehave2.png'
+import allBiz1 from './icons/allBiz1.png'
+import allBiz2 from './icons/allBiz2.png'
+import liveUserAnalysis1 from './icons/liveUserAnalysis1.png'
+import liveUserAnalysis2 from './icons/liveUserAnalysis2.png'
+import channelGroupAnalysis1 from './icons/channelGroupAnalysis1.png'
+import channelGroupAnalysis2 from './icons/channelGroupAnalysis2.png'
+import channelOrder1 from './icons/channelOrder1.png'
+import channelOrder2 from './icons/channelOrder2.png'
+import channelAnalysis1 from './icons/channelAnalysis1.png'
+import channelAnalysis2 from './icons/channelAnalysis2.png'
+import showOrder1 from './icons/showOrder1.png'
+import showOrder2 from './icons/showOrder2.png'
+import demandUser1 from './icons/demandUser1.png'
+import demandUser2 from './icons/demandUser2.png'
+import mediaAsset1 from './icons/mediaAsset1.png'
+import mediaAsset2 from './icons/mediaAsset2.png'
+import showType1 from './icons/showType1.png'
+import showType2 from './icons/showType2.png'
 import { Menu, Icon } from 'antd';
+import classNames from 'classnames/bind';
+
+const cx = classNames.bind(style);
+const rightClassName = cx('config', 'zmdi', 'zmdi-chevron-right', 'zmdi-hc-lg');
+
 const SubMenu = Menu.SubMenu;
 const MenuItemGroup = Menu.ItemGroup;
 
@@ -45,14 +70,18 @@ class SideNav extends React.Component {
                 mode="inline">
             <Menu.Item key="tvOverview">
               <img src={ this.props.route === 'tvOverview' ? userOverview2 : userOverview1} />
-              用户概况
-              <span><Icon type="right"/></span>
+              <span className={style.menuName}>用户概况</span>
+              <span className={rightClassName} />
             </Menu.Item>
-            <Menu.Item key="tvOverview/userBehave"><span><Icon type="setting"/></span>
-              用户行为
+            <Menu.Item key="tvOverview/userBehave">
+              <img src={ this.props.route === 'tvOverview/userBehave' ? userBehave2 : userBehave1} />
+              <span className={style.menuName}>用户行为</span>
+              <span className={rightClassName} />
             </Menu.Item>
-            <Menu.Item key="tvOverview/businessOverview"><span><Icon type="setting"/></span>
-              全业务概况
+            <Menu.Item key="tvOverview/businessOverview">
+              <img src={ this.props.route === 'tvOverview/businessOverview' ? allBiz2 : allBiz1} />
+              <span className={style.menuName} style={{marginRight: '31%'}}>全业务概况</span>
+              <span className={rightClassName} />
             </Menu.Item>
           </Menu>
         </div>
@@ -62,30 +91,47 @@ class SideNav extends React.Component {
                 defaultOpenKeys={['lb']}
                 selectedKeys={[this.props.route]}
                 mode="inline">
-            <SubMenu key="lb" title={<span><Icon type="mail" /><span>直播用户分析</span></span>}>
-              <Menu.Item key="liveBroadcast"><span><Icon type="setting"/></span>
-                用户概况
+            <SubMenu key="lb"
+                     title={<span><img
+                     src={ this.props.route === 'liveBroadcast'
+                            || this.props.route === 'liveBroadcast/userBehave'
+                            ? liveUserAnalysis2 : liveUserAnalysis1 } /><span>直播用户分析</span></span>}>
+              <Menu.Item key="liveBroadcast">
+                <span className={style.menuName2Sub}>用户概况</span>
+                <span className={rightClassName} />
               </Menu.Item>
-              <Menu.Item key="liveBroadcast/userBehave"><span><Icon type="setting"/></span>
-                用户行为
-              </Menu.Item>
-            </SubMenu>
-            <SubMenu key="lbGroup" title={<span><Icon type="mail" /><span>直播频道组分析</span></span>}>
-              <Menu.Item key="liveBroadcast/channelGroupUserAnalysis"><span><Icon type="setting"/></span>
-                用户分析
-              </Menu.Item>
-              <Menu.Item key="liveBroadcast/channelGroupTimeUseAnalysis"><span><Icon type="setting"/></span>
-                使用时长分析
+              <Menu.Item key="liveBroadcast/userBehave">
+                <span className={style.menuName2Sub}>用户行为</span>
+                <span className={rightClassName} />
               </Menu.Item>
             </SubMenu>
-            <Menu.Item key="liveBroadcast/channelOrder"><span><Icon type="setting"/></span>
-              直播频道排名
+            <SubMenu key="lbGroup" title={<span><img
+                src={ this.props.route === 'liveBroadcast/channelGroupUserAnalysis'
+                        || this.props.route === 'liveBroadcast/channelGroupTimeUseAnalysis'
+                        ? channelGroupAnalysis2 : channelGroupAnalysis1 } /><span>直播频道组分析</span></span>}>
+              <Menu.Item key="liveBroadcast/channelGroupUserAnalysis">
+                <span className={style.menuName2Sub}>用户分析</span>
+                <span className={rightClassName} />
+              </Menu.Item>
+              <Menu.Item key="liveBroadcast/channelGroupTimeUseAnalysis">
+                <span className={style.menuName2Sub1}>使用时长分析</span>
+                <span className={rightClassName} />
+              </Menu.Item>
+            </SubMenu>
+            <Menu.Item key="liveBroadcast/channelOrder">
+              <img src={ this.props.route === 'liveBroadcast/channelOrder' ? channelOrder2 : channelOrder1} />
+              <span className={style.menuName2}>直播频道排名</span>
+              <span className={rightClassName} />
             </Menu.Item>
-            <Menu.Item key="liveBroadcast/channelAnalysis"><span><Icon type="setting"/></span>
-              直播频道分析
+            <Menu.Item key="liveBroadcast/channelAnalysis">
+              <img src={ this.props.route === 'liveBroadcast/channelAnalysis' ? channelAnalysis2 : channelAnalysis1} />
+              <span className={style.menuName2}>直播频道分析</span>
+              <span className={rightClassName} />
             </Menu.Item>
-            <Menu.Item key="liveBroadcast/showsOrder"><span><Icon type="setting"/></span>
-              直播节目排名
+            <Menu.Item key="liveBroadcast/showsOrder">
+              <img src={ this.props.route === 'liveBroadcast/showsOrder' ? showOrder2 : showOrder1} />
+              <span className={style.menuName2}>直播节目排名</span>
+              <span className={rightClassName} />
             </Menu.Item>
           </Menu>
         </div>
@@ -95,36 +141,56 @@ class SideNav extends React.Component {
                 defaultOpenKeys={['db']}
                 selectedKeys={[this.props.route]}
                 mode="inline">
-            <SubMenu key="db" title={<span><Icon type="mail" /><span>点播用户分析</span></span>}>
-              <Menu.Item key="demandBroadcast"><span><Icon type="setting"/></span>
-                用户概况
+            <SubMenu key="db" title={<span><img src={
+                      this.props.route === 'demandBroadcast'
+                        || this.props.route === 'demandBroadcast/userBehave'
+                        ? demandUser2 : demandUser1 } /><span>点播用户分析</span></span>}>
+              <Menu.Item key="demandBroadcast">
+                <span className={style.menuName2Sub}>用户概况</span>
+                <span className={rightClassName} />
               </Menu.Item>
-              <Menu.Item key="demandBroadcast/userBehave"><span><Icon type="setting"/></span>
-                用户行为
-              </Menu.Item>
-            </SubMenu>
-            <SubMenu key="mz" title={<span><Icon type="mail" /><span>媒资概况分析</span></span>}>
-              <Menu.Item key="demandBroadcast/mediaAssetsOverview"><span><Icon type="setting"/></span>
-                资源利用率分析
-              </Menu.Item>
-              <Menu.Item key="demandBroadcast/mediaAssetsOverview/showCenterAnalysis"><span><Icon type="setting"/></span>
-                节目集中度分析
+              <Menu.Item key="demandBroadcast/userBehave">
+                <span className={style.menuName2Sub}>用户行为</span>
+                <span className={rightClassName} />
               </Menu.Item>
             </SubMenu>
-            <SubMenu key="lx" title={<span><Icon type="mail" /><span>节目类型分析</span></span>}>
-              <Menu.Item key="demandBroadcast/showsUserAnalysis"><span><Icon type="setting"/></span>
-                用户分析
+            <SubMenu key="mz" title={<span><img src={
+                      this.props.route === 'demandBroadcast/mediaAssetsOverview'
+                        || this.props.route === 'demandBroadcast/mediaAssetsOverview/showCenterAnalysis'
+                        ? mediaAsset2 : mediaAsset1 } /><span>媒资概况分析</span></span>}>
+              <Menu.Item key="demandBroadcast/mediaAssetsOverview">
+                <span className={style.menuName2Sub2}>资源利用率分析</span>
+                <span className={rightClassName} />
               </Menu.Item>
-              <Menu.Item key="demandBroadcast/showsUseTimeAnalysis"><span><Icon type="setting"/></span>
-                点播时长分析
+              <Menu.Item key="demandBroadcast/mediaAssetsOverview/showCenterAnalysis">
+                <span className={style.menuName2Sub2}>节目集中度分析</span>
+                <span className={rightClassName} />
               </Menu.Item>
             </SubMenu>
-            <SubMenu key="pm" title={<span><Icon type="mail" /><span>节目排名分析</span></span>}>
-              <Menu.Item key="demandBroadcast/showsOrderAnalysis"><span><Icon type="setting"/></span>
-                电影榜单
+            <SubMenu key="lx" title={<span><img src={
+                      this.props.route === 'demandBroadcast/showsUserAnalysis'
+                        || this.props.route === 'demandBroadcast/showsUseTimeAnalysis'
+                        ? showType2 : showType1 } /><span>节目类型分析</span></span>}>
+              <Menu.Item key="demandBroadcast/showsUserAnalysis">
+                <span className={style.menuName2Sub}>用户分析</span>
+                <span className={rightClassName} />
               </Menu.Item>
-              <Menu.Item key="demandBroadcast/showsOrderAnalysis/tvPlayList"><span><Icon type="setting"/></span>
-                电视剧榜单
+              <Menu.Item key="demandBroadcast/showsUseTimeAnalysis">
+                <span className={style.menuName2Sub1}>点播时长分析</span>
+                <span className={rightClassName} />
+              </Menu.Item>
+            </SubMenu>
+            <SubMenu key="pm" title={<span><img src={
+                      this.props.route === 'demandBroadcast/showsOrderAnalysis'
+                        || this.props.route === 'demandBroadcast/showsOrderAnalysis/tvPlayList'
+                        ? showOrder2 : showOrder1 } /><span>节目排名分析</span></span>}>
+              <Menu.Item key="demandBroadcast/showsOrderAnalysis">
+                <span className={style.menuName2Sub}>电影榜单</span>
+                <span className={rightClassName} />
+              </Menu.Item>
+              <Menu.Item key="demandBroadcast/showsOrderAnalysis/tvPlayList">
+                <span className={style.menuName2Sub3}>电视剧榜单</span>
+                <span className={rightClassName} />
               </Menu.Item>
             </SubMenu>
           </Menu>

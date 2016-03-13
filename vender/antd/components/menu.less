@@ -274,11 +274,13 @@
   &-dark &-sub {
     color: #B4B7BC;
     background: #2f333c;
-    border-bottom: 1px solid #4A4E56;
+    //border-bottom: 1px solid #4A4E56;
   }
 
   &-dark &-inline&-sub {
-    background: #333;
+    //background: tint(#2f333c,80%);
+    background: #242930;
+    border: none;
   }
 
   &-dark&-horizontal {
@@ -315,6 +317,8 @@
     border-right: 0;
     margin-left: 0;
     left: 0;
+    border-bottom: 1px solid @border-color-split;
+    //padding-top: 5px;
   }
 
   &-dark&-inline &-item-selected {

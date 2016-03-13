@@ -27,13 +27,17 @@ const datas = [
 
 class Header extends React.Component {
   render() {
+    const route = this.props.route.indexOf('.html') > -1 ? 'home' : this.props.route
+    console.log('>>> Header:route',this.props.route,route)
+
     return (
       <div className={style.root}>
         <img src={dsplogo} onClick={() => browserHistory.push('/')}/>
         <ui className={style.menu}>
           {
             datas.map(({name, key}, index) =>
-              <li key={index} className={ this.props.route.indexOf(key) > -1 ? style.active : null }>
+              <li key={index} className={
+                route.indexOf(key) > -1 ? style.active : null }>
                 {
                   key === 'home'
                   ? <IndexLink to="/">{name}</IndexLink>

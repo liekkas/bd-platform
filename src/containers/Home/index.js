@@ -4,6 +4,7 @@
 import React, { PropTypes } from 'react'
 import { ECharts, Panel, Footer } from '../../components'
 import style from './style.scss'
+//import echarts from 'echarts'
 import _ from 'lodash'
 import {browserHistory} from 'react-router';
 
@@ -55,7 +56,7 @@ const mapOption = {
     }
   },
   visualMap: {
-    show: false,
+    show: true,
     color: ['#e94f26','#F39e33'],
     min: 0,
     max: 3500,
@@ -64,7 +65,11 @@ const mapOption = {
     bottom: 20,
     right: 20,
     text:['高','低'],           // 文本，默认为数值文本
-    calculable : true
+    calculable : true,
+    textStyle: {
+      color: '#c0d5ff',
+//      fontSize: 26
+    }
   },
   tooltip : {
     trigger: 'item',
@@ -81,28 +86,6 @@ const mapOption = {
       color: '#fff'
     }
   },
-//  geo: {
-//    map: 'china',
-//    label: {
-//      normal: {
-//        areaColor: 'rgba(117,148,241,1)',
-//        borderColor: '#ffffff'
-//      },
-//      emphasis: {
-//        show: false
-//      }
-//    },
-//    roam: false,
-//    itemStyle: {
-//      normal: {
-//        areaColor: 'rgba(117,148,241,1)',
-//        borderColor: '#ffffff'
-//      },
-//      emphasis: {
-//        areaColor: '#2a333d'
-//      }
-//    }
-//  },
   series : [
     {
       name: '用户覆盖',
@@ -127,20 +110,12 @@ const mapOption = {
       roam: false,
       itemStyle: {
         normal: {
-//          areaColor: '#ffea00',
           areaColor: '#6cA9EB',
           borderColor: '#447cca',
           borderWidth: 1,
-//
         },
         emphasis: {
           areaColor: '#ffab00',
-//          borderColor: 'rgba(68, 131, 207, 1)',
-//          shadowColor: 'rgba(255, 255, 0, 1)',
-//          shadowBlur: 10,
-//          shadowOffsetX: 10,
-//          shadowOffsetY: 10,
-//          opacity: 0.8,
         }
       },
 
@@ -152,9 +127,11 @@ const mapOption = {
 
 let barData = []
 const reProvinces = provinces
-const d1 = [1885,870,447,135,88,83,8].reverse()
-const d2 = [1365,800,405,126,87,82,4].reverse()
-const types = ['有限电视用户数(万户)','数字用户数(万户)']
+//const d1 = [1885,870,447,135,88,83,8]
+const d2 = [1885,870,447,135,88,83,8].reverse()
+//const d2 = [1365,800,405,126,87,82,4]
+const d1 = [1365,800,405,126,87,82,4].reverse()
+const types = ['数字用户数(万户)','有线电视用户数(万户)']
 for (let j = 0; j < types.length; j++) {
   let d = []
   for (let k = 0; k < reProvinces.length; k++) {
@@ -165,8 +142,8 @@ for (let j = 0; j < types.length; j++) {
     name: types[j],
     type:'bar',
     stack: '总量',
-    itemStyle : { normal: {label : {show: true, position: 'insideRight'}} },
-    barWidth: 20,
+    itemStyle : { normal: {label : {show: true, position: j === 0 ? 'insideLeft' : 'insideRight'}} },
+    barWidth: 18,
     barGap: '5%',
     barCategoryGap: '5%',
     data:d
@@ -178,14 +155,15 @@ const barOption = {
   color: ['#c94638','#396cbd'],
 
   tooltip : {
-    trigger: 'axis',
+    show: false,
+    trigger: 'item',
 //    formatter: "{a} <br/>{b} : {c} ({d}万)",
     axisPointer : {            // 坐标轴指示器，坐标轴触发有效
       type : 'line'        // 默认为直线，可选为：'line' | 'shadow'
     }
   },
   legend: {
-    data:['有限电视用户数(万户)','数字用户数(万户)'],
+    data:['有线电视用户数(万户)','数字用户数(万户)'],
     y: 'top',
     textStyle: {
       color: '#5fa4d9'
@@ -201,8 +179,8 @@ const barOption = {
   },
   xAxis : [
     {
-      type : 'value',
-//      type : 'log',
+//      type : 'value',
+      type : 'log',
       axisLine: {
         show: false,
         lineStyle: {
@@ -229,6 +207,7 @@ const barOption = {
   yAxis : [
     {
       type : 'category',
+//      data : provinces,
       data : provinces.reverse(),
       axisLine: {
         show: false,
@@ -281,7 +260,7 @@ class Home extends React.Component {
         <div className={style.bar}>
           <ECharts option={barOption}/>
         </div>
-        <label>© 2016 All Rights Reserved 中国电信集团公司 版权所有</label>
+        <label>© 2016 All Rights Reserved 中信国安广视网络有限公司 版权所有</label>
       </div>
     )
   }
