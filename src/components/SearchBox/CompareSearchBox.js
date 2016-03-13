@@ -7,6 +7,7 @@ import ByChannel from './ByChannel'
 import ByWeek from './ByWeek'
 import ByDay from './ByDay'
 import ByHour from './ByHour'
+import ByRegion from './ByRegion'
 import Select from 'antd/lib/select'
 import Button from 'antd/lib/button'
 import Icon from 'antd/lib/icon'
@@ -114,29 +115,32 @@ class CompareSearchBox extends React.Component {
     const { showTime } = this.props
     return (
       <div className={style.root}>
-        <div className={style.left}>
-          <div className={style.hgroup}>
-            <div className={style.label}>
-              <label>时间分类:</label>
-            </div>
-
-            { this.renderSelect() }
-            { this.renderDate() }
-          </div>
-
-          <div className={style.hgroup}>
-            <div className={style.label}>
-              <label>频道名称:</label>
-            </div>
-            <ByChannel onChannelChange={(v) => this.setState({channel1:v})}/>
-            &nbsp;&nbsp;&nbsp;&nbsp;
-            <div className={style.label}>
-              <label>对比频道名称:</label>
-            </div>
-            <ByChannel channelName='湖南卫视'
-                       onChannelChange={(v) => this.setState({channel2:v})}/>
-          </div>
+        <div className={style.label}>
+          <label>时间分类:</label>
         </div>
+
+        { this.renderSelect() }
+        { this.renderDate() }
+
+        &nbsp;&nbsp;&nbsp;&nbsp;
+
+        <div className={style.label}>
+          <label>频道名称:</label>
+        </div>
+        <ByChannel onChannelChange={(v) => this.setState({channel1:v})}/>
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <div className={style.label}>
+          <label>对比频道名称:</label>
+        </div>
+        <ByChannel channelName='湖南卫视'
+                   onChannelChange={(v) => this.setState({channel2:v})}/>
+
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <div className={style.label}>
+          <label>地区分类:</label>
+        </div>
+        <ByRegion />
+        &nbsp;&nbsp;&nbsp;&nbsp;
 
         <Button className={style.searchBtn} type="primary" onClick={() =>
           this.props.onSearch(this.state.dateType,this.state.start,this.state.end,channel1,channel2)}>

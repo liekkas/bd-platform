@@ -6,6 +6,7 @@ import ByMonth from './ByMonth'
 import ByWeek from './ByWeek'
 import ByDay from './ByDay'
 import ByHour from './ByHour'
+import ByRegion from './ByRegion'
 import ByChannel from './ByChannel'
 import Select from 'antd/lib/select'
 import Button from 'antd/lib/button'
@@ -165,7 +166,12 @@ class SearchBox2 extends React.Component {
               </Select>
         }
 
-        &nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <div className={style.label}>
+          <label>地区分类:</label>
+        </div>
+        <ByRegion />
+        &nbsp;&nbsp;&nbsp;&nbsp;
 
         <Button type="primary" onClick={() =>
           this.props.onSearch(this.state.channelType,this.state.dateType,this.state.start)}>
