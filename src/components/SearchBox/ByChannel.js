@@ -30,7 +30,7 @@ class ByChannel extends React.Component {
     return (
       <div>
         <Select showSearch defaultValue={this.props.channelName}
-                style={{ width: 120 }}
+                style={{ width: 130 }}
                 placeholder="请选择频道"
                 optionFilterProp="children"
                 notFoundContent="无法找到"

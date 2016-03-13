@@ -44,7 +44,7 @@ class ByWeek extends React.Component {
         {
           this.props.rangeMode
             ? <div>
-                <Select defaultValue={'2015年第' + this.props.start + '周'} style={{ width: 120, marginRight: '10px' }}
+                <Select defaultValue={'2015年第' + this.props.start + '周'} style={{ width: 135, marginRight: '10px' }}
                         onChange={(e) => this.onStartChange(e)}>
                   {
                     this.getStartArr().map((value, index) =>
@@ -53,7 +53,7 @@ class ByWeek extends React.Component {
                   }
                 </Select>
                 <label>至&nbsp;&nbsp;&nbsp;</label>
-                <Select defaultValue={'2015年第' + this.props.end + '周'} style={{ width: 120, marginRight: '10px' }}
+                <Select defaultValue={'2015年第' + this.props.end + '周'} style={{ width: 135, marginRight: '10px' }}
                         onChange={(e) => this.onEndChange(e)}>
                   {
                     this.getEndArr().map((value, index) =>
@@ -62,7 +62,7 @@ class ByWeek extends React.Component {
                   }
                 </Select>
               </div>
-            : <Select defaultValue={'2015年第' + this.props.start + '周'} style={{ width: 120, marginRight: '10px' }}
+            : <Select defaultValue={'2015年第' + this.props.start + '周'} style={{ width: 135, marginRight: '10px' }}
                       onChange={(e) => this.onStartChange(e)}>
                 {
                   this.getStartArr().map((value, index) =>

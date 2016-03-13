@@ -31,7 +31,8 @@ import { Menu, Icon } from 'antd';
 import classNames from 'classnames/bind';
 
 const cx = classNames.bind(style);
-const rightClassName = cx('config', 'zmdi', 'zmdi-chevron-right', 'zmdi-hc-lg');
+const leftClassName = cx('subMenuIcon', 'zmdi', 'zmdi-chevron-right', 'zmdi-hc-lg');
+const rightClassName = cx('menuIcon', 'zmdi', 'zmdi-chevron-right', 'zmdi-hc-lg');
 
 const SubMenu = Menu.SubMenu;
 const MenuItemGroup = Menu.ItemGroup;
@@ -80,7 +81,7 @@ class SideNav extends React.Component {
             </Menu.Item>
             <Menu.Item key="tvOverview/businessOverview">
               <img src={ this.props.route === 'tvOverview/businessOverview' ? allBiz2 : allBiz1} />
-              <span className={style.menuName} style={{marginRight: '31%'}}>全业务概况</span>
+              <span style={{marginRight: '45.5%'}}>全业务概况</span>
               <span className={rightClassName} />
             </Menu.Item>
           </Menu>
@@ -97,12 +98,12 @@ class SideNav extends React.Component {
                             || this.props.route === 'liveBroadcast/userBehave'
                             ? liveUserAnalysis2 : liveUserAnalysis1 } /><span>直播用户分析</span></span>}>
               <Menu.Item key="liveBroadcast">
+                <span className={leftClassName} />
                 <span className={style.menuName2Sub}>用户概况</span>
-                <span className={rightClassName} />
               </Menu.Item>
               <Menu.Item key="liveBroadcast/userBehave">
+                <span className={leftClassName} />
                 <span className={style.menuName2Sub}>用户行为</span>
-                <span className={rightClassName} />
               </Menu.Item>
             </SubMenu>
             <SubMenu key="lbGroup" title={<span><img
@@ -110,12 +111,12 @@ class SideNav extends React.Component {
                         || this.props.route === 'liveBroadcast/channelGroupTimeUseAnalysis'
                         ? channelGroupAnalysis2 : channelGroupAnalysis1 } /><span>直播频道组分析</span></span>}>
               <Menu.Item key="liveBroadcast/channelGroupUserAnalysis">
+                <span className={leftClassName} />
                 <span className={style.menuName2Sub}>用户分析</span>
-                <span className={rightClassName} />
               </Menu.Item>
               <Menu.Item key="liveBroadcast/channelGroupTimeUseAnalysis">
-                <span className={style.menuName2Sub1}>使用时长分析</span>
-                <span className={rightClassName} />
+                <span className={leftClassName} />
+                <span className={style.menuName2Sub}>使用时长分析</span>
               </Menu.Item>
             </SubMenu>
             <Menu.Item key="liveBroadcast/channelOrder">
@@ -146,12 +147,12 @@ class SideNav extends React.Component {
                         || this.props.route === 'demandBroadcast/userBehave'
                         ? demandUser2 : demandUser1 } /><span>点播用户分析</span></span>}>
               <Menu.Item key="demandBroadcast">
+                <span className={leftClassName} />
                 <span className={style.menuName2Sub}>用户概况</span>
-                <span className={rightClassName} />
               </Menu.Item>
               <Menu.Item key="demandBroadcast/userBehave">
+                <span className={leftClassName} />
                 <span className={style.menuName2Sub}>用户行为</span>
-                <span className={rightClassName} />
               </Menu.Item>
             </SubMenu>
             <SubMenu key="mz" title={<span><img src={
@@ -159,12 +160,12 @@ class SideNav extends React.Component {
                         || this.props.route === 'demandBroadcast/mediaAssetsOverview/showCenterAnalysis'
                         ? mediaAsset2 : mediaAsset1 } /><span>媒资概况分析</span></span>}>
               <Menu.Item key="demandBroadcast/mediaAssetsOverview">
-                <span className={style.menuName2Sub2}>资源利用率分析</span>
-                <span className={rightClassName} />
+                <span className={leftClassName} />
+                <span className={style.menuName2Sub}>资源利用率分析</span>
               </Menu.Item>
               <Menu.Item key="demandBroadcast/mediaAssetsOverview/showCenterAnalysis">
-                <span className={style.menuName2Sub2}>节目集中度分析</span>
-                <span className={rightClassName} />
+                <span className={leftClassName} />
+                <span className={style.menuName2Sub}>节目集中度分析</span>
               </Menu.Item>
             </SubMenu>
             <SubMenu key="lx" title={<span><img src={
@@ -172,12 +173,12 @@ class SideNav extends React.Component {
                         || this.props.route === 'demandBroadcast/showsUseTimeAnalysis'
                         ? showType2 : showType1 } /><span>节目类型分析</span></span>}>
               <Menu.Item key="demandBroadcast/showsUserAnalysis">
+                <span className={leftClassName} />
                 <span className={style.menuName2Sub}>用户分析</span>
-                <span className={rightClassName} />
               </Menu.Item>
               <Menu.Item key="demandBroadcast/showsUseTimeAnalysis">
-                <span className={style.menuName2Sub1}>点播时长分析</span>
-                <span className={rightClassName} />
+                <span className={leftClassName} />
+                <span className={style.menuName2Sub}>点播时长分析</span>
               </Menu.Item>
             </SubMenu>
             <SubMenu key="pm" title={<span><img src={
@@ -185,12 +186,12 @@ class SideNav extends React.Component {
                         || this.props.route === 'demandBroadcast/showsOrderAnalysis/tvPlayList'
                         ? showOrder2 : showOrder1 } /><span>节目排名分析</span></span>}>
               <Menu.Item key="demandBroadcast/showsOrderAnalysis">
+                <span className={leftClassName} />
                 <span className={style.menuName2Sub}>电影榜单</span>
-                <span className={rightClassName} />
               </Menu.Item>
               <Menu.Item key="demandBroadcast/showsOrderAnalysis/tvPlayList">
-                <span className={style.menuName2Sub3}>电视剧榜单</span>
-                <span className={rightClassName} />
+                <span className={leftClassName} />
+                <span className={style.menuName2Sub}>电视剧榜单</span>
               </Menu.Item>
             </SubMenu>
           </Menu>

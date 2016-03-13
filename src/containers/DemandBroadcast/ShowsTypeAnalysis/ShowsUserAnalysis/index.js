@@ -5,7 +5,7 @@ import React, { PropTypes } from 'react'
 import { Panel, ECharts, SearchBox, DataGrid, KpiGroup } from '../../../../components'
 import style from '../../../style.scss'
 import { getMultiOption } from '../../../../tools/service'
-import { REST_API_BASE_URL } from '../../../../config'
+import { REST_API_BASE_URL, theme } from '../../../../config'
 import _ from 'lodash'
 
 const kpis = [
@@ -136,7 +136,7 @@ class ShowsUserAnalysis extends React.Component {
         <Panel title="筛选条件" height="90">
           <SearchBox showTime onSearch={(a,b,c) => this.search(a,b,c)}/>
         </Panel>
-        <Panel height="300" className={style.panel}>
+        <Panel height={theme.CHART_PANEL_HEIGHT} className={style.panel}>
           <ECharts option={this.state.option}/>
           <KpiGroup kpis={kpis} onKpiChange={(e) => this.onKChange(e)}/>
         </Panel>

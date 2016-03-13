@@ -25,13 +25,15 @@ export function getSingleOption(labels,datas,unit,kpi) {
     grid: {
       top: 70,
       bottom: 50,
+//      right: 100,
+//      left: 100,
     },
     legend: {
       top: 'bottom',
       data: ['意向']
     },
     toolbox: {
-      show: true,
+      show: false,
       feature: {
         mark: {show: false},
         dataView: {show: false, readOnly: false},
@@ -197,7 +199,7 @@ export function getSingleBigDataOption(labels,datas,unit,kpi) {
       data: ['意向']
     },
     toolbox: {
-      show: true,
+      show: false,
       feature: {
         mark: {show: false},
         dataView: {show: false, readOnly: false},
@@ -369,14 +371,14 @@ export function getMultiOption(labels,datas,legends,unit,kpi) {
     },
     legend: {
       left: 'center',
-      bottom: 8,
+      top: 20,
       textStyle: {
         color: '#7c8088'
       },
       data: legends
     },
     toolbox: {
-      show: true,
+      show: false,
       feature: {
         mark: {show: false},
         dataView: {show: false, readOnly: false},
@@ -415,7 +417,9 @@ export function getMultiOption(labels,datas,legends,unit,kpi) {
           }
         },
         splitLine: {
-          show: true
+          lineStyle: {
+            color: '#7c8088',
+          }
         },
       }
     ],
@@ -447,6 +451,11 @@ export function getMultiOption(labels,datas,legends,unit,kpi) {
             }
           }
         },
+        splitLine: {
+          lineStyle: {
+            color: '#7c8088',
+          }
+        },
       }
     ],
 //    dataZoom: {
@@ -459,6 +468,8 @@ export function getMultiOption(labels,datas,legends,unit,kpi) {
 }
 
 export function getOrderOption(labels,datas,unit,kpi) {
+  const end = datas.length > 100 ? 10 : datas.length
+
   return {
 //    backgroundColor: 'rgba(0,57,100,0.6)',
     title: {
@@ -479,14 +490,14 @@ export function getOrderOption(labels,datas,unit,kpi) {
     },
     grid: {
       top: 70,
-      bottom: 50,
+      bottom: 76,
     },
     legend: {
       top: 'bottom',
       data: ['意向']
     },
     toolbox: {
-      show: true,
+      show: false,
       feature: {
         mark: {show: false},
         dataView: {show: false, readOnly: false},
@@ -525,7 +536,9 @@ export function getOrderOption(labels,datas,unit,kpi) {
           }
         },
         splitLine: {
-          show: true
+          lineStyle: {
+            color: '#7c8088',
+          }
         },
       }
     ],
@@ -558,18 +571,25 @@ export function getOrderOption(labels,datas,unit,kpi) {
           }
         },
         splitLine: {
-          show: true
+          lineStyle: {
+            color: '#7c8088',
+          }
         },
       }
     ],
-    dataZoom: [{
-      type: 'inside',
+    dataZoom: {
+      type: 'slider',
+      dataBackgroundColor: '#7c8088',
+      fillerColor: 'rgba(255,0,0,0.2)',
+      handleColor: 'rgba(194,53,49,0.8)',
+      bottom: 12,
       start: 0,
-      end: 10
-    }, {
-      start: 0,
-      end: 10
-    }],
+      end,
+      textStyle: {
+//        color: '#7c8088',
+        color: '#fff',
+      }
+    },
 //    dataZoom: {
 //      type: 'inside',
 //      start: 60,
@@ -648,7 +668,7 @@ export function getRadarOption(labels,datas) {
         },
         areaStyle: {
           normal: {
-            opacity: 0.1
+            opacity: 0.7
           }
         }
       }

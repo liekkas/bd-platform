@@ -16,7 +16,7 @@ const datas = [
   { name: '点播业务', key: 'demandBroadcast' },
   { name: '直播业务', key: 'liveBroadcast' },
   { name: '电视概况', key: 'tvOverview' },
-  { name: '首页', key: 'home' },
+  { name: '  首页  ', key: 'home' },
 
 //  { name: '电视概况', key: 'tvOverview' },
 //  { name: '直播业务', key: 'liveBroadcast' },

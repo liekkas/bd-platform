@@ -11,7 +11,49 @@ import {browserHistory} from 'react-router';
 let data = []
 let data2 = []
 const provinces = ['江苏','湖北','安徽','湖南','河北','山东','河南']
-const v1 = ['3250','1670','852','161','175','165','12']
+//
+//湖南省
+//长沙：有线电视用户57万户
+//湘潭：有线电视用户21万户
+//浏阳：有线电视用户20万户
+//岳阳：有线电视用户19万户
+//益阳：有线电视用户18万户
+//---------------------------
+//  河北省
+//唐山：有线电视用户26万户
+//承德：有线电视用户13万户
+//沧州：有线电视用户15万户
+//秦皇岛：有线电视用户34万户
+//---------------------------
+//  山东省
+//威海：有线电视用户83万户
+//---------------------------
+//  河南省
+//周口：有线电视用户8万户
+
+const details = {
+  湖南: [
+    {name: '长沙', value: '57'},
+    {name: '湘潭', value: '21'},
+    {name: '浏阳', value: '20'},
+    {name: '岳阳', value: '19'},
+    {name: '益阳', value: '18'},
+  ],
+  河北: [
+    {name: '唐山', value: '26'},
+    {name: '承德', value: '13'},
+    {name: '沧州', value: '15'},
+    {name: '秦皇岛', value: '34'},
+  ],
+  山东: [
+    {name: '威海', value: '83'},
+  ],
+  河南: [
+    {name: '周口', value: '8'},
+  ]
+}
+
+const v1 = ['1885','870','447','135','88','83','8']
 _.forEach(provinces, function (province, index) {
   data.push({name: province, value: v1[index]})
 })
@@ -20,7 +62,7 @@ var geoCoordMap = {
   '河北':[114.48,38.03],
   '河南':[113.65,34.76],
   '安徽':[117.27,31.86],
-  '江苏':[118.88,33.04],
+  '江苏':[119.88,34.04],
   '山东':[117,36.65],
   '湖北':[114.31,30.52],
   '湖南':[113,28.21],
@@ -40,6 +82,16 @@ var convertData = function (data) {
   return res;
 };
 
+function getDetail(name) {
+  if (!details.hasOwnProperty(name)) return ''
+
+  const cities = details[name]
+  let result = '<br />----------------<br />'
+  for (let i = 0; i < cities.length; i++) {
+    result += cities[i].name + ': ' + cities[i].value + '万户<br />'
+  }
+  return result
+}
 const mapOption = {
   textStyle: {
     color: '#fff',
@@ -57,13 +109,23 @@ const mapOption = {
   },
   visualMap: {
     show: true,
-    color: ['#e94f26','#F39e33'],
+//    color: ['#e94f26','#ffb74d'],
+    inRange: {
+//      color: ['#ffb74d', '#ffa726', '#ff9800', '#e94f26'],
+      color: ['#ffb74d','#e94f26'],
+      symbolSize: [30, 100]
+    },
+    outOfRange: {
+      color: ['#121122', 'rgba(3,4,5,0.4)', 'red'],
+      symbolSize: [30, 100]
+    },
     min: 0,
-    max: 3500,
+    max: 2000,
+    formatter: '{value}万户',
 //    left: 'right',
 //    top: 'bottom',
-    bottom: 20,
-    right: 20,
+    bottom: 30,
+    right: 30,
     text:['高','低'],           // 文本，默认为数值文本
     calculable : true,
     textStyle: {
@@ -72,9 +134,12 @@ const mapOption = {
     }
   },
   tooltip : {
+    padding: 10,
     trigger: 'item',
-    formatter: (item) => item.seriesName + '<br />' + item.name + ':'
-      + (isNaN(item.value) ? '无数据' : item.value + '万'),
+    formatter: (item) => (isNaN(item.value)
+      ? null
+//      : item.seriesName + '<br />' + item.name + ': - ' + item.value + '万户'),
+      : '有线电视用户数<br />' + item.name + '省: ' + item.value + '万户' + getDetail(item.name)),
   },
   legend: {
     show: false,
@@ -102,7 +167,9 @@ const mapOption = {
         emphasis: {
           show: true,
           textStyle: {
-            color: '#B8E6FE'
+            color: '#B8E6FE',
+            fontWeight: 'bold',
+//            color: '#000'
           }
         },
 
@@ -115,7 +182,23 @@ const mapOption = {
           borderWidth: 1,
         },
         emphasis: {
-          areaColor: '#ffab00',
+          //LightGreen
+//          areaColor: '#9ccc65',
+//          shadowColor: '#8bc34a',
+          //LightBlue
+          areaColor: '#03a9f4',
+          shadowColor: '#039be5',
+          //Green
+//          areaColor: '#42bd41',
+//          shadowColor: '#2bafab',
+          //Lime
+//          areaColor: '#d4e157',
+//          shadowColor: '#cddc39',
+          borderColor: '#FFF',
+          shadowBlur: 10,
+          shadowOffsetX: 10,
+          shadowOffsetY: 10,
+          opacity: 0.8,
         }
       },
 
@@ -142,40 +225,56 @@ for (let j = 0; j < types.length; j++) {
     name: types[j],
     type:'bar',
     stack: '总量',
-    itemStyle : { normal: {label : {show: true, position: j === 0 ? 'insideLeft' : 'insideRight'}} },
-    barWidth: 18,
-    barGap: '5%',
-    barCategoryGap: '5%',
+//    itemStyle : { normal: {label : {show: true, position: j === 0 ? 'insideLeft' : 'insideLeft'}} },
+    itemStyle : {
+      normal: {
+        label : {
+          show: true,
+          position: j === 0 ? 'insideRight' : 'right',
+          textStyle: {
+            color: '#FFF',
+          }
+        }
+      }
+    },
+//    barWidth: 20,
+//    barGap: '40%',
+//    barCategoryGap: '40%',
     data:d
   })
 }
 
 const barOption = {
+//  backgroundColor: '#fff',
 //  color: ['#c23531','#40c4ff'],
-  color: ['#c94638','#396cbd'],
+  color: ['#396cbd','#c94638'],
 
-  tooltip : {
-    show: false,
-    trigger: 'item',
-//    formatter: "{a} <br/>{b} : {c} ({d}万)",
-    axisPointer : {            // 坐标轴指示器，坐标轴触发有效
-      type : 'line'        // 默认为直线，可选为：'line' | 'shadow'
-    }
-  },
+//  tooltip : {
+//    show: false,
+////    trigger: 'axis',
+//////    formatter: "{a} <br/>{b} : {c} ({d}万)",
+////    axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+////      type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+////    }
+//  },
   legend: {
-    data:['有线电视用户数(万户)','数字用户数(万户)'],
-    y: 'top',
+    data:['数字用户数(万户)','有线电视用户数(万户)'],
+//    y: 'top',
+//    x: 'center',
+//    itemHeight: 20,
+//    itemWidth: 25,
+    selectedMode: false,
     textStyle: {
-      color: '#5fa4d9'
+      color: '#5fa4d9',
+      fontSize: 14,
     },
-    top: 50,
   },
   grid: {
-    left: '4%',
-    right: '4%',
+    left: 50,
+//    right: '4%',
     bottom: '4%',
-    top: 80,
-    containLabel: true
+    top: 40,
+//    containLabel: true
   },
   xAxis : [
     {

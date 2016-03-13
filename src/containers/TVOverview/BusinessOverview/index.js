@@ -6,7 +6,7 @@ import { Panel, ECharts, SearchBox, KpiGroup, DataGrid } from '../../../componen
 import style from '../../style.scss'
 import { mockData3, mockData4,mockTableHeader, mockTable } from '../../../tools/dataMock'
 import { getMultiOption } from '../../../tools/service'
-import { REST_API_BASE_URL } from '../../../config'
+import { REST_API_BASE_URL, theme } from '../../../config'
 import _ from 'lodash'
 
 const tables = [
@@ -45,44 +45,44 @@ const columns = [
     width: '10%',
   },
   {
-    title: '用户数',
+    title: '用户数(户)',
     dataIndex: 'userNum',
     key: 'userNum',
     className: style.header,
     width: '16%',
-    render(text) {
-      return text + '户';
-    }
+//    render(text) {
+//      return text + '户';
+//    }
   },
   {
-    title: '覆盖率',
+    title: '覆盖率(%)',
     dataIndex: 'coverRatio',
     key: 'coverRatio',
     className: style.header,
     width: '16%',
-    render(text) {
-      return text + '%';
-    }
+//    render(text) {
+//      return text + '%';
+//    }
   },
   {
-    title: '使用时长',
+    title: '使用时长(分钟)',
     dataIndex: 'userTime',
     key: 'userTime',
     className: style.header,
     width: '18%',
-    render(text) {
-      return text + '分钟';
-    }
+//    render(text) {
+//      return text + '分钟';
+//    }
   },
   {
-    title: '户均使用时长',
+    title: '户均使用时长(分钟)',
     dataIndex: 'userTimeAVG',
     key: 'userTimeAVG',
     className: style.header,
     width: '18%',
-    render(text) {
-      return text + '分钟';
-    }
+//    render(text) {
+//      return text + '分钟';
+//    }
   },
 ];
 
@@ -158,7 +158,7 @@ class BusinessOverview extends React.Component {
         <Panel title="筛选条件" height="90">
           <SearchBox showTime onSearch={(a,b,c) => this.search(a,b,c)}/>
         </Panel>
-        <Panel height="300" className={style.panel}>
+        <Panel height={theme.CHART_PANEL_HEIGHT} className={style.panel}>
           <ECharts option={this.state.option}/>
           <KpiGroup kpis={kpis} onKpiChange={(e) => this.onKChange(e)}/>
         </Panel>

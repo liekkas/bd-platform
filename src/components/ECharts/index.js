@@ -9,7 +9,8 @@ import fetch from 'isomorphic-fetch'
 import { generateOption } from './convertOptions'
 import { getInitOption } from './initOptions'
 import _ from 'lodash'
-import china from './china.json'
+//import china from './china.json'
+import china from './chinaBaidu.json'
 import shallowEqual from 'react-pure-render/shallowEqual';
 
 echarts.registerMap('china', china)
