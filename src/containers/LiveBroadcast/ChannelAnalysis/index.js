@@ -150,7 +150,7 @@ class ChannelAnalysis extends React.Component {
 
     return (
       <div className={style.root}>
-        <Panel title="筛选条件" height="140">
+        <Panel title="筛选条件" height="90">
           <CompareSearchBox showTime onSearch={(a,b,c,d,e) => this.search(a,b,c,d,e)}/>
         </Panel>
         <Panel height={theme.CHART_PANEL_HEIGHT} className={style.panel}>
