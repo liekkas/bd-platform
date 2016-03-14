@@ -6,6 +6,7 @@ import Panel from '../Panel'
 import style from './style.scss'
 import { Table, Pagination } from 'antd'
 import _ from 'lodash'
+import shallowEqual from 'react-pure-render/shallowEqual'
 
 class DataGrid extends React.Component {
   constructor(props) {
@@ -24,6 +25,13 @@ class DataGrid extends React.Component {
 
   onChange(current) {
     this.setState({ current })
+  }
+
+  componentWillReceiveProps(nextProps) {
+//    console.log('>>> DataGrid:componentWillReceiveProps', nextProps)
+    if (!shallowEqual(this.props,nextProps)) {
+      this.setState({pageSize:10, current:1})
+    }
   }
 
   showTotal(total) {
