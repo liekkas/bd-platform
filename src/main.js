@@ -33,8 +33,15 @@ import fetch from 'isomorphic-fetch'
 const initialState = window.__INITIAL_STATE__
 const store = configureStore(initialState, browserHistory)
 
-ReactDOM.render(
-  <Root history={browserHistory} route={AppRouter} store={store} />,
-  document.getElementById('root')
-)
+//ReactDOM.render(
+//  <Root history={browserHistory} route={AppRouter} store={store} />,
+//  document.getElementById('root')
+//)
+
+setTimeout(function () {
+  ReactDOM.render(
+    <Root history={browserHistory} route={AppRouter} store={store} />,
+    document.getElementById('root')
+  )
+},100)
 
