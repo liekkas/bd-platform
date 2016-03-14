@@ -115,25 +115,29 @@ class CompareSearchBox extends React.Component {
     const { showTime } = this.props
     return (
       <div className={style.root}>
-        <div className={style.label}>
-          <label>时间分类:</label>
-        </div>
+        <div className={style.left}>
+          <div className={style.hgroup}>
+            <div className={style.label}>
+              <label>时间分类:</label>
+            </div>
 
-        { this.renderSelect() }
-        { this.renderDate() }
+            { this.renderSelect() }
+            { this.renderDate() }
+          </div>
 
-        &nbsp;&nbsp;&nbsp;&nbsp;
-
-        <div className={style.label}>
-          <label>频道名称:</label>
+          <div className={style.hgroup}>
+            <div className={style.label}>
+              <label>频道名称:</label>
+            </div>
+            <ByChannel onChannelChange={(v) => this.setState({channel1:v})}/>
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <div className={style.label}>
+              <label>对比频道名称:</label>
+            </div>
+            <ByChannel channelName='湖南卫视'
+                       onChannelChange={(v) => this.setState({channel2:v})}/>
+          </div>
         </div>
-        <ByChannel onChannelChange={(v) => this.setState({channel1:v})}/>
-        &nbsp;&nbsp;&nbsp;&nbsp;
-        <div className={style.label}>
-          <label>对比频道名称:</label>
-        </div>
-        <ByChannel channelName='湖南卫视'
-                   onChannelChange={(v) => this.setState({channel2:v})}/>
 
         &nbsp;&nbsp;&nbsp;&nbsp;
         <div className={style.label}>

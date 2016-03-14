@@ -1,7 +1,7 @@
 @import "../../colors";
 
 .root {
-  width: 12%;
+  width: 14%;
   position: fixed;
   height: 100%;
   margin-top: 10px;
@@ -17,13 +17,13 @@
 .menuName {
   //top: 12px;
   //padding-top: 12px;
-  margin-right: 52%;
+  margin-right: 35%;
 }
 
 .menuName2 {
   //top: 12px;
   //padding-top: 12px;
-  margin-right: 40%;
+  margin-right: 15%;
 }
 
 .menuName2Sub {
@@ -31,26 +31,6 @@
   //padding-top: 12px;
   margin-left: 5%;
   //margin-right: 21%;
-}
-.menuName2Sub1 {
-  //top: 12px;
-  //padding-top: 12px;
-  margin-left: 3%;
-  margin-right: 21%;
-}
-
-.menuName2Sub2 {
-  //top: 12px;
-  //padding-top: 12px;
-  margin-left: 0;
-  margin-right: 18%;
-}
-
-.menuName2Sub3 {
-  //top: 12px;
-  //padding-top: 12px;
-  margin-left: 17%;
-  margin-right: 21%;
 }
 
 .menuIcon {
@@ -60,5 +40,5 @@
 }
 
 .subMenuIcon {
-  margin-left: 20px;
+  margin-left: 12px;
 }

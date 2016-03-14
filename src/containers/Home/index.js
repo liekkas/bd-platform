@@ -3,7 +3,7 @@
  */
 import React, { PropTypes } from 'react'
 import { ECharts, Panel, Footer } from '../../components'
-import style from './style.scss'
+import style from './style768.scss'
 //import echarts from 'echarts'
 import _ from 'lodash'
 import {browserHistory} from 'react-router';
