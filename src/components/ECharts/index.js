@@ -31,6 +31,7 @@ class ECharts extends React.Component {
   }
 
   componentDidMount() {
+//    window.addEventListener('resize', this.handleResize);
     const { id, option } = this.state
     const { config } = this.props
     const chart = echarts.init(document.getElementById(id))
@@ -64,6 +65,11 @@ class ECharts extends React.Component {
   componentWillUnmount() {
     const chart = echarts.init(document.getElementById(this.state.id))
     chart.dispose()
+//    window.removeEventListener('resize', this.handleResize);
+  }
+
+  handleResize(e) {
+
   }
 
   _getData(bind, props) {
