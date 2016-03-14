@@ -98,6 +98,7 @@ export function getSingleOption(labels,datas,unit,kpi) {
           formatter: function (value, index) {
             switch (kpi) {
               case '使用时长':
+              case '点播时长':
                 return value / 10000 + '万' + unit
               default:
                 return value + unit;
@@ -172,178 +173,21 @@ export function getSingleOption(labels,datas,unit,kpi) {
   }
 }
 
-export function getSingleBigDataOption(labels,datas,unit,kpi) {
-  return {
-//    backgroundColor: 'rgba(0,57,100,0.6)',
-    title: {
-      show: false,
-      x: 'right',
-      text: kpi,
-      subtext: unit,
-    },
-    tooltip : {
-      trigger: 'axis',
-      axisPointer: {
-        lineStyle: {
-          color: '#7C8088'
-        }
-      },
-      formatter: '{b}' + '<br />' + '{a}:{c}' + unit,
-    },
-    grid: {
-      top: 70,
-      bottom: 50,
-    },
-    legend: {
-      top: 'bottom',
-      data: ['意向']
-    },
-    toolbox: {
-      show: false,
-      feature: {
-        mark: {show: false},
-        dataView: {show: false, readOnly: false},
-        magicType: {show: false, type: ['line', 'bar']},
-        restore: {show: false},
-        saveAsImage: {show: true}
-      },
-      iconStyle: {
-        normal: {
-//          color: '#ffffff',
-//          borderColor: '#7c8088',
-        },
-        emphasis: {
-//          borderColor: '#FFAA00',
-        }
-      }
-    },
-    xAxis: [
-      {
-        type: 'category',
-        boundaryGap: false,
-        data: labels,
-        axisLine: {
-          lineStyle: {
-            color: '#7c8088',
-          }
-        },
-        axisTick: {
-          lineStyle: {
-            color: '#7c8088',
-          }
-        },
-        axisLabel: {
-          textStyle: {
-            color: '#7c8088',
-          }
-        },
-        splitLine: {
-          show: false
-        },
-      }
-    ],
-    yAxis: [
-      {
-        type: 'value',
-//        max: 500,
-        axisLine: {
-          lineStyle: {
-            color: '#7c8088',
-          }
-        },
-        axisTick: {
-          lineStyle: {
-            color: '#7c8088',
-          }
-        },
-        axisLabel: {
-          textStyle: {
-            color: '#7c8088',
-          },
-//          formatter: getFormat(kpi) + unit
-          formatter: function (value, index) {
-            switch (kpi) {
-              case '使用时长':
-                return value / 10000 + '万' + unit
-              default:
-                return value + unit;
-            }
-          }
-        },
-        splitLine: {
-          lineStyle: {
-            color: '#7c8088',
-          }
-        },
-      }
-    ],
-//    dataZoom: {
-//      type: 'inside',
-//      start: 60,
-//      end: 80
-//    },
-    dataZoom: [{
-      type: 'inside',
-      start: 0,
-      end: 10
-    }, {
-      start: 0,
-      end: 10
-    }],
-    series: [
-      {
-        name: kpi,
-        type: 'line',
-        areaStyle: {
-          normal: {
-            color: 'rgba(128, 128, 128, 0.2)'
-          }
-        },
-        smooth: true,
-        data: datas,
-//        markPoint : {
-//          data : [
-//            {type : 'max', name: '最大值'},
-//            {type : 'min', name: '最小值'}
-//          ]
-//        },
-        markLine : {
-          data : [
-            {
-              type : 'average',
-              name: '平均值',
-              label: {
-                normal: {
-//                  color: '#00ff00'
-                }
-              },
-            }
-          ],
-          lineStyle: {
-            normal: {
-//              color: '#00ff00'
-            }
-          },
-          label: {
-            normal: {
-              formatter: '{c}' + unit
-            }
-          },
-
-        },
-      }
-    ]
-  }
-}
-
 export function getMultiOption(labels,datas,legends,unit,kpi) {
   let series = []
   for (let i = 0; i < legends.length; i++) {
-    series.push({
-      name: legends[i],
-      type: 'bar',
-      data: datas[i],
-    })
+    kpi === '市占率'
+      ? series.push({
+        name: legends[i],
+        type: 'bar',
+        stack: '总量',
+        data: datas[i],
+      })
+      : series.push({
+        name: legends[i],
+        type: 'bar',
+        data: datas[i],
+      })
   }
 
   return {
@@ -363,7 +207,22 @@ export function getMultiOption(labels,datas,legends,unit,kpi) {
 //          color: '#7c8088'
 //        }
       },
-      formatter: '{b}' + '<br />' + '{a}:{c}' + unit + '<br />' + '{a1}:{c1}' + unit,
+//      formatter: '{b}' + '<br />' + '{a}:{c}' + unit + '<br />' + '{a1}:{c1}' + unit,
+      formatter: function (item) {
+        if (item.length === 2) {
+          const v1 = item[0]
+          const v2 = item[1]
+          return v1.name + '<br />'
+            + v1.seriesName + ':  ' + v1.value + unit + '<br />'
+            + v2.seriesName + ':  ' + v2.value + unit + '<br />'
+        } else if (item.length === 1) {
+          const v1 = item[0]
+          return v1.name + '<br />'
+            + v1.seriesName + ':  ' + v1.value + unit
+        }
+
+        return ''
+      },
     },
     grid: {
       top: 70,
@@ -445,6 +304,7 @@ export function getMultiOption(labels,datas,legends,unit,kpi) {
           formatter: function (value, index) {
             switch (kpi) {
               case '使用时长':
+              case '点播时长':
                 return value / 10000 + '万' + unit
               default:
                 return value + unit;
@@ -486,7 +346,13 @@ export function getOrderOption(labels,datas,unit,kpi) {
           color: '#7c8088'
         }
       },
-      formatter: '{b}' + '<br />' + '{a}:{c}' + unit,
+//      formatter: '{b}' + '<br />' + '{a}:{c}' + unit,
+      formatter: function (item) {
+        const d = item[0]
+        return d.name + '<br />'
+          + d.seriesName + ':  ' + d.data.value + unit + '<br />'
+          + '排名:  ' + d.data.rank;
+      },
     },
     grid: {
       top: 70,
@@ -564,6 +430,7 @@ export function getOrderOption(labels,datas,unit,kpi) {
           formatter: function (value, index) {
             switch (kpi) {
               case '使用时长':
+              case '点播时长':
                 return value / 10000 + '万' + unit
               default:
                 return value + unit;

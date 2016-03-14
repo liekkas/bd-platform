@@ -90,16 +90,7 @@ class GroupTimeUseAnalysis extends React.Component {
         const datas1 = _.map(result[type1],bind.state.kpi.value);
         const datas2 = _.map(result[type2],bind.state.kpi.value);
 
-        let chartData
-        if (bind.state.kpi.value !== 'marketRatio') {
-          chartData = getMultiOption(labels,[datas1,datas2],legends,bind.state.kpi.unit,bind.state.kpi.label)
-        } else {
-          const pieData = [
-            (_.sum(datas1,data => data.marketRatio) / datas1.length).toFixed(2),
-            (_.sum(datas2,data => data.marketRatio) / datas2.length).toFixed(2),
-          ]
-          chartData = getPieOption(legends,pieData)
-        }
+        const chartData = getMultiOption(labels,[datas1,datas2],legends,bind.state.kpi.unit,bind.state.kpi.label)
 
         const tableData = []
         const num = result[type1].length
@@ -140,16 +131,7 @@ class GroupTimeUseAnalysis extends React.Component {
     const datas1 = _.map(c1,t.value);
     const datas2 = _.map(c2,t.value);
 
-    let chartData
-    if (t.value !== 'marketRatio') {
-      chartData = getMultiOption(labels,[datas1,datas2],legends,t.unit,t.label)
-    } else {
-      const pieData = [
-        (_.sum(c1,data => data.marketRatio) / c1.length).toFixed(2),
-        (_.sum(c2,data => data.marketRatio) / c2.length).toFixed(2),
-      ]
-      chartData = getPieOption(legends,pieData)
-    }
+    const chartData = getMultiOption(labels,[datas1,datas2],legends,t.unit,t.label)
 
     this.setState({kpi: t, option: chartData})
   }

@@ -87,7 +87,13 @@ class TVPlayList extends React.Component {
       .then(response => response.json())
       .then(function (result) {
         const labels = _.map(result,'showName');
-        const datas = _.map(result,bind.state.kpi.value);
+        let datas = []
+        for (let i = 0; i < result.length; i++) {
+          datas.push({
+            value: result[i][bind.state.kpi.value],
+            rank: result[i].uid,
+          })
+        }
 //        console.log('>>> Overview', labels, datas)
         const chartData = getOrderOption(labels,datas,bind.state.kpi.unit,bind.state.kpi.label)
         bind.setState({ tableData: result, option: chartData, remoteLoading: false })
@@ -114,7 +120,13 @@ class TVPlayList extends React.Component {
       }
     }
     const labels = _.map(this.state.tableData,'showName');
-    const datas = _.map(this.state.tableData,t.value);
+    let datas = []
+    for (let i = 0; i < this.state.tableData.length; i++) {
+      datas.push({
+        value: this.state.tableData[i][t.value],
+        rank: this.state.tableData[i].uid,
+      })
+    }
     const chartData = getOrderOption(labels,datas,t.unit,t.label)
     this.setState({kpi: t, option: chartData})
   }

@@ -11,9 +11,10 @@ import _ from 'lodash'
 const kpis = [
   {value:'userNum', label: '用户数', unit: '户'},
   {value:'coverRatio', label: '覆盖率', unit: '%'},
-  {value:'userGrowRatio', label: '用户增长率', unit: '%'},
+  {value:'userGrowRatio', label: '用户流动率', unit: '%'},
   {value:'newUserNum', label: '流入用户数', unit: '户'},
   {value:'lostUserNum', label: '流出用户数', unit: '户'},
+  {value:'coverUserNum', label: '覆盖用户数', unit: '户'},
 ]
 
 const columns = [
@@ -22,7 +23,7 @@ const columns = [
     dataIndex: 'date',
     key: 'date',
     className: style.header,
-    width: '16%',
+    width: '14%',
     render(text) {
       return text;
     }
@@ -32,7 +33,7 @@ const columns = [
     dataIndex: 'userNum',
     key: 'userNum',
     className: style.header,
-    width: '16%',
+    width: '14%',
 //    render(text) {
 //      return text + '户';
 //    }
@@ -42,17 +43,17 @@ const columns = [
     dataIndex: 'coverRatio',
     key: 'coverRatio',
     className: style.header,
-    width: '16%',
+    width: '14%',
 //    render(text) {
 //      return text + '%';
 //    }
   },
   {
-    title: '用户增长率(%)',
+    title: '用户流动率(%)',
     dataIndex: 'userGrowRatio',
     key: 'userGrowRatio',
     className: style.header,
-    width: '16%',
+    width: '14%',
 //    render(text) {
 //      return text + '%';
 //    }
@@ -62,7 +63,7 @@ const columns = [
     dataIndex: 'newUserNum',
     key: 'newUserNum',
     className: style.header,
-    width: '16%',
+    width: '14%',
 //    render(text) {
 //      return text + '户';
 //    }
@@ -72,10 +73,17 @@ const columns = [
     dataIndex: 'lostUserNum',
     key: 'lostUserNum',
     className: style.header,
-    width: '16%',
+    width: '14%',
 //    render(text) {
 //      return text + '户';
 //    }
+  },
+  {
+    title: '覆盖用户数(户)',
+    dataIndex: 'coverUserNum',
+    key: 'coverUserNum',
+    className: style.header,
+    width: '14%',
   },
 ]
 

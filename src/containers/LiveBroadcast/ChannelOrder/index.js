@@ -90,7 +90,13 @@ class ChannelOrder extends React.Component {
       .then(response => response.json())
       .then(function (result) {
         const labels = _.map(result,'channelName');
-        const datas = _.map(result,bind.state.kpi.value);
+        let datas = []
+        for (let i = 0; i < result.length; i++) {
+          datas.push({
+            value: result[i][bind.state.kpi.value],
+            rank: result[i].uid,
+          })
+        }
 //        console.log('>>> Overview', labels, datas)
         const chartData = getOrderOption(labels,datas,bind.state.kpi.unit,bind.state.kpi.label)
         bind.setState({ tableData: result, option: chartData, remoteLoading: false })
@@ -117,9 +123,16 @@ class ChannelOrder extends React.Component {
       }
     }
 //    const labels = _.take(_.map(this.state.tableData,'channelName'),10).reverse();
-    const labels = _.take(_.map(this.state.tableData,'channelName'),50);
+    const labels = _.map(this.state.tableData,'channelName');
 //    const datas = _.take(_.map(this.state.tableData,t.value),10).reverse();
-    const datas = _.take(_.map(this.state.tableData,t.value),50);
+//    const datas = _.take(_.map(this.state.tableData,t.value),50);
+    let datas = []
+    for (let i = 0; i < this.state.tableData.length; i++) {
+      datas.push({
+        value: this.state.tableData[i][t.value],
+        rank: this.state.tableData[i].uid,
+      })
+    }
     const chartData = getOrderOption(labels,datas,t.unit,t.label)
     this.setState({kpi: t, option: chartData})
   }

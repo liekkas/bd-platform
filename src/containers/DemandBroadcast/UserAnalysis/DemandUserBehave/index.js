@@ -9,8 +9,11 @@ import { REST_API_BASE_URL, theme } from '../../../../config'
 import _ from 'lodash'
 
 const kpis = [
-  {value:'userTime', label: '使用时长', unit: '分钟'},
-  {value:'userTimeAVG', label: '户均使用时长', unit: '分钟'},
+  {value:'userTime', label: '点播时长', unit: '分钟'},
+  {value:'userTimeAVG', label: '户均点播时长', unit: '分钟'},
+  {value:'requestTimes', label: '点播次数', unit: '次'},
+  {value:'requestAVG', label: '户均点播次数', unit: '次'},
+  {value:'requestOne', label: '单次点播时长', unit: '分钟'},
 ]
 
 const columns = [
@@ -19,30 +22,45 @@ const columns = [
     dataIndex: 'date',
     key: 'date',
     className: style.header,
-    width: '30%',
+    width: '16%',
     render(text) {
       return text;
     }
   },
   {
-    title: '使用时长(分钟)',
+    title: '点播时长(分钟)',
     dataIndex: 'userTime',
     key: 'userTime',
     className: style.header,
-    width: '30%',
-//    render(text) {
-//      return text + '分钟';
-//    }
+    width: '16%',
   },
   {
-    title: '户均使用时长(分钟)',
+    title: '户均点播时长(分钟)',
     dataIndex: 'userTimeAVG',
     key: 'userTimeAVG',
     className: style.header,
-    width: '30%',
-//    render(text) {
-//      return text + '分钟';
-//    }
+    width: '16%',
+  },
+  {
+    title: '点播次数(次)',
+    dataIndex: 'requestTimes',
+    key: 'requestTimes',
+    className: style.header,
+    width: '16%',
+  },
+  {
+    title: '户均点播次数(次)',
+    dataIndex: 'requestAVG',
+    key: 'requestAVG',
+    className: style.header,
+    width: '16%',
+  },
+  {
+    title: '单次点播时长(分钟)',
+    dataIndex: 'requestOne',
+    key: 'requestOne',
+    className: style.header,
+    width: '16%',
   },
 ]
 

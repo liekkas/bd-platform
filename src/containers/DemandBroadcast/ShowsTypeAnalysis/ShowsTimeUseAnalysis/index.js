@@ -9,8 +9,8 @@ import { REST_API_BASE_URL, theme } from '../../../../config'
 import _ from 'lodash'
 
 const kpis = [
-  {value:'userTime', label: '使用时长', unit: '分钟'},
-  {value:'userTimeAVG', label: '户均使用时长', unit: '分钟'},
+  {value:'userTime', label: '点播时长', unit: '分钟'},
+  {value:'userTimeAVG', label: '户均点播时长', unit: '分钟'},
   {value:'marketRatio', label: '市占率', unit: '%'},
 ]
 
@@ -36,7 +36,7 @@ const columns = [
     }
   },
   {
-    title: '使用时长(分钟)',
+    title: '点播时长(分钟)',
     dataIndex: 'userTime',
     key: 'userTime',
     className: style.header,
@@ -46,7 +46,7 @@ const columns = [
 //    }
   },
   {
-    title: '户均使用时长(分钟)',
+    title: '户均点播时长(分钟)',
     dataIndex: 'userTimeAVG',
     key: 'userTimeAVG',
     className: style.header,
@@ -90,16 +90,7 @@ class ShowsTimeUseAnalysis extends React.Component {
         const datas1 = _.map(result[type1],bind.state.kpi.value);
         const datas2 = _.map(result[type2],bind.state.kpi.value);
 
-        let chartData
-        if (bind.state.kpi.value !== 'marketRatio') {
-          chartData = getMultiOption(labels,[datas1,datas2],legends,bind.state.kpi.unit,bind.state.kpi.label)
-        } else {
-          const pieData = [
-            (_.sum(datas1,data => data.marketRatio) / datas1.length).toFixed(2),
-            (_.sum(datas2,data => data.marketRatio) / datas2.length).toFixed(2),
-          ]
-          chartData = getPieOption(legends,pieData)
-        }
+        const chartData = getMultiOption(labels,[datas1,datas2],legends,bind.state.kpi.unit,bind.state.kpi.label)
 
         const tableData = []
         const num = result[type1].length
@@ -140,16 +131,7 @@ class ShowsTimeUseAnalysis extends React.Component {
     const datas1 = _.map(c1,t.value);
     const datas2 = _.map(c2,t.value);
 
-    let chartData
-    if (t.value !== 'marketRatio') {
-      chartData = getMultiOption(labels,[datas1,datas2],legends,t.unit,t.label)
-    } else {
-      const pieData = [
-        (_.sum(c1,data => data.marketRatio) / c1.length).toFixed(2),
-        (_.sum(c2,data => data.marketRatio) / c2.length).toFixed(2),
-      ]
-      chartData = getPieOption(legends,pieData)
-    }
+    const chartData = getMultiOption(labels,[datas1,datas2],legends,t.unit,t.label)
 
     this.setState({kpi: t, option: chartData})
   }

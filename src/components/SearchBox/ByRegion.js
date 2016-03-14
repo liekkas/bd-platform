@@ -10,7 +10,8 @@ import dateFormat from 'dateFormat'
 import Select from 'antd/lib/select'
 const Option = Select.Option
 
-const datas = ['全部','江苏省','湖北省','安徽省','湖南省','河北省','山东省','河南省']
+const datas = ['全部']
+//const datas = ['全部','江苏省','湖北省','安徽省','湖南省','河北省','山东省','河南省']
 class ByRegion extends React.Component {
   constructor(props) {
     super(props)
