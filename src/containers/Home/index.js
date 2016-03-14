@@ -115,10 +115,10 @@ const mapOption = {
       color: ['#ffb74d','#e94f26'],
       symbolSize: [30, 100]
     },
-    outOfRange: {
-      color: ['#121122', 'rgba(3,4,5,0.4)', 'red'],
-      symbolSize: [30, 100]
-    },
+//    outOfRange: {
+//      color: ['#121122', 'rgba(3,4,5,0.4)', 'red'],
+//      symbolSize: [30, 100]
+//    },
     min: 0,
     max: 2000,
     formatter: '{value}万户',
@@ -343,7 +343,7 @@ class Home extends React.Component {
   }
 
   onMapClick(e) {
-    console.log('>>> 我靠',e)
+//    console.log('>>> 我靠',e)
 //    this.props.history.replaceState(null, '/tvOverview');
 
     browserHistory.push('/tvOverview');
