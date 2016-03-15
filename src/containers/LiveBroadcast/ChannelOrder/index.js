@@ -41,6 +41,9 @@ const columns = [
     key: 'userIndex',
     className: style.header,
     width: '16%',
+    sorter(a, b) {
+      return a.userIndex - b.userIndex;
+    },
   },
   {
     title: '覆盖率(%)',
@@ -48,9 +51,9 @@ const columns = [
     key: 'coverRatio',
     className: style.header,
     width: '16%',
-//    render(text) {
-//      return text + '%';
-//    }
+    sorter(a, b) {
+      return a.coverRatio - b.coverRatio;
+    },
   },
   {
     title: '市占率(%)',
@@ -58,6 +61,9 @@ const columns = [
     key: 'marketRatio',
     className: style.header,
     width: '16%',
+    sorter(a, b) {
+      return a.marketRatio - b.marketRatio;
+    },
   },
   {
     title: '户均使用时长(分钟)',
@@ -65,9 +71,9 @@ const columns = [
     key: 'useTimeAVG',
     className: style.header,
     width: '16%',
-//    render(text) {
-//      return text + '分钟';
-//    }
+    sorter(a, b) {
+      return a.useTimeAVG - b.useTimeAVG;
+    },
   },
 ]
 

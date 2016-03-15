@@ -9,12 +9,12 @@ import { REST_API_BASE_URL, theme } from '../../../../config'
 import _ from 'lodash'
 
 const kpis = [
+  {value:'coverUserNum', label: '覆盖用户数', unit: '户'},
   {value:'userNum', label: '用户数', unit: '户'},
   {value:'coverRatio', label: '覆盖率', unit: '%'},
   {value:'userGrowRatio', label: '用户流动率', unit: '%'},
   {value:'newUserNum', label: '流入用户数', unit: '户'},
   {value:'lostUserNum', label: '流出用户数', unit: '户'},
-  {value:'coverUserNum', label: '覆盖用户数', unit: '户'},
 ]
 
 const columns = [
@@ -27,6 +27,13 @@ const columns = [
     render(text) {
       return text;
     }
+  },
+  {
+    title: '覆盖用户数(户)',
+    dataIndex: 'coverUserNum',
+    key: 'coverUserNum',
+    className: style.header,
+    width: '14%',
   },
   {
     title: '用户数(户)',
@@ -77,13 +84,6 @@ const columns = [
 //    render(text) {
 //      return text + '户';
 //    }
-  },
-  {
-    title: '覆盖用户数(户)',
-    dataIndex: 'coverUserNum',
-    key: 'coverUserNum',
-    className: style.header,
-    width: '14%',
   },
 ]
 

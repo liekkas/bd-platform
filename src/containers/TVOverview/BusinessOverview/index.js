@@ -4,20 +4,12 @@
 import React, { PropTypes } from 'react'
 import { Panel, ECharts, SearchBox, KpiGroup, DataGrid } from '../../../components'
 import style from '../../style.scss'
-import { mockData3, mockData4,mockTableHeader, mockTable } from '../../../tools/dataMock'
 import { getMultiOption } from '../../../tools/service'
 import { REST_API_BASE_URL, theme } from '../../../config'
 import _ from 'lodash'
 
-const tables = [
-  {value:'bizType', label: '业务类别'},
-  {value:'userNum', label: '用户数'},
-  {value:'coverRatio', label: '覆盖率'},
-  {value:'userTime', label: '使用时长'},
-  {value:'userTimeAVG', label: '户均使用时长'},
-]
-
 const kpis = [
+  {value:'coverUserNum', label: '覆盖用户数', unit: '户'},
   {value:'userNum', label: '用户数', unit: '户'},
   {value:'coverRatio', label: '覆盖率', unit: '%'},
   {value:'userTime', label: '使用时长', unit: '分钟'},
@@ -32,7 +24,7 @@ const columns = [
     dataIndex: 'date',
     key: 'date',
     className: style.header,
-    width: '16%',
+    width: '14%',
     render(text) {
       return text;
     }
@@ -42,14 +34,21 @@ const columns = [
     dataIndex: 'bizType',
     key: 'bizType',
     className: style.header,
-    width: '10%',
+    width: '14%',
+  },
+  {
+    title: '覆盖用户数(户)',
+    dataIndex: 'coverUserNum',
+    key: 'coverUserNum',
+    className: style.header,
+    width: '14%',
   },
   {
     title: '用户数(户)',
     dataIndex: 'userNum',
     key: 'userNum',
     className: style.header,
-    width: '16%',
+    width: '14%',
 //    render(text) {
 //      return text + '户';
 //    }
@@ -59,7 +58,7 @@ const columns = [
     dataIndex: 'coverRatio',
     key: 'coverRatio',
     className: style.header,
-    width: '16%',
+    width: '14%',
 //    render(text) {
 //      return text + '%';
 //    }
@@ -69,7 +68,7 @@ const columns = [
     dataIndex: 'userTime',
     key: 'userTime',
     className: style.header,
-    width: '18%',
+    width: '14%',
 //    render(text) {
 //      return text + '分钟';
 //    }
@@ -79,7 +78,7 @@ const columns = [
     dataIndex: 'userTimeAVG',
     key: 'userTimeAVG',
     className: style.header,
-    width: '18%',
+    width: '14%',
 //    render(text) {
 //      return text + '分钟';
 //    }

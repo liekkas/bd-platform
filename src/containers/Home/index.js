@@ -214,7 +214,7 @@ const reProvinces = provinces
 const d2 = [1885,870,447,135,88,83,8].reverse()
 //const d2 = [1365,800,405,126,87,82,4]
 const d1 = [1365,800,405,126,87,82,4].reverse()
-const types = ['数字用户数(万户)','有线电视用户数(万户)']
+const types = ['数字电视用户数(万户)','有线电视用户数(万户)']
 for (let j = 0; j < types.length; j++) {
   let d = []
   for (let k = 0; k < reProvinces.length; k++) {
@@ -258,7 +258,7 @@ const barOption = {
 ////    }
 //  },
   legend: {
-    data:['数字用户数(万户)','有线电视用户数(万户)'],
+    data:['数字电视用户数(万户)','有线电视用户数(万户)'],
 //    y: 'top',
 //    x: 'center',
 //    itemHeight: 20,
@@ -354,10 +354,10 @@ class Home extends React.Component {
     const { foo } = this.props
     return (
       <div className={style.root}>
-        <ECharts config={{eventType: 'click', eventHandler: this.onMapClick}} option={mapOption}/>
+        <ECharts showCloseLine={false} config={{eventType: 'click', eventHandler: this.onMapClick}} option={mapOption}/>
 
         <div className={style.bar}>
-          <ECharts option={barOption}/>
+          <ECharts option={barOption} showCloseLine={false}/>
         </div>
         <label>© 2016 All Rights Reserved 中信国安广视网络有限公司 版权所有</label>
       </div>

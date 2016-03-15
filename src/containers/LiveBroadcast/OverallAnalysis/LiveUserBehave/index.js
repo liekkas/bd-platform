@@ -107,7 +107,7 @@ class LiveUserBehave extends React.Component {
           <ECharts option={this.state.option}/>
           <KpiGroup kpis={kpis} onKpiChange={(e) => this.onKChange(e)}/>
         </Panel>
-        <DataGrid title="使用时长" columns={columns} datas={this.state.tableData}/>
+        <DataGrid title="用户行为" columns={columns} datas={this.state.tableData}/>
       </div>
     )
   }

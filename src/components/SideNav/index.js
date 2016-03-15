@@ -76,7 +76,7 @@ class SideNav extends React.Component {
             </Menu.Item>
             <Menu.Item key="tvOverview/userBehave">
               <img src={ this.props.route === 'tvOverview/userBehave' ? userBehave2 : userBehave1} />
-              <span className={style.menuName}>使用时长</span>
+              <span className={style.menuName}>用户行为</span>
               <span className={rightClassName} />
             </Menu.Item>
             <Menu.Item key="tvOverview/businessOverview">
@@ -103,7 +103,7 @@ class SideNav extends React.Component {
               </Menu.Item>
               <Menu.Item key="liveBroadcast/userBehave">
                 <span className={leftClassName} />
-                <span className={style.menuName2Sub}>使用时长</span>
+                <span className={style.menuName2Sub}>用户行为</span>
               </Menu.Item>
             </SubMenu>
             <SubMenu key="lbGroup" title={<span><img
@@ -116,7 +116,7 @@ class SideNav extends React.Component {
               </Menu.Item>
               <Menu.Item key="liveBroadcast/channelGroupTimeUseAnalysis">
                 <span className={leftClassName} />
-                <span className={style.menuName2Sub}>使用时长分析</span>
+                <span className={style.menuName2Sub}>用户行为分析</span>
               </Menu.Item>
             </SubMenu>
             <Menu.Item key="liveBroadcast/channelOrder">
@@ -152,7 +152,7 @@ class SideNav extends React.Component {
               </Menu.Item>
               <Menu.Item key="demandBroadcast/userBehave">
                 <span className={leftClassName} />
-                <span className={style.menuName2Sub}>使用时长</span>
+                <span className={style.menuName2Sub}>用户行为</span>
               </Menu.Item>
             </SubMenu>
             <SubMenu key="mz" title={<span><img src={

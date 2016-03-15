@@ -14,6 +14,7 @@ class DataGrid extends React.Component {
     this.state = {
       pageSize: props.pageSize,
       current: 1,
+      sorter: {},
     }
   }
 
@@ -38,20 +39,32 @@ class DataGrid extends React.Component {
     return `共 ${total} 条`;
   }
 
+  onTableChange(pagination, filters, sorter) {
+    // 点击分页、筛选、排序时触发
+    console.log('各类参数是', pagination, filters, sorter);
+    this.setState({sorter})
+  }
+
   render() {
     const { columns, datas } = this.props
-    const { pageSize, current } = this.state
+    const { pageSize, current, sorter } = this.state
+
+    let parareDatas = datas
+    if (sorter.hasOwnProperty('field')) {
+      parareDatas = _.sortByOrder(datas, [sorter.field], [sorter.order === 'descend' ? 'desc' : 'asc']);
+    }
+
     const start = (current - 1) * pageSize
-    const end = Math.min(current * pageSize, datas.length)
+    const end = Math.min(current * pageSize, parareDatas.length)
     let renderData = []
     for (let i = start; i < end; i++) {
-      renderData.push(datas[i])
+      renderData.push(parareDatas[i])
     }
 
     return (
       <div>
         <Panel title={this.props.title + ' - 列表'} height="490">
-          <Table dataSource={renderData}
+          <Table dataSource={renderData} onChange={(a,b,c) => this.onTableChange(a,b,c)}
                  useFixedHeader={true} rowKey={item => item.uid}
                  columns={columns} size="middle"
                  className={style.table} pagination={false}/>

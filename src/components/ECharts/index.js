@@ -117,7 +117,20 @@ class ECharts extends React.Component {
         height: '100%',
         position: 'relative',
       }}>
+        {
+          this.props.showCloseLine
+            ? <div style={{
+              height: '75%',
+              width: '1px',
+              backgroundColor: '#7c8088',
+              position: 'absolute',
+              right: '11.2%',
+              top: '14.5%',
+            }} />
+            : null
+        }
         <div id={this.state.id} style={{ width: '100%', height: '100%' }} />
+
         <div style={{
           position: 'relative',
           width: '100%',
@@ -147,6 +160,7 @@ class ECharts extends React.Component {
 ECharts.propTypes = {
   config: PropTypes.object.isRequired,
   option: PropTypes.object,
+  showCloseLine: PropTypes.bool,
 }
 
 const legend = [];
@@ -164,6 +178,7 @@ for (var i = 1; i <= 7; i++) {
 }
 
 ECharts.defaultProps = {
+  showCloseLine: true,
   config: {
     type: 'bar',
     mode: 'local',

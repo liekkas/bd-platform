@@ -25,6 +25,8 @@ export function getSingleOption(labels,datas,unit,kpi) {
     grid: {
       top: 70,
       bottom: 50,
+      borderColor: '#fff',
+      borderWidth: 5,
 //      right: 100,
 //      left: 100,
     },
@@ -176,7 +178,7 @@ export function getSingleOption(labels,datas,unit,kpi) {
 export function getMultiOption(labels,datas,legends,unit,kpi) {
   let series = []
   for (let i = 0; i < legends.length; i++) {
-    kpi === '市占率'
+    kpi === '市占率' || kpi === '节目比重'
       ? series.push({
         name: legends[i],
         type: 'bar',
@@ -491,6 +493,13 @@ export function getRadarOption(labels,datas) {
 
   return {
 //    backgroundColor: '#161627',
+    title: {
+      text: '市占率',
+      x: 'center',
+      textStyle: {
+        color: '#F9713C'
+      }
+    },
     tooltip : {
       trigger: 'item'
     },
@@ -552,16 +561,24 @@ export function getPieOption(labels,datas) {
   }
 
   return {
-    color: ['#c23531', '#61a0a8'],
+//    color: ['#c23531', '#61a0a8'],
+    title: {
+      text: '点播时长',
+      x: 'center',
+      textStyle: {
+        color: '#F9713C'
+      }
+    },
     tooltip: {
       trigger: 'item',
       formatter: "{a} <br/>{b}: {c} ({d}%)"
     },
     legend: {
-      orient: 'vertical',
+//      orient: 'vertical',
 //      x: 'right',
-      right: 20,
-      top: 20,
+//      right: 20,
+//      top: 20,
+      show: false,
       textStyle: {
         color: '#7c8088'
       },
@@ -569,10 +586,10 @@ export function getPieOption(labels,datas) {
     },
     series: [
       {
-        name: '市占率',
+        name: '点播时长',
         type: 'pie',
-        radius: ['50%', '70%'],
-        avoidLabelOverlap: false,
+//        radius: ['50%', '70%'],
+        avoidLabelOverlap: true,
         label: {
           normal: {
             show: true,
