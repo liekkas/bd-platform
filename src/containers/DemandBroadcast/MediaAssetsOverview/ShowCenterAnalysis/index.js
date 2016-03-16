@@ -121,8 +121,8 @@ class ShowCenterAnalysis extends React.Component {
         </Panel>
         <Panel height={theme.CHART_PANEL_HEIGHT} className={style.panel}>
           <div className={style.hgroup}>
-            <ECharts showCloseLine={false} option={this.state.option}/>
             <ECharts showCloseLine={false} option={this.state.pieOption}/>
+            <ECharts showCloseLine={false} option={this.state.option}/>
           </div>
         </Panel>
         <DataGrid title="节目集中度分析" columns={columns} datas={this.state.tableData}/>

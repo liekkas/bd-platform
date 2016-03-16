@@ -152,7 +152,7 @@ class ChannelOrder extends React.Component {
           <SearchBox2 showTime onSearch={(channelType,dateType,start) => this.search(channelType,dateType,start)}/>
         </Panel>
         <Panel height={theme.CHART_PANEL_HEIGHT} className={style.panel}>
-          <ECharts option={this.state.option}/>
+          <ECharts closeLineHeight="70%" option={this.state.option}/>
           <KpiGroup kpis={kpis} onKpiChange={(e) => this.onKChange(e)}/>
         </Panel>
         <DataGrid title="直播频道排名" columns={columns} datas={this.state.tableData}/>

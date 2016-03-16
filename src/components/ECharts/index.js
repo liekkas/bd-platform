@@ -11,9 +11,11 @@ import { getInitOption } from './initOptions'
 import _ from 'lodash'
 //import china from './china.json'
 import china from './chinaBaidu.json'
+import myMap from './myMap.json'
 import shallowEqual from 'react-pure-render/shallowEqual';
 
 echarts.registerMap('china', china)
+echarts.registerMap('myMap', myMap)
 
 class ECharts extends React.Component {
   constructor(props) {
@@ -120,11 +122,11 @@ class ECharts extends React.Component {
         {
           this.props.showCloseLine
             ? <div style={{
-              height: '75%',
+              height: this.props.closeLineHeight,
               width: '1px',
               backgroundColor: '#7c8088',
               position: 'absolute',
-              right: '11.2%',
+              right: '10.8%',
               top: '14.5%',
             }} />
             : null
@@ -161,6 +163,7 @@ ECharts.propTypes = {
   config: PropTypes.object.isRequired,
   option: PropTypes.object,
   showCloseLine: PropTypes.bool,
+  closeLineHeight: PropTypes.string,
 }
 
 const legend = [];
@@ -179,6 +182,7 @@ for (var i = 1; i <= 7; i++) {
 
 ECharts.defaultProps = {
   showCloseLine: true,
+  closeLineHeight: '75%',
   config: {
     type: 'bar',
     mode: 'local',

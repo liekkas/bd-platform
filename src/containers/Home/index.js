@@ -93,6 +93,7 @@ function getDetail(name) {
   return result
 }
 const mapOption = {
+  color: ['#2f4554', '#c23531',],
   textStyle: {
     color: '#fff',
   },
@@ -151,12 +152,76 @@ const mapOption = {
       color: '#fff'
     }
   },
+  geo: {
+    map: 'china',
+    label: {
+      emphasis: {
+        show: false
+      }
+    },
+    itemStyle: {
+      normal: {
+        areaColor: '#323c48',
+        borderColor: '#111'
+      },
+      emphasis: {
+        areaColor: '#2a333d'
+      }
+    }
+  },
   series : [
     {
-      name: '用户覆盖',
+      name: '中国',
       type: 'map',
-      top: 96,
       mapType: 'china',
+      nameMap: {
+        '江苏' : ' ',
+        '湖北' : ' ',
+        '湖南' : ' ',
+        '河北' : ' ',
+        '山东' : ' ',
+        '河南' : ' ',
+        '安徽' : ' ',
+      },
+      label: {
+        normal: {
+          show: true,
+          textStyle: {
+            color: '#B8E6FE'
+          }
+        },
+        emphasis: {
+          show: true,
+          textStyle: {
+            color: '#B8E6FE',
+//            fontWeight: 'bold',
+//            color: '#000'
+          }
+        },
+      },
+      itemStyle: {
+        normal: {
+          areaColor: '#6cA9EB',
+          borderColor: '#447cca',
+          borderWidth: 1,
+        },
+        emphasis: {
+          areaColor: '#6cA9EB',
+          borderColor: '#447cca',
+          borderWidth: 1,
+        },
+      },
+      data:[]
+    },
+    {
+      name: '有线电视用户数',
+      type: 'map',
+      top: '355',
+      left: '1026',
+//      right: '20%',
+      bottom: '256',
+      mapType: 'myMap',
+      z: 3,
       label: {
         normal: {
           show: true,
@@ -258,6 +323,7 @@ const barOption = {
 ////    }
 //  },
   legend: {
+    show: false,
     data:['数字电视用户数(万户)','有线电视用户数(万户)'],
 //    y: 'top',
 //    x: 'center',
@@ -343,10 +409,12 @@ class Home extends React.Component {
   }
 
   onMapClick(e) {
-//    console.log('>>> 我靠',e)
+    console.log('>>> 我靠',e)
 //    this.props.history.replaceState(null, '/tvOverview');
 
-    browserHistory.push('/tvOverview');
+    if (provinces.indexOf(e.name) > -1) {
+      browserHistory.push('/tvOverview');
+    }
   }
 //<img src={robot} className={style.robot}/>
 
@@ -356,10 +424,24 @@ class Home extends React.Component {
       <div className={style.root}>
         <ECharts showCloseLine={false} config={{eventType: 'click', eventHandler: this.onMapClick}} option={mapOption}/>
 
+        <div className={style.legend1}>
+          <svg width="25" height="18">
+            <rect width="25" height="18" fill='#396cbd'/>
+          </svg>
+          &nbsp;&nbsp;
+          <label>数字电视用户数(万户)</label>
+        </div>
+        <div className={style.legend2}>
+          <svg width="25" height="18">
+            <rect width="25" height="18" fill='#c94638'/>
+          </svg>
+          &nbsp;&nbsp;
+          <label>有线电视用户数(万户)</label>
+        </div>
         <div className={style.bar}>
           <ECharts option={barOption} showCloseLine={false}/>
         </div>
-        <label>© 2016 All Rights Reserved 中信国安广视网络有限公司 版权所有</label>
+        <label className={style.footLabel}>© 2016 All Rights Reserved 中信国安广视网络有限公司 版权所有</label>
       </div>
     )
   }

@@ -144,7 +144,7 @@ class TVPlayList extends React.Component {
           <SearchBox2 showTime simpleMode onSearch={(a,b,c) => this.search(a,b,c)}/>
         </Panel>
         <Panel height={theme.CHART_PANEL_HEIGHT} className={style.panel}>
-          <ECharts option={this.state.option}/>
+          <ECharts closeLineHeight="70%" option={this.state.option}/>
           <KpiGroup kpis={kpis} onKpiChange={(e) => this.onKChange(e)}/>
         </Panel>
         <DataGrid title="电视剧榜单" columns={columns} datas={this.state.tableData}/>

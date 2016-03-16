@@ -495,14 +495,20 @@ export function getRadarOption(labels,datas) {
 //    backgroundColor: '#161627',
     title: {
       text: '市占率',
-      x: 'center',
+//      x: 'center',
+      right: 20,
+      top: 10,
       textStyle: {
-        color: '#F9713C'
+        color: '#E2E3E4',
+        fontWeight: 'normal',
+        fontSize: 16,
       }
     },
     tooltip : {
       trigger: 'item'
     },
+    radius: '70%',
+
     radar: {
       indicator: inds,
       shape: 'circle',
@@ -562,11 +568,16 @@ export function getPieOption(labels,datas) {
 
   return {
 //    color: ['#c23531', '#61a0a8'],
+    color: ['#c23531','#396cbd', '#61a0a8', '#d48265', '#91c7ae','#749f83', '#ca8622', '#bda29a','#6e7074', '#546570', '#c4ccd3'],
     title: {
       text: '点播时长',
-      x: 'center',
+//      x: 'center',
+      left: 20,
+      top: 10,
       textStyle: {
-        color: '#F9713C'
+        color: '#E2E3E4',
+        fontWeight: 'normal',
+        fontSize: 16,
       }
     },
     tooltip: {
