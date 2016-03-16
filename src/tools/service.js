@@ -234,7 +234,8 @@ export function getMultiOption(labels,datas,legends,unit,kpi) {
       left: 'center',
       top: 20,
       textStyle: {
-        color: '#7c8088'
+        color: '#7c8088',
+        fontFamily: 'Arial, Verdana, sans-serif',
       },
       data: legends
     },
@@ -568,7 +569,9 @@ export function getPieOption(labels,datas) {
 
   return {
 //    color: ['#c23531', '#61a0a8'],
-    color: ['#c23531','#396cbd', '#61a0a8', '#d48265', '#91c7ae','#749f83', '#ca8622', '#bda29a','#6e7074', '#546570', '#c4ccd3'],
+//    color: ['rgba(238, 197, 102, 0.6)','#759aa0','#e69d87','#8dc1a9','#ea7e53','#eedd78','#73a373','#73b9bc','#7289ab', '#91ca8c','#f49f42'],
+    color: ['#749f83','#7C8088','#8d6e63', '#e84e40', '#d48265', '#91c7ae','#ca8622', '#ca8622', '#7C8088','#6e7074', '#546570', '#c4ccd3'],
+//    color: ['#ffca28','#e84e40', '#9ccc65', '#29b6f6','#26a69a','#2baf2b','#7e57c2','#e84e40',],
     title: {
       text: '点播时长',
 //      x: 'center',

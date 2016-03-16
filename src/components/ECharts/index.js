@@ -119,18 +119,6 @@ class ECharts extends React.Component {
         height: '100%',
         position: 'relative',
       }}>
-        {
-          this.props.showCloseLine
-            ? <div style={{
-              height: this.props.closeLineHeight,
-              width: '1px',
-              backgroundColor: '#7c8088',
-              position: 'absolute',
-              right: '10.8%',
-              top: '14.5%',
-            }} />
-            : null
-        }
         <div id={this.state.id} style={{ width: '100%', height: '100%' }} />
 
         <div style={{
@@ -197,3 +185,16 @@ ECharts.defaultProps = {
 }
 
 export default ECharts
+
+//{
+//  this.props.showCloseLine
+//    ? <div style={{
+//              height: this.props.closeLineHeight,
+//              width: '1px',
+//              backgroundColor: '#7c8088',
+//              position: 'absolute',
+//              right: '10.8%',
+//              top: '14.5%',
+//            }} />
+//    : null
+//}
