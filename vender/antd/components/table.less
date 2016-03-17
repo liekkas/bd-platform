@@ -53,7 +53,7 @@
     &:hover {
       //background: tint(@primary-color, 90%);
       background-color: #3D4249;
-      
+
     }
   }
 
@@ -80,6 +80,7 @@
 
   th.@{table-prefix-cls}-column-sort {
     background: #eaeaea;
+    //background: #ffff00;
   }
 
   th,
@@ -153,17 +154,21 @@
 
   &-column-sorter {
     margin-left: 4px;
+    margin-bottom: 10px;
     display: inline-block;
     width: 12px;
+    //width: 20px;
     height: 14px;
+    //height: 16px;
     vertical-align: middle;
     text-align: center;
+
     &-up,
     &-down {
-      line-height: 4px;
-      height: 6px;
+      line-height: 12px;
+      height: 12px;
       display: block;
-      width: 12px;
+      width: 20px;
       cursor: pointer;
       &:hover .anticon {
         color: #666;
@@ -177,10 +182,11 @@
     }
     .anticon-caret-up,
     .anticon-caret-down {
-      .iconfont-size-under-12px(6px);
-      line-height: 6px;
-      height: 6px;
-      color: #aaa;
+      .iconfont-size-under-12px(12px);
+      line-height: 12px;
+      height: 20px;
+      color: #7C8088;
+
       &:before {
         -moz-transform-origin: 53% 50%; /* fix firefox position */
       }

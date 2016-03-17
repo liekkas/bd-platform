@@ -3,7 +3,7 @@
  */
 import React, { PropTypes } from 'react'
 import { ECharts, Panel, Footer } from '../../components'
-import style from './style768.scss'
+import style from './style.scss'
 //import echarts from 'echarts'
 import _ from 'lodash'
 import {browserHistory} from 'react-router';
@@ -92,7 +92,57 @@ function getDetail(name) {
   }
   return result
 }
+const baseMapOption = {
+  color: ['#2f4554', '#c23531',],
+  series : [
+    {
+      name: '中国',
+      type: 'map',
+      mapType: 'china',
+      nameMap: {
+        '江苏' : ' ',
+        '湖北' : ' ',
+        '湖南' : ' ',
+        '河北' : ' ',
+        '山东' : ' ',
+        '河南' : ' ',
+        '安徽' : ' ',
+      },
+      label: {
+        normal: {
+          show: true,
+          textStyle: {
+            color: '#B8E6FE'
+          }
+        },
+        emphasis: {
+          show: true,
+          textStyle: {
+            color: '#B8E6FE',
+//            fontWeight: 'bold',
+//            color: '#000'
+          }
+        },
+      },
+      itemStyle: {
+        normal: {
+          areaColor: '#6cA9EB',
+          borderColor: '#447cca',
+          borderWidth: 1,
+        },
+        emphasis: {
+          areaColor: '#6cA9EB',
+          borderColor: '#447cca',
+          borderWidth: 1,
+        },
+      },
+      data:[]
+    },
+  ]
+}
+
 const mapOption = {
+//  color: ['#2f4554', '#c23531',],
   textStyle: {
     color: '#fff',
   },
@@ -101,7 +151,7 @@ const mapOption = {
 //    text: '中国电信全国4G用户数据资产情况',
 //    subtext: 'data from PM25.in',
     left: 'center',
-    top: 50,
+    top: 30,
     textStyle: {
       color: '#c0d5ff',
       fontSize: 26
@@ -115,10 +165,10 @@ const mapOption = {
       color: ['#ffb74d','#e94f26'],
       symbolSize: [30, 100]
     },
-    outOfRange: {
-      color: ['#121122', 'rgba(3,4,5,0.4)', 'red'],
-      symbolSize: [30, 100]
-    },
+//    outOfRange: {
+//      color: ['#121122', 'rgba(3,4,5,0.4)', 'red'],
+//      symbolSize: [30, 100]
+//    },
     min: 0,
     max: 2000,
     formatter: '{value}万户',
@@ -153,10 +203,15 @@ const mapOption = {
   },
   series : [
     {
-      name: '用户覆盖',
+      name: '有线电视用户数',
       type: 'map',
-      top: 96,
-      mapType: 'china',
+      top: '248',
+      left: '730',
+//      right: '20%',
+      bottom: '178',
+      mapType: 'myMap',
+      z: 3,
+      zlevel: 3,
       label: {
         normal: {
           show: true,
@@ -214,7 +269,7 @@ const reProvinces = provinces
 const d2 = [1885,870,447,135,88,83,8].reverse()
 //const d2 = [1365,800,405,126,87,82,4]
 const d1 = [1365,800,405,126,87,82,4].reverse()
-const types = ['数字用户数(万户)','有线电视用户数(万户)']
+const types = ['数字电视用户数(万户)','有线电视用户数(万户)']
 for (let j = 0; j < types.length; j++) {
   let d = []
   for (let k = 0; k < reProvinces.length; k++) {
@@ -233,11 +288,12 @@ for (let j = 0; j < types.length; j++) {
           position: j === 0 ? 'insideRight' : 'right',
           textStyle: {
             color: '#FFF',
+            fontFamily: '黑体'
           }
         }
       }
     },
-//    barWidth: 20,
+    barWidth: 14,
 //    barGap: '40%',
 //    barCategoryGap: '40%',
     data:d
@@ -258,7 +314,8 @@ const barOption = {
 ////    }
 //  },
   legend: {
-    data:['数字用户数(万户)','有线电视用户数(万户)'],
+//    show: false,
+    data:['数字电视用户数(万户)','有线电视用户数(万户)'],
 //    y: 'top',
 //    x: 'center',
 //    itemHeight: 20,
@@ -266,8 +323,10 @@ const barOption = {
     selectedMode: false,
     textStyle: {
       color: '#5fa4d9',
-      fontSize: 14,
+      fontSize: 13,
+      fontFamily: '黑体'
     },
+    top: 10,
   },
   grid: {
     left: 50,
@@ -324,7 +383,9 @@ const barOption = {
         right: 20,
         textStyle: {
           color: '#5fa4d9',
-        }
+          fontSize: 13,
+          fontFamily: '黑体'
+        },
       },
       splitLine: {
         show: false,
@@ -346,7 +407,9 @@ class Home extends React.Component {
     console.log('>>> 我靠',e)
 //    this.props.history.replaceState(null, '/tvOverview');
 
-    browserHistory.push('/tvOverview');
+    if (provinces.indexOf(e.name) > -1) {
+      browserHistory.push('/tvOverview');
+    }
   }
 //<img src={robot} className={style.robot}/>
 
@@ -354,12 +417,17 @@ class Home extends React.Component {
     const { foo } = this.props
     return (
       <div className={style.root}>
-        <ECharts config={{eventType: 'click', eventHandler: this.onMapClick}} option={mapOption}/>
+        <ECharts option={baseMapOption}/>
 
         <div className={style.bar}>
-          <ECharts option={barOption}/>
+          <ECharts option={barOption} showCloseLine={false}/>
         </div>
-        <label>© 2016 All Rights Reserved 中信国安广视网络有限公司 版权所有</label>
+
+        <div className={style.map}>
+          <ECharts showCloseLine={false} config={{eventType: 'click', eventHandler: this.onMapClick}} option={mapOption}/>
+        </div>
+
+        <label className={style.footLabel}>© 2016 All Rights Reserved 中信国安广视网络有限公司 版权所有</label>
       </div>
     )
   }
@@ -373,3 +441,18 @@ Home.defaultProps = {
 }
 
 export default Home
+
+//<div className={style.legend1}>
+//<svg width="16" height="12">
+//  <rect width="16" height="12" fill='#396cbd'/>
+//  </svg>
+//  &nbsp;&nbsp;
+//<label>数字电视用户数(万户)</label>
+//</div>
+//<div className={style.legend2}>
+//<svg width="16" height="12">
+//  <rect width="16" height="12" fill='#c94638'/>
+//  </svg>
+//  &nbsp;&nbsp;
+//<label>有线电视用户数(万户)</label>
+//</div>

@@ -7,9 +7,11 @@ import style from '../../../style.scss'
 import { getRadarOption, getPieOption } from '../../../../tools/service'
 import { REST_API_BASE_URL, theme } from '../../../../config'
 import _ from 'lodash'
+import { Row, Col } from 'antd'
 
 const kpis = [
   {value:'marketRatio', label: '市占率', unit: '%'},
+  {value:'userTime', label: '点播时长', unit: '分钟'},
 ]
 
 const columns = [
@@ -58,6 +60,7 @@ class ShowCenterAnalysis extends React.Component {
     this.state = {
       kpi: kpis[0],
       option: {},
+      pieOption: {},
       tableData: [],
     }
   }
@@ -75,7 +78,9 @@ class ShowCenterAnalysis extends React.Component {
         const datas = _.map(result.data,'marketRatio');
 //        const chartData = getPieOption(labels,datas)
         const chartData = getRadarOption(labels,datas)
-        bind.setState({ tableData: result.data, option: chartData, remoteLoading: false })
+        const datas2 = _.map(result.data,'userTime');
+        const chartDataPie = getPieOption(labels,datas2)
+        bind.setState({ tableData: result.data, option: chartData, pieOption: chartDataPie, remoteLoading: false })
         return result
       })
       .catch(function (ex) {
@@ -100,9 +105,10 @@ class ShowCenterAnalysis extends React.Component {
     }
     const labels = _.map(this.state.tableData,'group');
     const datas = _.map(this.state.tableData,'marketRatio');
-//    const chartData = getPieOption(labels,datas)
+    const datas2 = _.map(this.state.tableData,'userTime');
+    const chartDataPie = getPieOption(labels,datas2)
     const chartData = getRadarOption(labels,datas)
-    this.setState({kpi: t, option: chartData})
+    this.setState({kpi: t, option: chartData, pieOption: chartDataPie})
   }
 
   render() {
@@ -111,11 +117,13 @@ class ShowCenterAnalysis extends React.Component {
     return (
       <div className={style.root}>
         <Panel title="筛选条件" height="90">
-          <SearchBox3 onSearch={(a,b,c,d) => this.search(a,b,c,d)}/>
+          <SearchBox3 showTime onSearch={(a,b,c,d) => this.search(a,b,c,d)}/>
         </Panel>
         <Panel height={theme.CHART_PANEL_HEIGHT} className={style.panel}>
-          <ECharts option={this.state.option}/>
-          <KpiGroup kpis={kpis} />
+          <div className={style.hgroup}>
+            <ECharts showCloseLine={false} option={this.state.pieOption}/>
+            <ECharts showCloseLine={false} option={this.state.option}/>
+          </div>
         </Panel>
         <DataGrid title="节目集中度分析" columns={columns} datas={this.state.tableData}/>
       </div>
@@ -127,3 +135,13 @@ ShowCenterAnalysis.propTypes = {
 }
 
 export default ShowCenterAnalysis
+
+//
+//<div className={style.hgroup}>
+//<Panel title="市占率" height={theme.CHART_PANEL_HEIGHT} className={style.panel}>
+//<ECharts showCloseLine={false} option={this.state.option}/>
+//</Panel>
+//<Panel title="点播时长" height={theme.CHART_PANEL_HEIGHT} className={style.panel}>
+//<ECharts showCloseLine={false} option={this.state.pieOption}/>
+//</Panel>
+//</div>

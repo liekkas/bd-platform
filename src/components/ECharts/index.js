@@ -11,9 +11,11 @@ import { getInitOption } from './initOptions'
 import _ from 'lodash'
 //import china from './china.json'
 import china from './chinaBaidu.json'
+import myMap from './myMap.json'
 import shallowEqual from 'react-pure-render/shallowEqual';
 
 echarts.registerMap('china', china)
+echarts.registerMap('myMap', myMap)
 
 class ECharts extends React.Component {
   constructor(props) {
@@ -31,7 +33,7 @@ class ECharts extends React.Component {
   }
 
   componentDidMount() {
-    window.addEventListener('resize', this.handleResize);
+//    window.addEventListener('resize', this.handleResize);
     const { id, option } = this.state
     const { config } = this.props
     const chart = echarts.init(document.getElementById(id))
@@ -65,11 +67,11 @@ class ECharts extends React.Component {
   componentWillUnmount() {
     const chart = echarts.init(document.getElementById(this.state.id))
     chart.dispose()
-    window.removeEventListener('resize', this.handleResize);
+//    window.removeEventListener('resize', this.handleResize);
   }
 
   handleResize(e) {
-    this._getData(this, this.props)
+
   }
 
   _getData(bind, props) {
@@ -118,6 +120,7 @@ class ECharts extends React.Component {
         position: 'relative',
       }}>
         <div id={this.state.id} style={{ width: '100%', height: '100%' }} />
+
         <div style={{
           position: 'relative',
           width: '100%',
@@ -147,6 +150,8 @@ class ECharts extends React.Component {
 ECharts.propTypes = {
   config: PropTypes.object.isRequired,
   option: PropTypes.object,
+  showCloseLine: PropTypes.bool,
+  closeLineHeight: PropTypes.string,
 }
 
 const legend = [];
@@ -164,6 +169,8 @@ for (var i = 1; i <= 7; i++) {
 }
 
 ECharts.defaultProps = {
+  showCloseLine: true,
+  closeLineHeight: '75%',
   config: {
     type: 'bar',
     mode: 'local',
@@ -178,3 +185,16 @@ ECharts.defaultProps = {
 }
 
 export default ECharts
+
+//{
+//  this.props.showCloseLine
+//    ? <div style={{
+//              height: this.props.closeLineHeight,
+//              width: '1px',
+//              backgroundColor: '#7c8088',
+//              position: 'absolute',
+//              right: '10.8%',
+//              top: '14.5%',
+//            }} />
+//    : null
+//}
