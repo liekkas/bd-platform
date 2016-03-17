@@ -92,8 +92,57 @@ function getDetail(name) {
   }
   return result
 }
-const mapOption = {
+const baseMapOption = {
   color: ['#2f4554', '#c23531',],
+  series : [
+    {
+      name: '中国',
+      type: 'map',
+      mapType: 'china',
+      nameMap: {
+        '江苏' : ' ',
+        '湖北' : ' ',
+        '湖南' : ' ',
+        '河北' : ' ',
+        '山东' : ' ',
+        '河南' : ' ',
+        '安徽' : ' ',
+      },
+      label: {
+        normal: {
+          show: true,
+          textStyle: {
+            color: '#B8E6FE'
+          }
+        },
+        emphasis: {
+          show: true,
+          textStyle: {
+            color: '#B8E6FE',
+//            fontWeight: 'bold',
+//            color: '#000'
+          }
+        },
+      },
+      itemStyle: {
+        normal: {
+          areaColor: '#6cA9EB',
+          borderColor: '#447cca',
+          borderWidth: 1,
+        },
+        emphasis: {
+          areaColor: '#6cA9EB',
+          borderColor: '#447cca',
+          borderWidth: 1,
+        },
+      },
+      data:[]
+    },
+  ]
+}
+
+const mapOption = {
+//  color: ['#2f4554', '#c23531',],
   textStyle: {
     color: '#fff',
   },
@@ -152,67 +201,7 @@ const mapOption = {
       color: '#fff'
     }
   },
-  geo: {
-    map: 'china',
-    label: {
-      emphasis: {
-        show: false
-      }
-    },
-    itemStyle: {
-      normal: {
-        areaColor: '#323c48',
-        borderColor: '#111'
-      },
-      emphasis: {
-        areaColor: '#2a333d'
-      }
-    }
-  },
   series : [
-    {
-      name: '中国',
-      type: 'map',
-      mapType: 'china',
-      nameMap: {
-        '江苏' : ' ',
-        '湖北' : ' ',
-        '湖南' : ' ',
-        '河北' : ' ',
-        '山东' : ' ',
-        '河南' : ' ',
-        '安徽' : ' ',
-      },
-      label: {
-        normal: {
-          show: true,
-          textStyle: {
-            color: '#B8E6FE'
-          }
-        },
-        emphasis: {
-          show: true,
-          textStyle: {
-            color: '#B8E6FE',
-//            fontWeight: 'bold',
-//            color: '#000'
-          }
-        },
-      },
-      itemStyle: {
-        normal: {
-          areaColor: '#6cA9EB',
-          borderColor: '#447cca',
-          borderWidth: 1,
-        },
-        emphasis: {
-          areaColor: '#6cA9EB',
-          borderColor: '#447cca',
-          borderWidth: 1,
-        },
-      },
-      data:[]
-    },
     {
       name: '有线电视用户数',
       type: 'map',
@@ -222,6 +211,7 @@ const mapOption = {
       bottom: '256',
       mapType: 'myMap',
       z: 3,
+      zlevel: 3,
       label: {
         normal: {
           show: true,
@@ -422,7 +412,11 @@ class Home extends React.Component {
     const { foo } = this.props
     return (
       <div className={style.root}>
-        <ECharts showCloseLine={false} config={{eventType: 'click', eventHandler: this.onMapClick}} option={mapOption}/>
+        <ECharts option={baseMapOption}/>
+
+        <div className={style.map}>
+          <ECharts showCloseLine={false} config={{eventType: 'click', eventHandler: this.onMapClick}} option={mapOption}/>
+        </div>
 
         <div className={style.legend1}>
           <svg width="25" height="18">
@@ -441,6 +435,7 @@ class Home extends React.Component {
         <div className={style.bar}>
           <ECharts option={barOption} showCloseLine={false}/>
         </div>
+        <div className={style.coverBar}/>
         <label className={style.footLabel}>© 2016 All Rights Reserved 中信国安广视网络有限公司 版权所有</label>
       </div>
     )

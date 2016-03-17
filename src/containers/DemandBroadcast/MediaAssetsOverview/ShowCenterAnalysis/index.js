@@ -117,7 +117,7 @@ class ShowCenterAnalysis extends React.Component {
     return (
       <div className={style.root}>
         <Panel title="筛选条件" height="90">
-          <SearchBox3 onSearch={(a,b,c,d) => this.search(a,b,c,d)}/>
+          <SearchBox3 showTime onSearch={(a,b,c,d) => this.search(a,b,c,d)}/>
         </Panel>
         <Panel height={theme.CHART_PANEL_HEIGHT} className={style.panel}>
           <div className={style.hgroup}>

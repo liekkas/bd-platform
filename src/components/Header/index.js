@@ -32,7 +32,7 @@ class Header extends React.Component {
 
     return (
       <div className={style.root}>
-        <img src={dsplogo} onClick={() => browserHistory.push('/')}/>
+        <img src={dsplogo} onClick={() => browserHistory.push('/')} />
         <ui className={style.menu}>
           {
             datas.map(({name, key}, index) =>

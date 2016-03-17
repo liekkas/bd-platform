@@ -88,13 +88,16 @@ export function getSingleOption(labels,datas,unit,kpi) {
           }
         },
         axisTick: {
+          show: false,
           lineStyle: {
             color: '#7c8088',
-          }
+          },
         },
         axisLabel: {
           textStyle: {
             color: '#7c8088',
+            fontFamily: '黑体',
+            fontSize: 13,
           },
 //          formatter: getFormat(kpi) + unit
           formatter: function (value, index) {
@@ -235,7 +238,8 @@ export function getMultiOption(labels,datas,legends,unit,kpi) {
       top: 20,
       textStyle: {
         color: '#7c8088',
-        fontFamily: 'Arial, Verdana, sans-serif',
+        fontFamily: '黑体',
+        fontSize: 14,
       },
       data: legends
     },
@@ -295,6 +299,7 @@ export function getMultiOption(labels,datas,legends,unit,kpi) {
           }
         },
         axisTick: {
+          show: false,
           lineStyle: {
             color: '#7c8088',
           }
@@ -302,8 +307,9 @@ export function getMultiOption(labels,datas,legends,unit,kpi) {
         axisLabel: {
           textStyle: {
             color: '#7c8088',
+            fontFamily: '黑体',
+            fontSize: 13,
           },
-//          formatter: getFormat(kpi) + unit
           formatter: function (value, index) {
             switch (kpi) {
               case '使用时长':
@@ -391,6 +397,7 @@ export function getOrderOption(labels,datas,unit,kpi) {
         data: labels,
         axisLine: {
           lineStyle: {
+            color: '#7c8088',
 //            color: 'rgba(255,255,255,0.8)',
           }
         },
@@ -417,10 +424,12 @@ export function getOrderOption(labels,datas,unit,kpi) {
 //        max: 500,
         axisLine: {
           lineStyle: {
+            color: '#7c8088',
 //            color: 'rgba(255,255,255,0.8)',
           }
         },
         axisTick: {
+          show: false,
           lineStyle: {
 //            color: 'rgba(255,255,255,0.8)',
           }
@@ -428,6 +437,8 @@ export function getOrderOption(labels,datas,unit,kpi) {
         axisLabel: {
           textStyle: {
             color: '#7c8088',
+            fontFamily: '黑体',
+            fontSize: 13,
           },
 //          formatter: getFormat(kpi) + unit
           formatter: function (value, index) {
@@ -568,10 +579,9 @@ export function getPieOption(labels,datas) {
   }
 
   return {
-//    color: ['#c23531', '#61a0a8'],
+    color: ['#993333','#396cbd', '#61a0a8', '#d48265', '#91c7ae','#749f83', '#CD7F32',],
+
 //    color: ['rgba(238, 197, 102, 0.6)','#759aa0','#e69d87','#8dc1a9','#ea7e53','#eedd78','#73a373','#73b9bc','#7289ab', '#91ca8c','#f49f42'],
-    color: ['#749f83','#7C8088','#8d6e63', '#e84e40', '#d48265', '#91c7ae','#ca8622', '#ca8622', '#7C8088','#6e7074', '#546570', '#c4ccd3'],
-//    color: ['#ffca28','#e84e40', '#9ccc65', '#29b6f6','#26a69a','#2baf2b','#7e57c2','#e84e40',],
     title: {
       text: '点播时长',
 //      x: 'center',
