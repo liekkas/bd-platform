@@ -25,6 +25,8 @@ export function getSingleOption(labels,datas,unit,kpi) {
     grid: {
       top: 70,
       bottom: 50,
+      borderColor: '#fff',
+      borderWidth: 5,
 //      right: 100,
 //      left: 100,
     },
@@ -86,13 +88,16 @@ export function getSingleOption(labels,datas,unit,kpi) {
           }
         },
         axisTick: {
+          show: false,
           lineStyle: {
             color: '#7c8088',
-          }
+          },
         },
         axisLabel: {
           textStyle: {
             color: '#7c8088',
+            fontFamily: '黑体',
+            fontSize: 13,
           },
 //          formatter: getFormat(kpi) + unit
           formatter: function (value, index) {
@@ -176,7 +181,7 @@ export function getSingleOption(labels,datas,unit,kpi) {
 export function getMultiOption(labels,datas,legends,unit,kpi) {
   let series = []
   for (let i = 0; i < legends.length; i++) {
-    kpi === '市占率'
+    kpi === '市占率' || kpi === '节目比重'
       ? series.push({
         name: legends[i],
         type: 'bar',
@@ -232,7 +237,9 @@ export function getMultiOption(labels,datas,legends,unit,kpi) {
       left: 'center',
       top: 20,
       textStyle: {
-        color: '#7c8088'
+        color: '#7c8088',
+        fontFamily: '黑体',
+        fontSize: 14,
       },
       data: legends
     },
@@ -292,6 +299,7 @@ export function getMultiOption(labels,datas,legends,unit,kpi) {
           }
         },
         axisTick: {
+          show: false,
           lineStyle: {
             color: '#7c8088',
           }
@@ -299,8 +307,9 @@ export function getMultiOption(labels,datas,legends,unit,kpi) {
         axisLabel: {
           textStyle: {
             color: '#7c8088',
+            fontFamily: '黑体',
+            fontSize: 13,
           },
-//          formatter: getFormat(kpi) + unit
           formatter: function (value, index) {
             switch (kpi) {
               case '使用时长':
@@ -388,6 +397,7 @@ export function getOrderOption(labels,datas,unit,kpi) {
         data: labels,
         axisLine: {
           lineStyle: {
+            color: '#7c8088',
 //            color: 'rgba(255,255,255,0.8)',
           }
         },
@@ -414,10 +424,12 @@ export function getOrderOption(labels,datas,unit,kpi) {
 //        max: 500,
         axisLine: {
           lineStyle: {
+            color: '#7c8088',
 //            color: 'rgba(255,255,255,0.8)',
           }
         },
         axisTick: {
+          show: false,
           lineStyle: {
 //            color: 'rgba(255,255,255,0.8)',
           }
@@ -425,6 +437,8 @@ export function getOrderOption(labels,datas,unit,kpi) {
         axisLabel: {
           textStyle: {
             color: '#7c8088',
+            fontFamily: '黑体',
+            fontSize: 13,
           },
 //          formatter: getFormat(kpi) + unit
           formatter: function (value, index) {
@@ -491,9 +505,22 @@ export function getRadarOption(labels,datas) {
 
   return {
 //    backgroundColor: '#161627',
+    title: {
+      text: '市占率',
+//      x: 'center',
+      right: 20,
+      top: 10,
+      textStyle: {
+        color: '#E2E3E4',
+        fontWeight: 'normal',
+        fontSize: 16,
+      }
+    },
     tooltip : {
       trigger: 'item'
     },
+    radius: '70%',
+
     radar: {
       indicator: inds,
       shape: 'circle',
@@ -552,16 +579,30 @@ export function getPieOption(labels,datas) {
   }
 
   return {
-    color: ['#c23531', '#61a0a8'],
+    color: ['#993333','#396cbd', '#61a0a8', '#d48265', '#91c7ae','#749f83', '#CD7F32',],
+
+//    color: ['rgba(238, 197, 102, 0.6)','#759aa0','#e69d87','#8dc1a9','#ea7e53','#eedd78','#73a373','#73b9bc','#7289ab', '#91ca8c','#f49f42'],
+    title: {
+      text: '点播时长',
+//      x: 'center',
+      left: 20,
+      top: 10,
+      textStyle: {
+        color: '#E2E3E4',
+        fontWeight: 'normal',
+        fontSize: 16,
+      }
+    },
     tooltip: {
       trigger: 'item',
       formatter: "{a} <br/>{b}: {c} ({d}%)"
     },
     legend: {
-      orient: 'vertical',
+//      orient: 'vertical',
 //      x: 'right',
-      right: 20,
-      top: 20,
+//      right: 20,
+//      top: 20,
+      show: false,
       textStyle: {
         color: '#7c8088'
       },
@@ -569,10 +610,10 @@ export function getPieOption(labels,datas) {
     },
     series: [
       {
-        name: '市占率',
+        name: '点播时长',
         type: 'pie',
-        radius: ['50%', '70%'],
-        avoidLabelOverlap: false,
+//        radius: ['50%', '70%'],
+        avoidLabelOverlap: true,
         label: {
           normal: {
             show: true,

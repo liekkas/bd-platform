@@ -81,7 +81,7 @@ class SideNav extends React.Component {
             </Menu.Item>
             <Menu.Item key="tvOverview/businessOverview">
               <img src={ this.props.route === 'tvOverview/businessOverview' ? allBiz2 : allBiz1} />
-              <span style={{marginRight: '37%'}}>全业务概况</span>
+              <span style={{marginRight: '26%'}}>全业务概况</span>
               <span className={rightClassName} />
             </Menu.Item>
           </Menu>

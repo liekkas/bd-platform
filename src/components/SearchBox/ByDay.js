@@ -21,14 +21,16 @@ class ByDay extends React.Component {
     if (!startValue || !this.state.endValue) {
       return false;
     }
-    return startValue.getTime() >= this.state.endValue.getTime();
+    return (startValue.getTime() >= this.state.endValue.getTime()
+    || startValue.getTime() < new Date(2015,4,1).getTime())
   }
 
   disabledEndDate(endValue) {
     if (!endValue || !this.state.startValue) {
       return false;
     }
-    return endValue.getTime() <= this.state.startValue.getTime();
+    return (endValue.getTime() <= this.state.startValue.getTime()
+    || endValue.getTime() >= new Date(2015,10,1).getTime())
   }
 
   onStartChange(v) {
