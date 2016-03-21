@@ -8,37 +8,40 @@ import { Root } from './containers'
 //import './normalize.css'
 import 'material-design-iconic-font/dist/css/material-design-iconic-font.min.css'
 import 'loaders.css/loaders.min.css'
+import 'react-bootstrap-table/css/react-bootstrap-table.min.css'
+import 'react-bootstrap-table/css/toastr.css'
+import 'bootstrap/dist/css/bootstrap.min.css'
 import './common.scss'
 //import 'antd/lib/index.css'
-import 'antd/style/index.less'
+import '../vender/antd/index.less'
 import configureStore from './configureStore'
-import { useRouterHistory } from 'react-router'
-import { createHashHistory } from 'history'
+import { useRouterHistory, browserHistory, hashHistory } from 'react-router'
+import { createHashHistory,createBrowserHistory } from 'history'
+
+import fetch from 'isomorphic-fetch'
+//import { syncHistoryWithStore, routerReducer } from 'react-router-redux'
 
 //import { createAction, ActionTypes } from './actions'
 
 //const store = configureStore()
-const historyConfig = { basename: __BASENAME__ }
-const history = useRouterHistory(createHashHistory)(historyConfig)
+//const historyConfig = { basename: __BASENAME__ }
+//const history = useRouterHistory(createBrowserHistory)(historyConfig)
+//const history = createHashHistory()
+
+//const browserHistory = useRouterHistory(createBrowserHistory)({ basename: 'foo' })
 
 const initialState = window.__INITIAL_STATE__
-const store = configureStore(initialState, history)
+const store = configureStore(initialState, browserHistory)
 
-//fetch(REST_API_BASE_URL + 'root')
-//  .then(function(response) {
-//    return response.json()
-//  }).then(function(json) {
-//    console.log('parsed json', json)
-//    if (json.hasOwnProperty('curScene')) {
-//      store.dispatch(createAction(ActionTypes.INIT_SCENE, json))
-//    }
-//    store.dispatch(createAction(ActionTypes.INIT_USER, 'root'))
-//  }).catch(function(ex) {
-//    console.log('parsing failed', ex)
-//  })
+//ReactDOM.render(
+//  <Root history={browserHistory} route={AppRouter} store={store} />,
+//  document.getElementById('root')
+//)
 
-ReactDOM.render(
-  <Root history={history} route={AppRouter} store={store} />,
-  document.getElementById('root')
-)
+setTimeout(function () {
+  ReactDOM.render(
+    <Root history={browserHistory} route={AppRouter} store={store} />,
+    document.getElementById('root')
+  )
+},100)
 

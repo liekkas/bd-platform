@@ -4,6 +4,7 @@
 import _ from 'lodash'
 import dateFormat from 'dateFormat'
 import style from './style.scss'
+import React from 'react'
 
 export function mockData(type, unit, num = 10) {
   var base = +new Date(2015, 10, 20);
@@ -26,10 +27,7 @@ export function mockData(type, unit, num = 10) {
   }
 
   return {
-//    backgroundColor: 'rgba(0,0,0,0.5)',
-//    textStyle: {
-//      color: '#fff',
-//    },
+    backgroundColor: 'rgba(0,57,100,0.6)',
     title: {
       show: false,
       x: 'center',
@@ -537,21 +535,87 @@ export function mockData4(type, unit, num = 10) {
   };
 }
 
+const renderFn = function(text, row, index) {
+  return <a href="#">{text + ':' + row + ':' + index}</a>;
+}
 export function mockTableHeader(kpis) {
-  let result = [{
-    title: '日期',
-    dataIndex: 'date',
-    key: 'date',
-    className: style.header,
-  }]
-  for (let i = 0; i < kpis.length; i++) {
-    result.push({
-      title: kpis[i].label,
-      dataIndex: kpis[i].value,
-      key: kpis[i].value,
+  let result = [
+    {
+      title: '日期',
+      dataIndex: 'date',
+      key: 'date',
       className: style.header,
-    })
-  }
+      width: '16%',
+      render(text) {
+        return text;
+      }
+    },
+    {
+      title: '用户数',
+      dataIndex: 'userNum',
+      key: 'userNum',
+      className: style.header,
+      width: '16%',
+      render(text) {
+        return text + '户';
+      }
+    },
+    {
+      title: '覆盖率',
+      dataIndex: 'coverRatio',
+      key: 'coverRatio',
+      className: style.header,
+      width: '16%',
+      render(text) {
+        return text + '%';
+      }
+    },
+    {
+      title: '用户增长率',
+      dataIndex: 'userGrowRatio',
+      key: 'userGrowRatio',
+      className: style.header,
+      width: '16%',
+      render(text) {
+        return text + '%';
+      }
+    },
+    {
+      title: '新增用户数',
+      dataIndex: 'newUserNum',
+      key: 'newUserNum',
+      className: style.header,
+      width: '16%',
+      render(text) {
+        return text + '户';
+      }
+    },
+    {
+      title: '流失用户数',
+      dataIndex: 'lostUserNum',
+      key: 'lostUserNum',
+      className: style.header,
+      width: '16%',
+      render(text) {
+        return text + '户';
+      }
+    },
+  ]
+
+//  for (let i = 1; i < kpis.length; i++) {
+//    result.push({
+//      title: kpis[i].label,
+//      dataIndex: kpis[i].value,
+//      key: kpis[i].value,
+//      className: style.header,
+////      render(text) {
+////        return text + '%';
+////      }
+////      render(text) {
+////        return text + kpis[i].unit;
+////      }
+//    })
+//  }
   return result
 }
 

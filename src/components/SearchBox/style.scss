@@ -1,0 +1,35 @@
+.root {
+  padding: 10px 20px 0px;
+  display: flex;
+  flex-direction: row;
+}
+
+.label {
+  margin-top: 5px;
+  margin-right: 10px;
+  color: #E2E3E4;
+}
+
+.compareRoot {
+  padding: 10px 20px 0px;
+}
+
+.hgroup {
+  display: flex;
+  flex-direction: row;
+  padding-bottom: 10px;
+}
+
+.left {
+  margin-right: 10px;
+}
+.searchBtn {
+  height: 80%;
+}
+
+
+.select {
+  width: 90px;
+  margin-right: 10px;
+  //background-color: #A9ADB0;
+}

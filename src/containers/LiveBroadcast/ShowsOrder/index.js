@@ -2,109 +2,173 @@
  * Created by liekkas on 16/2/23.
  */
 import React, { PropTypes } from 'react'
-import { Panel, ECharts } from '../../../components'
-import style from './style.scss'
-import Table from 'antd/lib/table'
-import DatePicker from 'antd/lib/date-picker'
-import Select from 'antd/lib/select'
-import Button from 'antd/lib/button'
-import Icon from 'antd/lib/icon'
-const Option = Select.Option
+import { Panel, ECharts, KpiGroup, SearchBox4, DataGrid } from '../../../components'
+import style from '../../style.scss'
+import { getOrderOption } from '../../../tools/service'
+import { REST_API_BASE_URL, theme } from '../../../config'
+import _ from 'lodash'
 
-class ShowOrder extends React.Component {
+const kpis = [
+  {value:'userIndex', label: '用户指数', unit: ''},
+  {value:'coverRatio', label: '覆盖率', unit: '%'},
+  {value:'marketRatio', label: '市占率', unit: '%'},
+  {value:'useTimeAVG', label: '户均使用时长', unit: '分钟'},
+]
+
+const columns = [
+  {
+    title: '节目名称',
+    dataIndex: 'showName',
+    key: 'showName',
+    className: style.header,
+    width: '16%',
+    render(text) {
+      return text;
+    }
+  },
+  {
+    title: '排名',
+    dataIndex: 'uid',
+    key: 'uid',
+    className: style.header,
+    width: '4%',
+  },
+  {
+    title: '频道名称',
+    dataIndex: 'channelName',
+    key: 'channelName',
+    className: style.header,
+    width: '16%',
+    render(text) {
+      return text;
+    }
+  },
+  {
+    title: '播出时间',
+    dataIndex: 'dateTime',
+    key: 'dateTime',
+    className: style.header,
+    width: '12%',
+  },
+  {
+    title: '用户指数',
+    dataIndex: 'userIndex',
+    key: 'userIndex',
+    className: style.header,
+    width: '10%',
+    sorter(a, b) {
+      return a.userIndex - b.userIndex;
+    },
+  },
+  {
+    title: '覆盖率(%)',
+    dataIndex: 'coverRatio',
+    key: 'coverRatio',
+    className: style.header,
+    width: '10%',
+    sorter(a, b) {
+      return a.coverRatio - b.coverRatio;
+    },
+  },
+  {
+    title: '市占率(%)',
+    dataIndex: 'marketRatio',
+    key: 'marketRatio',
+    className: style.header,
+    width: '10%',
+    sorter(a, b) {
+      return a.marketRatio - b.marketRatio;
+    },
+  },
+  {
+    title: '户均使用时长(分钟)',
+    dataIndex: 'useTimeAVG',
+    key: 'useTimeAVG',
+    className: style.header,
+    width: '16%',
+    sorter(a, b) {
+      return a.useTimeAVG - b.useTimeAVG;
+    },
+  },
+]
+
+class ShowsOrder extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      foo: 'bar',
+      kpi: kpis[0],
+      option: {},
+      tableData: [],
     }
   }
 
-  handleChange(value) {
-    console.log(`selected ${value}`);
+  componentWillMount() {
+    this._getData(this, this.props)
+  }
+
+  _getData(bind, props, type = '0', channel = '0', dateType = 'D', start = '20150501') {
+    fetch(REST_API_BASE_URL + 'showsOrder?type=' + type + '&dateType=' + dateType + '&start=' + start + '&channel=' + encodeURI(encodeURI(channel)))
+      .then(response => response.json())
+      .then(function (result) {
+        const labels = _.map(result,'showName');
+        let datas = []
+        for (let i = 0; i < result.length; i++) {
+          datas.push({
+            value: result[i][bind.state.kpi.value],
+            rank: result[i].uid,
+          })
+        }
+        //        console.log('>>> Overview', labels, datas)
+        const chartData = getOrderOption(labels,datas,bind.state.kpi.unit,bind.state.kpi.label)
+        bind.setState({ tableData: result, option: chartData, remoteLoading: false })
+        return result
+      })
+      .catch(function (ex) {
+        console.log(ex)
+      })
+  }
+
+  search(channelType,channelName,dateType,start) {
+    console.log('>>> ShowOrder#Search:',channelType,channelName,dateType,start)
+    this._getData(this,this.props,channelType,channelName,dateType,start);
+  }
+
+  onKChange(e) {
+    const selected = e.target.value
+    console.log(`radio checked:${selected}`);
+    let t = {};
+    for (let i = 0; i < kpis.length; i++) {
+      if (kpis[i].value === selected) {
+        t = kpis[i]
+        break;
+      }
+    }
+    const labels = _.map(this.state.tableData,'showName');
+    let datas = []
+    for (let i = 0; i < this.state.tableData.length; i++) {
+      datas.push({
+        value: this.state.tableData[i][t.value],
+        rank: this.state.tableData[i].uid,
+      })
+    }
+    const chartData = getOrderOption(labels,datas,t.unit,t.label)
+    this.setState({kpi: t, option: chartData})
   }
 
   render() {
-    const { foo } = this.props
-    const dataSource = [{
-      key: '1',
-      date: '2016/1/1',
-      userNum: 32,
-      userNumIndex: '1.2%',
-      useTiming: 5492,
-      useTimingIndex: '2.2%'
-    }, {
-      key: '2',
-      date: '2016/1/1',
-      userNum: 32,
-      userNumIndex: '1.2%',
-      useTiming: 5492,
-      useTimingIndex: '2.2%'
-    }];
-
-    const columns = [{
-      title: '日期',
-      dataIndex: 'date',
-      key: 'date',
-    }, {
-      title: '用户数',
-      dataIndex: 'userNum',
-      key: 'userNum',
-    }, {
-      title: '用户数环比',
-      dataIndex: 'userNumIndex',
-      key: 'userNumIndex',
-    }, {
-      title: '使用时长',
-      dataIndex: 'useTiming',
-      key: 'useTiming',
-    }, {
-      title: '使用时长环比',
-      dataIndex: 'useTimingIndex',
-      key: 'useTimingIndex',
-    }]
-
     return (
       <div className={style.root}>
-        <Panel title="筛选条件" height="150">
-          <div className={style.hgroup}>
-            <label>时间分类:&nbsp;&nbsp;</label>
-            <Select defaultValue="lucy" style={{ width: 100, marginRight: '10px' }} onChange={this.handleChange}>
-              <Option value="jack">按日期</Option>
-              <Option value="lucy">Lucy</Option>
-              <Option value="yiminghe">yiminghe</Option>
-            </Select>
-            <DatePicker defaultValue="2015-01-01" />
-            <label>&nbsp;&nbsp;至&nbsp;&nbsp;</label>
-            <DatePicker defaultValue="2015-01-01" />
-          </div>
-          <div className={style.hgroup}>
-            <label>城市选择:&nbsp;&nbsp;</label>
-            <DatePicker defaultValue="2015-01-01" />
-            <label>&nbsp;&nbsp;至&nbsp;&nbsp;</label>
-            <DatePicker defaultValue="2015-01-01" />
-            &nbsp;&nbsp;
-            <Button type="primary">
-              <Icon type="search" />
-              查询
-            </Button>
-          </div>
+        <Panel title="筛选条件" height="90">
+          <SearchBox4 showTime onSearch={(a,b,c,d) => this.search(a,b,c,d)}/>
         </Panel>
-        <Panel title="总体分析" height="300">
-          <ECharts config={{type: 'bar',mode: 'local',}}/>
+        <Panel height={theme.CHART_PANEL_HEIGHT} className={style.panel}>
+          <ECharts closeLineHeight="70%" option={this.state.option}/>
+          <KpiGroup kpis={kpis} onKpiChange={(e) => this.onKChange(e)}/>
         </Panel>
-        <Panel title="总体分析2" height="300">
-          <Table dataSource={dataSource} columns={columns} className={style.table}/>
-        </Panel>
+        <DataGrid title="直播节目排名" columns={columns} datas={this.state.tableData}/>
       </div>
     )
   }
 }
 
-ShowOrder.propTypes = {
-  foo: PropTypes.string.isRequired,
-}
-ShowOrder.defaultProps = {
-  foo: 'bar',
-}
-
-export default ShowOrder
+export default ShowsOrder

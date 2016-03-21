@@ -25,7 +25,7 @@ class DemandBroadcast extends React.Component {
     const { route } = this.props
     return (
       <div className={style.root}>
-        <SideNav datas={datas} route={route}/>
+        <SideNav type="2" datas={datas} route={route}/>
         {this.props.children}
       </div>
     )

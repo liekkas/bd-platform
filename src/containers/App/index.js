@@ -4,10 +4,12 @@
 import React, { PropTypes } from 'react'
 import { Header, Footer } from '../../components'
 import { connect } from 'react-redux'
-import SnowStorm from 'react-snowstorm'
+import style from './style.scss'
 
-//<Footer text="@2016 All Rights Reserved 中国电信集团公司 版权所有"/>
+//<Footer text="© 2016 All Rights Reserved 中国电信集团公司 版权所有"/>
 //<SnowStorm />
+//<Footer text="© 2016 All Rights Reserved 中信国安广视网络有限公司 版权所有"/>
+//          {this.props.children}
 
 const App = React.createClass({
 
@@ -15,10 +17,14 @@ const App = React.createClass({
     return (
       <div style={{width: '100%', height: '100%'}}>
         <Header route={this.props.route}/>
-        <div style={{width: '100%', height: '100%',paddingTop: '50px'}}>
+        <div className={style.content}>
           {this.props.children}
         </div>
-        <Footer text="@2016 All Rights Reserved 中信国安广视网络有限公司 版权所有"/>
+        {
+          this.props.route !== 'home' && this.props.route.indexOf('.html') === -1
+            ? <Footer text="© 2016 All Rights Reserved 中信国安广视网络有限公司 版权所有"/>
+            : null
+        }
       </div>
     )
   }
@@ -27,6 +33,7 @@ const App = React.createClass({
 function select(state) {
   return {
     route: state.getIn(['global', 'route']),
+//    route: state.global.route,
   };
 }
 

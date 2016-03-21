@@ -13,9 +13,11 @@ class Footer extends React.Component {
   }
 
   render() {
-    const { text } = this.props
+    const { text, showBG } = this.props
     return (
-      <div className={style.root}>
+      <div className={style.root} style={{
+        backgroundColor: showBG ? '#1F222A' : 'rgba(0,0,0,0)'
+      }}>
         {text}
       </div>
     )
@@ -24,9 +26,11 @@ class Footer extends React.Component {
 
 Footer.propTypes = {
   text: PropTypes.string.isRequired,
+  showBG: PropTypes.bool.isRequired,
 }
 Footer.defaultProps = {
   text: 'bar',
+  showBG: true
 }
 
 export default Footer
