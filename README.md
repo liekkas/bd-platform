@@ -1,10 +1,11 @@
-===== bd-platform ====
+bd-platform
 
-A BigData Platform
+## 开始
+>* npm i
+>* npm run dev(开发模式)
+>* npm run prod(生产模式)
+>* npm run lint(规范检测)
 
-> react + redux + webpack
 
-### start
-* npm install
-* npm run dev (in development)
-* npm run prod (in production)
+## Snapshot
+![image](https://raw.githubusercontent.com/liekkas/bd-platform/master/snapshot.gif)

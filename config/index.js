@@ -1,29 +1,71 @@
-import fs from 'fs'
-import _debug from 'debug'
-import config from './_base'
+/**
+ * Created by liekkas on 16/4/1.
+ */
+var path = require('path')
 
-const debug = _debug('app:config')
-debug('Create configuration.')
-debug(`Apply environment overrides for NODE_ENV "${config.env}".`)
+var env = process.env.NODE_ENV || 'development'
+console.log('>>> config:env',env)
 
-// Check if the file exists before attempting to require it, this
-// way we can provide better error reporting that overrides
-// weren't applied simply because the file didn't exist.
-const overridesFilename = `_${config.env}`
-let hasOverridesFile
-try {
-  fs.lstatSync(`${__dirname}/${overridesFilename}.js`)
-  hasOverridesFile = true
-} catch (e) {}
-
-// Overrides file exists, so we can attempt to require it.
-// We intentionally don't wrap this in a try/catch as we want
-// the Node process to exit if an error occurs.
-let overrides
-if (hasOverridesFile) {
-  overrides = require(`./${overridesFilename}`)(config)
-} else {
-  debug(`No configuration overrides found for NODE_ENV "${config.env}"`)
+function isDEV() {
+  return env === 'development'
+}
+function isPROD() {
+  return env === 'production'
 }
 
-export default Object.assign({}, config, overrides)
+var config = {
+  env: env,
+
+  // ----------------------------------
+  // 项目结构
+  // ----------------------------------
+  path_base  : path.resolve(__dirname, '..'),
+  dir_client : 'src',
+  dir_dist   : 'dist',
+  dir_server : 'server',
+  dir_test   : 'tests',
+
+  // ----------------------------------
+  // 开发服务器设置
+  // ----------------------------------
+  server_host: 'localhost',
+  server_port: 3000,
+
+  // ----------------------------------
+  // REST API服务地址
+  // ----------------------------------
+  REST_API_BASE_URL: 'http://localhost:8080/gags/',
+
+// ----------------------------------
+  // 编译设置
+  // ----------------------------------
+  compiler_css_modules     : true,
+  compiler_fail_on_warning : false,
+  compiler_devtool         : isDEV() ? 'eval-cheap-module-source-map' : null,
+  compiler_hash_type       : isDEV() ? 'hash' : 'chunkhash',
+  compiler_public_path     : '',
+  compiler_stats           : {
+    chunks : isPROD(),
+    chunkModules : isPROD(),
+    colors : true
+  },
+  compiler_vendor : [
+    'react',
+    'react-dom',
+    'echarts',
+  ],
+}
+
+// ------------------------------------
+// 环境变量
+// ------------------------------------
+config.globals = {
+  'process.env'  : {
+    'NODE_ENV' : JSON.stringify(config.env)
+  },
+  'NODE_ENV'     : config.env,
+  '__DEV__'      : isDEV(),
+  '__PROD__'     : isPROD(),
+}
+
+module.exports = config
