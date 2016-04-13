@@ -496,10 +496,11 @@ var lineStyle = {
 
 export function getRadarOption(labels,datas) {
   let inds = []
+  const max = _.maxBy(datas, function(o) { return Number(o); });
   for (let i = 0; i < labels.length; i++) {
     inds.push({
       name: labels[i],
-      max: _.max(datas)
+      max
     })
   }
 

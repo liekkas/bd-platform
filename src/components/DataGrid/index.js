@@ -2,11 +2,35 @@
  * Created by liekkas on 16/3/7.
  */
 import React, { PropTypes } from 'react'
-import Panel from '../Panel'
-import style from './style.scss'
 import { Table, Pagination } from 'antd'
 import _ from 'lodash'
-import shallowEqual from 'react-pure-render/shallowEqual'
+import shallowCompare from 'react-addons-shallow-compare'
+
+const styles = {
+  root: {
+    position: 'relative',
+    backgroundColor: '#242930',
+    marginBottom: '15px',
+//    height: '400px',
+  },
+  titleStyle: {
+    width: '100%',
+    height: '35px',
+    padding: '5px',
+    fontSize: '14px',
+//    color: '#f0ad4e',
+    color: '#E2E3E4',
+    backgroundColor: '#242930',
+  },
+  table: {
+    margin: '10px 20px 0px',
+  },
+  pagination: {
+    marginTop: '10px',
+    right: '10px',
+    float: 'right',
+  }
+}
 
 class DataGrid extends React.Component {
   constructor(props) {
@@ -28,9 +52,8 @@ class DataGrid extends React.Component {
     this.setState({ current })
   }
 
-  componentWillReceiveProps(nextProps) {
-//    console.log('>>> DataGrid:componentWillReceiveProps', nextProps)
-    if (!shallowEqual(this.props,nextProps)) {
+  componentWillReceiveProps(nextProps, nextState) {
+    if (shallowCompare(this, nextProps, nextState)) {
       this.setState({pageSize:10, current:1})
     }
   }
@@ -41,17 +64,17 @@ class DataGrid extends React.Component {
 
   onTableChange(pagination, filters, sorter) {
     // 点击分页、筛选、排序时触发
-    console.log('各类参数是', pagination, filters, sorter);
+//    console.log('各类参数是', pagination, filters, sorter);
     this.setState({sorter})
   }
 
   render() {
-    const { columns, datas } = this.props
+    const { columns, datas, title } = this.props
     const { pageSize, current, sorter } = this.state
 
     let parareDatas = datas
     if (sorter.hasOwnProperty('field')) {
-      parareDatas = _.sortByOrder(datas, [sorter.field], [sorter.order === 'descend' ? 'desc' : 'asc']);
+      parareDatas = _.orderBy(datas, [sorter.field], [sorter.order === 'descend' ? 'desc' : 'asc']);
     }
 
     const start = (current - 1) * pageSize
@@ -62,18 +85,18 @@ class DataGrid extends React.Component {
     }
 
     return (
-      <div>
-        <Panel title={this.props.title + ' - 列表'} height="490">
-          <Table dataSource={renderData} onChange={(a,b,c) => this.onTableChange(a,b,c)}
-                 useFixedHeader={true} rowKey={item => item.uid}
-                 columns={columns} size="middle"
-                 className={style.table} pagination={false}/>
-        </Panel>
-        <div className={style.pagination}>
+      <div style={styles.root}>
+        <div style={styles.titleStyle}>{title} - 列表</div>
+        <Table dataSource={renderData} onChange={(a,b,c) => this.onTableChange(a,b,c)}
+               useFixedHeader={true} rowKey={item => item.uid}
+               columns={columns} size="middle"
+               style={styles.table} pagination={false}/>
+        <div style={styles.pagination}>
           <Pagination showSizeChanger showQuickJumper showTotal={(a) => this.showTotal(a)}
                       current={current}
                       onChange={(v) => this.onChange(v)} pageSizeOptions={['10','20','30','40']}
-                      onShowSizeChange={(a,b) => this.onShowSizeChange(a,b)} defaultPageSize={this.props.pageSize}
+                      onShowSizeChange={(a,b) => this.onShowSizeChange(a,b)}
+                      defaultPageSize={this.props.pageSize}
                       defaultCurrent={1} total={datas.length} />
         </div>
       </div>

@@ -2,147 +2,122 @@
  * Created by liekkas on 16/3/5.
  */
 import React, { PropTypes } from 'react'
-import ByMonth from './ByMonth'
-import ByWeek from './ByWeek'
-import ByDay from './ByDay'
-import ByHour from './ByHour'
-import ByRegion from './ByRegion'
-import Select from 'antd/lib/select'
-import Button from 'antd/lib/button'
-import Icon from 'antd/lib/icon'
-const Option = Select.Option
-import style from './style.scss'
+import ByTime from './conditions/ByTime'
+import ByRegion from './conditions/ByRegion'
+import ByChannelType from './conditions/ByChannelType'
+import ByChannelTypeEx from './conditions/ByChannelTypeEx'
+import ByChannelCompare from './conditions/ByChannelCompare'
+import ByShowType from './conditions/ByShowType'
+import ByTopGroup from './conditions/ByTopGroup'
 
-let start1 = '20150501'
-let end1 = '20151031'
+import { Button, Icon } from 'antd'
+import { Menus, CONVENTION } from '../../constants/Consts'
+
+const SubModules = Menus.mapping
+
+const styles = {
+  root: {
+//    height: '90px',
+    marginBottom: '15px',
+    backgroundColor: '#242930',
+  },
+  content: {
+    padding: '10px 20px 10px',
+    display: 'flex',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    alignItems: 'center',
+  },
+  titleStyle: {
+    width: '100%',
+    height: '35px',
+    padding: '5px',
+    fontSize: '14px',
+    color: '#E2E3E4',
+    backgroundColor: '#242930',
+  },
+  btn: {
+    height: '80%',
+  }
+}
 
 class SearchBox extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      dateType: props.dateType,
-      start: '20150501',
-      end: '20151031',
-    }
-  }
 
-  handleDateTypeChange(value) {
-    let start,end
-    switch (value) {
-      case 'M':
-        start = '201505'
-        end = '201510'
-        this.setState({start: '201505', end: '201510'})
+  handleSearch() {
+    //时间类值
+    let base = this.refs.time.getValue()
+    //附加条件的值
+    switch (this.props.param.subModule) {
+      case SubModules.lbChannelOrder.en:
+        base.type = this.refs.channelType.getValue()
         break
-      case 'W':
-        start = '201518'
-        end = '201544'
-        this.setState({start: '201518', end: '201544'})
+      case SubModules.lbChannelAna.en:
+        const v = this.refs.channelCompare.getValue()
+        base[CONVENTION.NEED_ENCODE_PREFIX+'channel1'] = v.channel1
+        base[CONVENTION.NEED_ENCODE_PREFIX+'channel2'] = v.channel2
         break
-      case 'D':
-        start = '20150501'
-        end = '20151031'
-        this.setState({start: '20150501', end: '20151031'})
+      case SubModules.lbShowsOrder.en:
+        Object.assign(base, this.refs.channelTypeEx.getValue())
         break
-      case 'T':
-        start = '20150501-0'
-        end = '20150501-23'
-        this.setState({start: '20150501-0', end: '20150501-23'})
+      case SubModules.dbShowCenterAna.en:
+        base.showType = this.refs.showType.getValue()
+        base.groupType = this.refs.topGroup.getValue()
         break
     }
-    this.setState({dateType: value})
-
-//    this.props.onSearch(value,start,end)
+    this.props.onSearch(base)
   }
 
-  handleStartChange(v) {
-//    start = v
-    this.setState({start: v})
-  }
-
-  handleEndChange(v) {
-//    end = v
-    this.setState({end: v})
-  }
-
-  handleDayChangeByHour(v) {
-//    start = v + '-0'
-//    end = v + '-23'
-    this.setState({start: v + '-0',end: v + '-23'})
-  }
-
-  renderDate() {
-    switch (this.state.dateType) {
-      case 'M':
-        return <ByMonth onStartChange={(v) => this.handleStartChange(v)}
-                        onEndChange={(v) => this.handleEndChange(v)} />
-      case 'W':
-        return <ByWeek onStartChange={(v) => this.handleStartChange(v)}
-                       onEndChange={(v) => this.handleEndChange(v)} />
-      case 'D':
-        return <ByDay onStartChange={(v) => this.handleStartChange(v)}
-                      onEndChange={(v) => this.handleEndChange(v)} />
-      case 'T':
-        return <ByHour onDayChange={(v) => this.handleDayChangeByHour(v)}
-                       onCompareDayChange={(v) => this.handleEndChange(v)} />
-    }
-  }
-
-  renderSelect() {
-    if (this.props.showTime) {
-      return <Select defaultValue="D" style={{ width: 90, marginRight: '10px' }}
-                     onChange={(e) => this.handleDateTypeChange(e)}>
-        <Option value="D">按日</Option>
-        <Option value="W">按周</Option>
-        <Option value="M">按月</Option>
-        <Option value="T">按时</Option>
-      </Select>
-    } else {
-      return <Select defaultValue="D" style={{ width: 90, marginRight: '10px' }}
-                     onChange={(e) => this.handleDateTypeChange(e)}>
-        <Option value="D">按日</Option>
-        <Option value="W">按周</Option>
-        <Option value="M">按月</Option>
-      </Select>
+  renderAttachCondition() {
+    switch (this.props.param.subModule) {
+      case SubModules.lbChannelOrder.en:
+        return <ByChannelType ref="channelType"/>
+      case SubModules.lbChannelAna.en:
+        return <ByChannelCompare ref="channelCompare"/>
+      case SubModules.lbShowsOrder.en:
+        return <ByChannelTypeEx ref="channelTypeEx"/>
+      case SubModules.dbShowCenterAna.en:
+        return <div style={{display: 'flex'}}>
+                  <ByShowType ref="showType"/>
+                  <ByTopGroup ref="topGroup"/>
+                </div>
     }
   }
 
   render() {
-    const { showTime } = this.props
     return (
-      <div className={style.root}>
-        <div className={style.label}>
-          <label>时间分类:</label>
+      <div style={styles.root}>
+        <div style={styles.titleStyle}>筛选条件</div>
+        <div style={styles.content}>
+          <ByTime ref="time"
+                  showHour={this.props.param.showHour}
+                  rangeMode={this.props.param.rangeMode} />
+          <ByRegion />
+          { this.renderAttachCondition() }
+          <Button style={styles.btn} type="primary" onClick={() => this.handleSearch()}>
+            <Icon type="search" />
+            查询
+          </Button>
         </div>
-
-        { this.renderSelect() }
-        { this.renderDate() }
-        &nbsp;&nbsp;&nbsp;&nbsp;
-        <div className={style.label}>
-          <label>地区分类:</label>
-        </div>
-        <ByRegion />
-        &nbsp;&nbsp;&nbsp;&nbsp;
-
-        <Button type="primary" onClick={() =>
-          this.props.onSearch(this.state.dateType,this.state.start,this.state.end)}>
-          <Icon type="search" />
-          查询
-        </Button>
-
       </div>
+
     )
   }
 }
 
 SearchBox.propTypes = {
-  dateType: PropTypes.string.isRequired,
-  showTime: PropTypes.bool.isRequired,
+  param: PropTypes.object.isRequired,
   onSearch: PropTypes.func.isRequired,
 }
+
 SearchBox.defaultProps = {
-  dateType: 'D',
-  showTime: false,
+  param: {
+    dateType: 'D',
+    start: '20150501',
+    end: '20151031',
+    showHour: true,
+    rangeMode: true,
+    subModule: 'tvOverview',
+  },
 }
 
 export default SearchBox

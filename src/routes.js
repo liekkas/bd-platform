@@ -1,78 +1,48 @@
+/**
+ * Created by liekkas on 16/4/5.
+ */
 import React from 'react'
-import { Route, Redirect, IndexRoute } from 'react-router'
-import { App, Home, TVOverview, LiveBroadcast, DemandBroadcast,
-  UserOverview, UserBehave, BusinessOverview, DemandUserOverview, DemandUserBehave,
-  DemandUserAnalysis, MediaAssetsOverview, ResUtilizationAnalysis, ShowCenterAnalysis,
-  ShowsTypeAnalysis, ShowsUserAnalysis, ShowsTimeUseAnalysis, ShowsOrderAnalysis,
-  MovieList, TVPlayList,
-  OverallAnalysis, OverallAnalysisUserOverview, OverallAnalysisUserBehave,
-  ChannelAnalysis, ChannelGroupAnalysis, GroupUserAnalysis, GroupTimeUseAnalysis, ChannelOrder, ShowsOrder } from './containers'
-import { NotFound, About } from './components'
+import { Route, IndexRoute, Router, browserHistory } from 'react-router'
+import App from './App'
+import Home from './modules/Home'
+import NotFound from './modules/NotFound'
+import TVOverview from './modules/TVOverview'
+import LiveBroadcast from './modules/LiveBroadcast'
+import DemandBroadcast from './modules/DemandBroadcast'
+import * as SUB_MODULES from './modules'
 
-const AppRouter = (
-  <Route path="/" component={App}>
-    <IndexRoute component={Home} />
-    <Route path="tvOverview" component={TVOverview}>
-      <IndexRoute component={UserOverview} />
-      <Route path="/tvOverview/userBehave" component={UserBehave} />
-      <Route path="/tvOverview/businessOverview" component={BusinessOverview} />
+export default () => (
+  <Router history={browserHistory}>
+    <Route path='/' component={App}>
+      <IndexRoute component={Home}/>
+      <Route path="tvOverview" component={TVOverview}>
+        <IndexRoute component={SUB_MODULES.TVUserOverview}/>
+        <Route path='/tvUserOverview' component={SUB_MODULES.TVUserOverview} />
+        <Route path='/tvUserBehave' component={SUB_MODULES.TVUserBehave} />
+        <Route path='/tvBusinessOverview' component={SUB_MODULES.TVBusinessOverview} />
+      </Route>
+      <Route path="liveBroadcast" component={LiveBroadcast}>
+        <IndexRoute component={SUB_MODULES.LBUserOverview} />
+        <Route path='/lbUserOverview' component={SUB_MODULES.LBUserOverview} />
+        <Route path='/lbUserBehave' component={SUB_MODULES.LBUserBehave} />
+        <Route path='/lbcgUserAna' component={SUB_MODULES.LBCGUserAna} />
+        <Route path='/lbcgTimeUseAna' component={SUB_MODULES.LBCGTimeUseAna} />
+        <Route path='/lbChannelOrder' component={SUB_MODULES.LBChannelOrder} />
+        <Route path='/lbChannelAna' component={SUB_MODULES.LBChannelAna} />
+        <Route path='/lbShowsOrder' component={SUB_MODULES.LBShowsOrder} />
+      </Route>
+      <Route path="demandBroadcast" component={DemandBroadcast}>
+        <IndexRoute component={SUB_MODULES.DBUserOverview} />
+        <Route path='/dbUserOverview' component={SUB_MODULES.DBUserOverview} />
+        <Route path='/dbUserBehave' component={SUB_MODULES.DBUserBehave} />
+        <Route path='/dbResAvailAna' component={SUB_MODULES.DBResAvailAna} />
+        <Route path='/dbShowCenterAna' component={SUB_MODULES.DBShowCenterAna} />
+        <Route path='/dbShowTypeUserAna' component={SUB_MODULES.DBShowTypeUserAna} />
+        <Route path='/dbShowTypeTimeUseAna' component={SUB_MODULES.DBShowTypeTimeUseAna} />
+        <Route path='/dbMovieOrder' component={SUB_MODULES.DBMovieOrder} />
+        <Route path='/dbTVPlayOrder' component={SUB_MODULES.DBTVPlayOrder} />
+      </Route>
+      <Route path='*' component={NotFound} status={404} />
     </Route>
-    <Route path="liveBroadcast" component={LiveBroadcast}>
-      <IndexRoute component={OverallAnalysisUserOverview} />
-      <Route path="/liveBroadcast/userBehave" component={OverallAnalysisUserBehave} />
-      <Route path="/liveBroadcast/channelGroupUserAnalysis" component={GroupUserAnalysis} />
-      <Route path="/liveBroadcast/channelGroupTimeUseAnalysis" component={GroupTimeUseAnalysis} />
-      <Route path="/liveBroadcast/channelOrder" component={ChannelOrder} />
-      <Route path="/liveBroadcast/channelAnalysis" component={ChannelAnalysis} />
-      <Route path="/liveBroadcast/showsOrder" component={ShowsOrder} />
-    </Route>
-    <Route path="demandBroadcast" component={DemandBroadcast}>
-      <IndexRoute component={DemandUserOverview} />
-      <Route path="/demandBroadcast/userBehave" component={DemandUserBehave} />
-
-      <Route path="/demandBroadcast/mediaAssetsOverview" component={ResUtilizationAnalysis} />
-      <Route path="/demandBroadcast/mediaAssetsOverview/showCenterAnalysis" component={ShowCenterAnalysis} />
-
-      <Route path="/demandBroadcast/showsUserAnalysis" component={ShowsUserAnalysis} />
-      <Route path="/demandBroadcast/showsUseTimeAnalysis" component={ShowsTimeUseAnalysis} />
-
-      <Route path="/demandBroadcast/showsOrderAnalysis" component={MovieList} />
-      <Route path="/demandBroadcast/showsOrderAnalysis/tvPlayList" component={TVPlayList} />
-    </Route>
-    <Route path="*" component={Home} status={404}/>
-  </Route>
-);
-
-export default AppRouter;
-
-//    <Redirect from="*" to="/" />
-
-//<Route path="*" component={Home} status={404}/>
-
-//<Route path="/" component={App}>
-//  <IndexRoute component={Home} />
-//  <Route path="tvOverview" component={TVOverview}>
-//    <IndexRoute component={UserOverview} />
-//    <Route path="/tvOverview/userBehave" component={UserBehave} />
-//    <Route path="/tvOverview/businessOverview" component={BusinessOverview} />
-//  </Route>
-//  <Route path="liveBroadcast" component={LiveBroadcast}>
-//    <IndexRoute component={OverallAnalysis} />
-//    <Route path="/liveBroadcast/channelGroupAnalysis" component={ChannelGroupAnalysis} />
-//    <Route path="/liveBroadcast/channelOrder" component={ChannelOrder} />
-//    <Route path="/liveBroadcast/channelAnalysis" component={ChannelAnalysis} />
-//    <Route path="/liveBroadcast/showsOrder" component={ShowsOrder} />
-//  </Route>
-//  <Route path="demandBroadcast" component={DemandBroadcast}>
-//    <IndexRoute component={DemandUserAnalysis} />
-//    <Route path="/demandBroadcast/mediaAssetsOverview" component={MediaAssetsOverview} />
-//    <Route path="/demandBroadcast/showsTypeAnalysis" component={ShowsTypeAnalysis} />
-//    <Route path="/demandBroadcast/showsOrderAnalysis" component={ShowsOrderAnalysis} />
-//  </Route>
-//  <Route path="*" component={NotFound} status={404}/>
-//</Route>
-//
-//<Route path="/liveBroadcast" component={OverallAnalysis}>
-//  <IndexRoute component={OverallAnalysisUserOverview} />
-//  <Route path="/liveBroadcast/userBehave" component={OverallAnalysisUserBehave} />
-//</Route>
+  </Router>
+)
