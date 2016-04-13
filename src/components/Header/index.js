@@ -8,7 +8,7 @@ const datas = [
   { name: '电视概况', key: 'tvOverview' },
   { name: '直播业务', key: 'liveBroadcast' },
   { name: '点播业务', key: 'demandBroadcast' },
-]
+].reverse()
 
 class Header extends React.Component {
 
