@@ -125,7 +125,7 @@ const cssLoader = !config.compiler_css_modules
   'importLoaders=1',
   'localIdentName=[name]__[local]___[hash:base64:5]'
 ].join('&')
-
+/*
 webpackConfig.module.loaders.push({
   test: /\.scss$/,
   exclude: path.resolve(__dirname, 'src/styles'),
@@ -134,7 +134,7 @@ webpackConfig.module.loaders.push({
   test: /\.scss$/,
   include: path.resolve(__dirname, 'src/styles'),
   loaders: ['style', 'css', 'postcss', 'sass?sourceMap']
-})
+})*/
 
 webpackConfig.module.loaders.push({
   test: /\.less$/,

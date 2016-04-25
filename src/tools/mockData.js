@@ -39,6 +39,8 @@ const provinces = ['江苏','湖北','安徽','湖南','河北','山东','河南
 
 export function mockMapData() {
 
+//  console.log('>>> Default Height:', document.body.scrollHeight)
+
   const v1 = ['1885','870','447','135','88','83','8']
   let data = []
   provinces.map((province,index) =>
@@ -46,11 +48,12 @@ export function mockMapData() {
   )
 
   return {
+    color: ['#2f4554', '#c23531',],
     textStyle: {
       color: '#fff',
     },
     title: {
-      text: '全国电视用户数据资产情况',
+      text: '中信国安广视全国电视用户数据资产情况',
       left: 'center',
       top: 30,
       textStyle: {
@@ -88,13 +91,58 @@ export function mockMapData() {
     },
     series: [
       {
+        name: '中国',
+        type: 'map',
+        mapType: 'china',
+        nameMap: {
+          '江苏' : ' ',
+          '湖北' : ' ',
+          '湖南' : ' ',
+          '河北' : ' ',
+          '山东' : ' ',
+          '河南' : ' ',
+          '安徽' : ' ',
+        },
+        label: {
+          normal: {
+            show: true,
+            textStyle: {
+              color: '#B8E6FE'
+            }
+          },
+          emphasis: {
+            show: true,
+            textStyle: {
+              color: '#B8E6FE',
+//            fontWeight: 'bold',
+//            color: '#000'
+            }
+          },
+        },
+        itemStyle: {
+          normal: {
+            areaColor: '#6cA9EB',
+            borderColor: '#447cca',
+            borderWidth: 1,
+          },
+          emphasis: {
+            areaColor: '#6cA9EB',
+            borderColor: '#447cca',
+            borderWidth: 1,
+          },
+        },
+        data:[]
+      },
+      {
         name: '有线电视用户数',
         type: 'map',
-//        top: '248',
-//        left: '730',
-//      right: '20%',
-//        bottom: '178',
-        mapType: 'china',
+        mapType: 'myMap',
+//        top: '35%',
+//        left: '53.5%',
+//        bottom: '24.3%',
+        top: '35%',
+        left: '53.3%',
+        bottom: '24.3%',
         z: 3,
         zlevel: 3,
         label: {
@@ -109,9 +157,9 @@ export function mockMapData() {
             textStyle: {
               color: '#B8E6FE',
               fontWeight: 'bold',
+//            color: '#000'
             }
           },
-
         },
         roam: false,
         itemStyle: {
@@ -121,8 +169,18 @@ export function mockMapData() {
             borderWidth: 1,
           },
           emphasis: {
+            //LightGreen
+//          areaColor: '#9ccc65',
+//          shadowColor: '#8bc34a',
+            //LightBlue
             areaColor: '#03a9f4',
             shadowColor: '#039be5',
+            //Green
+//          areaColor: '#42bd41',
+//          shadowColor: '#2bafab',
+            //Lime
+//          areaColor: '#d4e157',
+//          shadowColor: '#cddc39',
             borderColor: '#FFF',
             shadowBlur: 10,
             shadowOffsetX: 10,
@@ -131,9 +189,8 @@ export function mockMapData() {
           }
         },
 
-        data
+        data,
       },
-//
     ]
   }
 }

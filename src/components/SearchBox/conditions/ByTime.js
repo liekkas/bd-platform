@@ -5,6 +5,7 @@ import React, { PropTypes } from 'react'
 import { DatePicker, TimePicker, Select } from 'antd'
 import dateFormat from 'dateFormat'
 import Condition from './Condition'
+import ByWeek from './ByWeek'
 import _ from 'lodash'
 const MonthPicker = DatePicker.MonthPicker
 
@@ -88,6 +89,8 @@ class ByTime extends React.Component {
         return this.renderByMonth()
       case 'T':
         return this.renderByHour()
+      case 'W':
+        return this.renderByWeek()
     }
   }
 
@@ -95,7 +98,7 @@ class ByTime extends React.Component {
      if (this.props.rangeMode) {
        return <div>
          <DatePicker disabledDate={(v) => this.disabledStartDate(v)}
-                     value={this.state.start}
+                     value={this.state.start} style={{width: 120}}
                      placeholder="开始日期"
                      onChange={(v) => this.onStartChange(v)} />
          &nbsp;&nbsp;
@@ -105,7 +108,7 @@ class ByTime extends React.Component {
      } else {
        return <div>
          <DatePicker disabledDate={(v) => this.disabledStartDate(v)}
-                     value={this.state.start}
+                     value={this.state.start} style={{width: 120}}
                      placeholder="开始日期"
                      onChange={(v) => this.onStartChange(v)} />
          &nbsp;&nbsp;
@@ -119,18 +122,18 @@ class ByTime extends React.Component {
     if (this.props.rangeMode) {
       return <div>
         <MonthPicker disabledDate={(v) => this.disabledStartDate(v)}
-                    value={this.state.start}
+                    value={this.state.start} style={{width: 120}}
                     placeholder="开始日期"
                     onChange={(v) => this.onStartChange(v)} />
         <label>&nbsp;&nbsp;至&nbsp;&nbsp;</label>
         <MonthPicker disabledDate={(v) => this.disabledEndDate(v)}
-                    value={this.state.end}
+                    value={this.state.end} style={{width: 120}}
                     placeholder="结束日期"
                     onChange={(v) => this.onEndChange(v)} />
       </div>
     } else {
       return <MonthPicker disabledDate={(v) => this.disabledStartDate(v)}
-                         value={this.state.start}
+                         value={this.state.start} style={{width: 120}}
                          placeholder="开始日期"
                          onChange={(v) => this.onStartChange(v)} />
     }
@@ -140,21 +143,27 @@ class ByTime extends React.Component {
     if (this.props.rangeMode) {
       return <div>
         <DatePicker disabledDate={(v) => this.disabledStartDate(v)}
-                    value={this.state.start}
+                    value={this.state.start} style={{width: 120}}
                     placeholder="开始日期"
                     onChange={(v) => this.onStartChange(v)} />
         <label>&nbsp;&nbsp;至&nbsp;&nbsp;</label>
         <DatePicker disabledDate={(v) => this.disabledEndDate(v)}
-                    value={this.state.end}
+                    value={this.state.end} style={{width: 120}}
                     placeholder="结束日期"
                     onChange={(v) => this.onEndChange(v)} />
       </div>
     } else {
       return <DatePicker disabledDate={(v) => this.disabledStartDate(v)}
-                         value={this.state.start}
+                         value={this.state.start} style={{width: 120}}
                          placeholder="开始日期"
                          onChange={(v) => this.onStartChange(v)} />
     }
+  }
+
+  renderByWeek() {
+    return <ByWeek rangeMode={this.props.rangeMode}
+                   onStartChange={(v) => this.onStartChange(v)}
+                   onEndChange={(v) => this.onEndChange(v)} />
   }
 
   getValue() {
@@ -178,6 +187,12 @@ class ByTime extends React.Component {
           base.end = dateFormat(this.state.start,'yyyymmdd') + '-23'
         }
         break
+      case 'W':
+        base.start = this.state.start
+        if (this.props.rangeMode) {
+          base.end = this.state.end
+        }
+        break
     }
     return base
   }
@@ -187,7 +202,7 @@ class ByTime extends React.Component {
 
     let conditions = [
       {cn: '按日', en: 'D'},
-//      {cn: '按周', en: 'W'},
+      {cn: '按周', en: 'W'},
       {cn: '按月', en: 'M'},
     ]
     if (showHour) {
@@ -196,7 +211,7 @@ class ByTime extends React.Component {
 
     return (
       <div style={styles.root}>
-        <Condition label="时间分类" options={conditions}
+        <Condition label="时间分类" options={conditions} width={90}
                    onConditionChange={v => this.handleDateTypeChange(v)}/>
         {this.renderMore()}
       </div>

@@ -43,7 +43,7 @@ export function getInitInfo(subModule) {
       columns = _.map(temp, function (item) {
         return generateColumn(item, 100/temp.length)
       })
-      Object.assign(searchParam,{showHour: false})
+      _.merge(searchParam,{showHour: false})
       break;
     case SubModules.tvUserBehave.en:
     case SubModules.lbUserBehave.en:
@@ -90,7 +90,7 @@ export function getInitInfo(subModule) {
         return generateColumn(item, 100/temp.length, kpis.indexOf(item) > -1)
       })
       restParam = { dateType: 'D', start: '20150501', type: '0' }
-      Object.assign(searchParam,{rangeMode: false})
+      _.merge(searchParam,{rangeMode: false})
       break;
     case SubModules.lbChannelAna.en:
       kpis = [FIELDS.用户指数, FIELDS.覆盖率, FIELDS.市占率, FIELDS.户均使用时长]
@@ -110,7 +110,7 @@ export function getInitInfo(subModule) {
         return generateColumn(item, widthPct[index], kpis.indexOf(item) > -1)
       })
       restParam = { dateType: 'D', start: '20150501', type: '0', channel: '' }
-      Object.assign(searchParam,{rangeMode: false})
+      _.merge(searchParam,{rangeMode: false})
       break;
 
     //点播业务
@@ -128,7 +128,7 @@ export function getInitInfo(subModule) {
         return generateColumn(item, 100/temp.length)
       })
       restParam = { dateType: 'D', start: '20150501', type: '0', showType: '1', groupType: '10' }
-      Object.assign(searchParam,{rangeMode: false})
+      _.merge(searchParam,{rangeMode: false})
       break;
     case SubModules.dbShowTypeUserAna.en:
       kpis = [FIELDS.用户数, FIELDS.覆盖率, FIELDS.用户指数]
@@ -151,7 +151,7 @@ export function getInitInfo(subModule) {
         return generateColumn(item, 100/temp.length, kpis.indexOf(item) > -1)
       })
       restParam = { dateType: 'D', start: '20150501' }
-      Object.assign(searchParam,{rangeMode: false})
+      _.merge(searchParam,{rangeMode: false})
       break;
     case SubModules.dbTVPlayOrder.en:
       kpis = [FIELDS.用户指数, FIELDS.覆盖率, FIELDS.市占率, FIELDS.户均使用时长]
@@ -160,7 +160,7 @@ export function getInitInfo(subModule) {
         return generateColumn(item, 100/temp.length, kpis.indexOf(item) > -1)
       })
       restParam = { dateType: 'D', start: '20150501' }
-      Object.assign(searchParam,{rangeMode: false})
+      _.merge(searchParam,{rangeMode: false})
       break;
     default:
       kpis = [FIELDS.覆盖用户数, FIELDS.用户数, FIELDS.覆盖率, FIELDS.用户流动率, FIELDS.流入用户数, FIELDS.流出用户数]
@@ -186,7 +186,7 @@ export function getInitInfo(subModule) {
 function parse2Url(params) {
   let url = '?'
   _.keys(params).map(function (key) {
-    if (key.startsWith(CONVENTION.NEED_ENCODE_PREFIX)) {
+    if (_.startsWith(key,CONVENTION.NEED_ENCODE_PREFIX)) {
       let splitKey = key.split(CONVENTION.NEED_ENCODE_PREFIX)[1]
       url += splitKey + '=' + encodeURI(encodeURI(params[key])) + '&'
     } else {

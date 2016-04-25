@@ -1,5 +1,5 @@
-export { default as Header } from './Header'
-export { default as Footer } from './Footer'
+export { default as AppHeader } from './AppHeader'
+export { default as AppFooter } from './AppFooter'
 export { default as SideNav } from './SideNav'
 export { default as DataGrid } from './DataGrid'
 export { default as KpiChart } from './KpiChart'

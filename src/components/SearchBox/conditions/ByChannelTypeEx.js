@@ -36,7 +36,7 @@ class ByChannelType extends React.Component {
   render() {
     return (
       <div style={styles.root}>
-        <Condition ref="condition" label="频道分类" options={conditions}
+        <Condition ref="condition" label="频道分类" options={conditions} width={90}
                    onConditionChange={(v) => this.setState({option: v})}/>
         {
           this.state.option === '3'

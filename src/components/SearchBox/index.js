@@ -9,7 +9,7 @@ import ByChannelTypeEx from './conditions/ByChannelTypeEx'
 import ByChannelCompare from './conditions/ByChannelCompare'
 import ByShowType from './conditions/ByShowType'
 import ByTopGroup from './conditions/ByTopGroup'
-
+import _ from 'lodash'
 import { Button, Icon } from 'antd'
 import { Menus, CONVENTION } from '../../constants/Consts'
 
@@ -38,6 +38,9 @@ const styles = {
   },
   btn: {
     height: '80%',
+  },
+  more: {
+    padding: '0 20px 10px',
   }
 }
 
@@ -57,7 +60,7 @@ class SearchBox extends React.Component {
         base[CONVENTION.NEED_ENCODE_PREFIX+'channel2'] = v.channel2
         break
       case SubModules.lbShowsOrder.en:
-        Object.assign(base, this.refs.channelTypeEx.getValue())
+        _.merge(base, this.refs.channelTypeEx.getValue())
         break
       case SubModules.dbShowCenterAna.en:
         base.showType = this.refs.showType.getValue()
@@ -71,8 +74,6 @@ class SearchBox extends React.Component {
     switch (this.props.param.subModule) {
       case SubModules.lbChannelOrder.en:
         return <ByChannelType ref="channelType"/>
-      case SubModules.lbChannelAna.en:
-        return <ByChannelCompare ref="channelCompare"/>
       case SubModules.lbShowsOrder.en:
         return <ByChannelTypeEx ref="channelTypeEx"/>
       case SubModules.dbShowCenterAna.en:
@@ -80,6 +81,16 @@ class SearchBox extends React.Component {
                   <ByShowType ref="showType"/>
                   <ByTopGroup ref="topGroup"/>
                 </div>
+    }
+  }
+
+  //条件太多放到第二行
+  renderMoreLine(){
+    switch (this.props.param.subModule) {
+      case SubModules.lbChannelAna.en:
+        return <div style={styles.more}>
+                 <ByChannelCompare ref="channelCompare"/>
+               </div>
     }
   }
 
@@ -98,6 +109,9 @@ class SearchBox extends React.Component {
             查询
           </Button>
         </div>
+        {
+          this.renderMoreLine()
+        }
       </div>
 
     )

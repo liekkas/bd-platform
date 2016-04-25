@@ -7,10 +7,11 @@ import { Menu, Icon } from 'antd'
 import _ from 'lodash'
 const SubMenu = Menu.SubMenu;
 import { browserHistory } from 'react-router'
+import { Menus } from '../../constants/Consts'
 
 const styles = {
   root: {
-    width: '14%',
+    width: '15%',
     position: 'fixed',
     height: '100%',
     marginTop: '10px',
@@ -35,7 +36,8 @@ class SideNav extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      openKeys: [props.data[0].key],
+//      openKeys: [props.data[0].key],
+      openKeys: [Menus.mapping[props.selectedMenu].parent],
       selectedMenu: props.selectedMenu,
     }
   }
@@ -87,7 +89,6 @@ class SideNav extends React.Component {
                     subMenus.map(({name,key}, index) =>
                       <Menu.Item key={key}>
                         <Icon type='right' />
-
                         <span style={styles.menuName}>{name}</span>
                       </Menu.Item>
                     )

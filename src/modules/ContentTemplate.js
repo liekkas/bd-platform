@@ -3,12 +3,22 @@
  */
 
 import React, { PropTypes } from 'react'
-import styles from './styles.scss'
 import { DataGrid, KpiChart, DBShowCenterChart, SearchBox } from '../components'
 import { fetchData, getInitInfo } from './helper'
 import { Menus } from '../constants/Consts'
 
 let MODULE, INIT_INFO
+
+const styles = {
+  root: {
+    width: '87%',
+    marginTop: '10px',
+    marginLeft: '16%',
+    height: '100%',
+    position: 'relative',
+    backgroundColor: '#1F222A',
+  }
+}
 
 /**
  * 内容模板
@@ -36,7 +46,7 @@ class ContentTemplate extends React.Component {
   render() {
     const { result } = this.state
     return (
-      <div className={styles.moduleContent}>
+      <div style={styles.root}>
         <SearchBox param={INIT_INFO.searchParam}
                    onSearch={(v) => this.onSearch(v)}/>
 

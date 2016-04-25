@@ -21,7 +21,7 @@ class ByRegion extends React.Component {
 
   render() {
     return (
-      <Condition label="地区分类" options={conditions} />
+      <Condition label="地区分类" width={80} options={conditions} />
     )
   }
 }
